@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="style.css"> 
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+</head>
+<body>
+<br>
+<div class='time-frame'>
+    <span id='date-part'></span>
+    <span> &nbsp  / &nbsp  </span>
+    <span id='time-part'></span>
+</div>
+<hr>
+    <h2>Actual Temperature</h2>
+    <p>
+        <i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
+        <span class="dht-labels">BBQ probe</span> 
+        <span id="temperature1">%c%</span>
+        <sup class="units">&deg;C</sup>
+	
+	<span id="checkbox2">
+	<input class="ckeckbox-element" type="checkbox" id="1L1" onclick="updateButton('1L1')"/>  
+	<i class="glyphicon glyphicon-fire"></i>
+	</span> 
+	
+	<span>
+	<label class="switch">
+	<input type="checkbox" id="1T1" onclick="updateButton('1T1')"> 
+	<span class="sliderround"></span>
+	</span>
+
+	</p>	
+	
+	<p>
+        <i class="fas fa-thermometer-half" style="color:#9e0519;"></i> 
+        <span class="dht-labels">Food Probe</span> 
+        <span id="temperature2">%c%</span>
+        <sup class="units">&deg;C</sup>
+    </p>
+	
+	<span class="dht-labels">Additional probes:</span>
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1N1" onclick="setTab('SetTab2')"/>  
+	<i class="glyphicon glyphicon-menu-down"></i>
+	</span> 
+
+	<div id="SetTab2">
+	
+	<p>
+        <i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
+        <span class="dht-labels">T3</span> 
+        <span id="temperature3">%c%</span>
+        <sup class="units">&deg;C</sup>
+
+        <i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
+        <span class="dht-labels">T4</span> 
+        <span id="temperature4">%c%</span>
+        <sup class="units">&deg;C</sup>
+
+        <i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
+        <span class="dht-labels">T5</span> 
+        <span id="temperature5">%c%</span>
+        <sup class="units">&deg;C</sup>
+    </p>
+	</div>
+	
+	<hr>
+	<h2>Timers</h2>
+    <input name="timer-input" placeholder="countdown time" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param2" data-target-id="confirm-timer-input" data-target-param="data-action-1-param-2-value" style="width: 64px;">
+		<span class="dht-labels">Counter</span> 
+		<span id="timer">%s%</span>
+		<span class="units">(s)</span>
+	<br>
+	<br>
+	<div>
+
+	<span class="dht-labels">BBQ Timer</span> 
+	<span id="BBQcounter">%s%</span>
+	<span class="units">(s)</span>	
+	
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1C1" onclick="updateButton('1C1')"/>  
+	<i class="glyphicon glyphicon-time"></i>
+	</span>
+	</div>
+	<div>
+
+	<span class="dht-labels">Food Timer</span> 
+	<span id="Foodcounter">%s%</span>
+	<span class="units">(s)</span>	
+	
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1C2" onclick="updateButton('1C2')"/>  
+	<i class="glyphicon glyphicon-time"></i>
+	</span>	
+	</div>
+	<hr>
+    <h2>Temperature History</h2>
+    <div id="chart-temperature" class="container"></div>
+	
+	<hr>
+    <h2>BBQ probe</h2>
+	<div>
+    <input name="celsius-input" placeholder="targetTemp 1" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param" data-target-id="confirm-celsius-input" data-target-param="data-action-1-param-1-value" style="width: 64px;">
+    <button id="confirm-celsius-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-celsius-input" data-action-1-param-1-name="celsius" data-action-1-param-1-value="">submit</button>
+    
+	    <span class="dht-labels"></span> 
+        <span id="targetTemperature1">%c%</span>
+        <sup class="units">&deg;C</sup>
+		
+		<span id="checkbox1">
+		<input class="ckeckbox-element" type="checkbox" id="1J1" onclick="updateButton('1J1')"/>  
+		<i class="glyphicon glyphicon-bell"></i>
+		</span> 
+		
+		<span id="checkbox1">
+		<input class="ckeckbox-element" type="checkbox" id="1D1" onclick="updateButton('1D1')"/>  
+		<i class="glyphicon glyphicon-time"></i>
+		</span>
+		
+	</div>	
+	
+	<div>
+    <input name="celsiusOffset-input" placeholder="offsetTemp 1" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param5" data-target-id="confirm-celsiusOffset-input" data-target-param5="data-action-1-param-5-value" style="width: 64px;">
+    <button id="confirm-celsiusOffset-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-celsiusOffset-input" data-action-1-param-5-name="celsiusOffset" data-action-1-param-5-value="">submit</button>
+	    <span class="dht-labels"></span> 
+        <span id="offsetFromTargetTemp1">%c%</span>
+        <sup class="units">&deg;C</sup>
+		
+		<span id="checkbox1">
+		<input class="ckeckbox-element" type="checkbox" id="1M1" onclick="updateButton('1M1')"/>  
+		<i class="glyphicon glyphicon-bell"></i>
+		</span>
+	
+	</div>
+    <div>
+    <input name="alarm-input" placeholder="alarmTime 1" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param3" data-target-id="confirm-alarm-input" data-target-param="data-action-1-param-3-value" style="width: 64px;">
+    <button id="confirm-alarm-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-alarm-input" data-action-1-param-3-name="alarm" data-action-1-param-3-value="">submit</button>
+    
+		<span class="dht-labels"></span> 
+		<span id="alarm1">%s%</span>
+		<span class="units">(s)</span>
+		
+		<span id="checkbox1">
+		<input class="ckeckbox-element" type="checkbox" id="1G1" onclick="updateButton('1G1')"/>  
+		<i class="glyphicon glyphicon-bell"></i>
+		</span>
+		
+	</div>
+	
+	<div>	
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1I1" onclick="updateButton('1I1')"/>  
+	<i class="glyphicon glyphicon-volume-off"></i>
+	</span>  
+	
+	</div>
+	<hr>
+    <h2>FOOD probe</h2>
+	<div>
+    <input name="celsius2-input" placeholder="targetTemp 2" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param4" data-target-id="confirm-celsius2-input" data-target-param="data-action-1-param-4-value" style="width: 64px;">
+    <button id="confirm-celsius2-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-celsius2-input" data-action-1-param-4-name="celsius2" data-action-1-param-4-value="">submit</button>
+    
+	<span class="dht-labels"></span> 
+    <span id="targetTemperature2">%c%</span>
+    <sup class="units">&deg;C</sup>
+	
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1J2" onclick="updateButton('1J2')"/>  
+	<i class="glyphicon glyphicon-bell"></i>
+	</span> 
+	
+	</div>
+	
+    <div>
+    <input name="alarm2-input" placeholder="alarmTime 2" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param6" data-target-id="confirm-alarm2-input" data-target-param="data-action-1-param-6-value" style="width: 64px;">
+    <button id="confirm-alarm2-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-alarm2-input" data-action-1-param-6-name="alarm2" data-action-1-param-6-value="">submit</button>
+    
+		<span class="dht-labels"></span> 
+		<span id="alarm2">%s%</span>
+		<span class="units">(s)</span>
+	
+		<span id="checkbox1">
+		<input class="ckeckbox-element" type="checkbox" id="1G2" onclick="updateButton('1G2')"/>  
+		<i class="glyphicon glyphicon-bell"></i>
+		</span> 	
+		
+	</div>
+	
+	<div>
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1I2" onclick="updateButton('1I2')"/>  
+	<i class="glyphicon glyphicon-volume-off"></i>
+	</span> 
+	</div>
+	
+	<hr>
+	Additional settings: 
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1N1" onclick="setTab('SetTab')"/>  
+	<i class="glyphicon glyphicon-menu-down"></i>
+	</span> 
+
+	<div id="SetTab">
+	
+	<select name="selectProbeType" id="probe_id" onchange="selectProbeType(this)">
+    <option value="1" >PT100</option>
+    <option value="2" >Thermokoppel</option>
+	</select>
+	<br>
+	<br>
+	<select name="selectProbeAmount" id="probe_number" onchange="selectProbeAmount(this)">
+    <option value="1" >1 probe</option>
+    <option value="2" >2 probes</option>
+	<option value="3" >3 probes</option>
+	<option value="4" >4 probes</option>
+	<option value="5" >5 probes</option>
+	</select>	
+	<br>
+	<br>
+	
+	<input name="WID-input" placeholder="Wifi ID" class="form-controlx input-sl" type="text" data-rule-required="true" data-purpose="change-data-param7" data-target-id="confirm-WID-input" data-target-param="data-action-1-param-7-value" style="width: 64px;">
+    <button id="confirm-WID-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-WID-input" data-action-1-param-7-name="WID" data-action-1-param-7-value="">submit</button>
+	&nbsp
+	<span id="SSID"></span>
+	<br>
+	<br>
+	<input name="WPW-input" placeholder="Wifi pass" class="form-controlx input-sl" type="text" data-rule-required="true" data-purpose="change-data-param8" data-target-id="confirm-WPW-input" data-target-param="data-action-1-param-8-value" style="width: 64px;">
+    <button id="confirm-WPW-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-WPW-input" data-action-1-param-8-name="WPW" data-action-1-param-8-value="">submit</button>
+	&nbsp
+	<span id="PASS"></span>	
+
+	<div>
+	<span id="checkbox1">reboot &nbsp
+	<input class="ckeckbox-element" type="checkbox" id="1U1" onclick="updateButton('1U1')"/>  
+	<i class="glyphicon glyphicon-refresh"></i>
+	</span> 
+	</div>
+	
+	</div>
+	<br>
+  
+<script>
+/*
+function myFunction() {
+document.getElementById("demo").innerHTML = "choose"
+if (document.getElementById("GGG").checked == true) {  
+document.getElementById("demo").innerHTML = "hello";
+}
+else if (document.getElementById("GGG").checked == false){
+document.getElementById("demo").innerHTML = "hi";   
+}  
+} 
+*/ 
+</script> 
+
+<script>	
+
+var gateway = `ws://${window.location.hostname}/ws`;
+var websocket;
+
+console.log(gateway);
+
+var k = 10;
+var residuFloat = 0; 
+
+var timer1failsafe = false;
+
+var targetCelsius1=0;
+var targetCelsius2=0;
+var offsetFromTargetTemp1=0;
+//var tempOffsetAlarm=false;
+
+var alarmTime1=0;
+var alarmTime2=0;
+//var alarmActiveTimer1=false;
+//var alarmActiveTimer2=false;
+
+//var alarmActiveTemp1=false;
+
+var timer1Counter=0;
+var timer2Counter=0;
+var numberofRingsAlarm1=0;
+var numberofRingsAlarm2=0;
+var refreshIntervalId1=0;
+var refreshIntervalId2=0;
+//var alarmReachTemp1=false;
+//var alarmReachTemp2=false;
+
+// ----------------------------------------------------------------------------
+// Initialization
+// ----------------------------------------------------------------------------
+
+window.addEventListener('load', onLoad);
+
+function onLoad(event) {
+	
+    initWebSocket();
+//    initButton();
+}
+
+// ----------------------------------------------------------------------------
+// WebSocket handling
+// ----------------------------------------------------------------------------
+
+function initWebSocket() {
+    console.log('Trying to open a WebSocket connection...');
+    websocket = new WebSocket(gateway);
+    websocket.onopen    = onOpen;
+    websocket.onclose   = onClose;
+    websocket.onmessage = onMessage;
+}
+ 
+// Called when a WebSocket connection is established with the server
+
+function onOpen(event) {
+ 
+    // Log connection state
+    console.log("Connected");
+	document.getElementById("SetTab").style.display = "none";
+	document.getElementById("SetTab2").style.display = "none";	
+	document.getElementById("1U1").checked = true;
+	k = 0;
+	doSend("GGG"+k);
+
+}
+ 
+// Called when the WebSocket connection is closed
+function onClose(event) {
+    console.log('Connection closed');
+    setTimeout(initWebSocket, 2000);
+}
+
+ 
+// Called when a message is received from the server
+function onMessage(event) {
+ 
+    // Print out our received message
+    //console.log("Received: " + event.data);
+
+	var string = event.data;
+	
+//  console.log(k);
+if (string.charAt(0) == 'G'){
+	if (string.charAt(1) == 'A'){ // checkBox - Activates Timer1 at targetCelsius1
+		var residu = string.slice(2, string.length);
+	    if (residu == '1'){
+		document.getElementById("1D1").checked = true;
+		}
+		else if (residu == '0'){
+		document.getElementById("1D1").checked = false;
+		}
+	}
+	
+	else if (string.charAt(1) == 'C'){// receive targetCelsius1 parameter
+		var residu = string.slice(2, string.length);
+		document.getElementById("targetTemperature1").innerHTML = residu;		
+		targetCelsius1 = parseInt(residu);
+	}	
+	else if (string.charAt(1) == 'D'){
+		var residu = string.slice(2, string.length);	
+		document.getElementById("targetTemperature2").innerHTML = residu;
+		targetCelsius2 = parseInt(residu);
+	}	
+    else if (string.charAt(1) == 'E'){// receive alarmTime1 parameter
+		var residu = string.slice(2, string.length);
+		document.getElementById("alarm1").innerHTML = residu;
+		alarmTime1 = parseInt(residu);
+	}	
+    else if (string.charAt(1) == 'F'){// receive alarmTime1 parameter
+		var residu = string.slice(2, string.length);
+		document.getElementById("alarm2").innerHTML = residu;
+		alarmTime2 = parseInt(residu);
+	}
+    else if (string.charAt(1) == 'G'){// checkBox - activates alarm1 Timer checkbox (alarmTime1)
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		document.getElementById("1G1").checked = false;
+		//alarmActiveTimer1 = false;
+		}
+		else if (residu == '1'){
+		document.getElementById("1G1").checked = true;
+		//alarmActiveTimer1 = true;
+		}
+	}
+    
+	else if (string.charAt(1) == 'H'){// checkBox - activates alarm1 Timer checkbox (alarmTime1)
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		document.getElementById("1G2").checked = false;
+		//alarmActiveTimer2 = false;
+		}
+		else if (residu == '1'){
+		document.getElementById("1G2").checked = true;
+		//alarmActiveTimer2 = true;
+		}
+	}
+
+	else if (string.charAt(1) == 'I'){// failsafe to preven ongoing alarm1 firing when conditions are met
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		timer1failsafe = false;
+		}
+		else if (residu == '1'){
+		timer1failsafe = true;
+		}
+	}		
+	/*
+	else if (string.charAt(1) == 'K'){// alarm1 is activated when targetCelsius is set - give this it's own form to input deviation 
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		alarmActiveTemp1 = false;
+		}
+		else if (residu == '1'){
+		alarmActiveTemp1 = true;
+		}
+	}
+
+	else if (string.charAt(1) == 'L'){// alarm1 is activated when targetCelsius is set - give this it's own form to input deviation 
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		alarmActiveTemp2 = false;
+		}
+		else if (residu == '1'){
+		alarmActiveTemp2 = true;
+		}
+	}	
+	*/
+
+    else if (string.charAt(1) == 'M'){// sets alarm1 when targetCelsius 1 is reached.
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		document.getElementById("1J1").checked = false;
+		//alarmReachTemp1 = false;
+		}
+		else if (residu == '1'){
+		document.getElementById("1J1").checked = true;
+		//alarmReachTemp1 = true;
+		}
+	}
+
+    else if (string.charAt(1) == 'N'){// sets alarm1 when targetCelsius 1 is reached.
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		document.getElementById("1J2").checked = false;
+		//alarmReachTemp2 = false;
+		}
+		else if (residu == '1'){
+		document.getElementById("1J2").checked = true;
+		//alarmReachTemp2 = true;
+		}
+	}	
+	
+	else if (string.charAt(1) == 'O'){// receive alarmTime1 parameter
+		var residu = string.slice(2, string.length);
+		document.getElementById("offsetFromTargetTemp1").innerHTML = residu;
+		offsetFromTargetTemp1 = parseInt(residu);
+	}
+	
+    else if (string.charAt(1) == 'Q'){// sets alarm1 when targetCelsius 1 is reached.
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		document.getElementById("1L1").checked = false;
+		}
+		else if (residu == '1'){
+		document.getElementById("1L1").checked = true;
+		}
+	}
+    else if (string.charAt(1) == 'R'){// sets alarm1 when targetCelsius 1 is reached.
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		document.getElementById("1M1").checked = false;
+		}
+		else if (residu == '1'){
+		document.getElementById("1M1").checked = true;
+		}
+	}	
+	
+	
+    else if (string.charAt(1) == 'S'){// sets alarm1 when targetCelsius 1 is reached.
+		var residu = string.slice(2, string.length);	
+		document.getElementById("probe_number").value = residu;
+	}	
+    else if (string.charAt(1) == 'T'){// sets alarm1 when targetCelsius 1 is reached.
+		var residu = string.slice(2, string.length);	
+		document.getElementById("probe_id").value = residu;
+	}	
+	
+	else if (string.charAt(1) == 'U'){// checkBox - activates alarm1 Timer checkbox (alarmTime1)
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		document.getElementById("1T1").checked = false;
+		//alarmActiveTimer2 = false;
+		}
+		else if (residu == '1'){
+		document.getElementById("1T1").checked = true;
+		//alarmActiveTimer2 = true;
+		}
+	}	
+	
+	
+	else {
+	};
+	
+	if (k < 16){
+	//console.log("k "); console.log(k);
+    doSend("GGG"+k);
+	k = k + 1;
+    }
+}
+else if (string.charAt(0) == 'T'){
+	var numArgs = 0;
+	var pos1 = 1;
+	var pos2 = 0;
+	var temp_values = new Array(5)
+	var fullString = string.slice(1, string.length);
+	for( var t = 0; t < string.length; t++ ){
+		if (string[t] == '+'){
+			pos2 = t;
+			var temp = string.substring(pos1, pos2);
+			temp_values[numArgs] = temp;		
+			numArgs = numArgs+1;
+			pos1 = t+1;		
+		}
+	}
+	updateTime();
+	
+	for (var x = 0; x < numArgs; x ++){
+	residu = temp_values[x]
+		if (x == 0){
+		document.getElementById("temperature1").innerHTML = residu;
+			if (targetCelsius1 > 0){
+				if (document.getElementById("1D1").checked == true && residu >= targetCelsius1 && timer1failsafe == true){  // (residu >= parseFloat($('#confirm-celsius-input').attr('data-action-1-param-1-value')) || residu >= targetCCelsius)
+				doSend('1C1'+1);
+				timer1failsafe = false;
+				doSend('1E1'+0);
+				}
+				if (offsetFromTargetTemp1 > 1){
+					if (((residu > targetCelsius1 + offsetFromTargetTemp1) || (residu < targetCelsius1 - offsetFromTargetTemp1)) && document.getElementById("1M1").checked == true){ //;tempOffsetAlarm == true){  // alarmActiveTemp1
+					//tempOffsetAlarm = false; // alarmActiveTemp1
+					document.getElementById("1M1").checked = false;
+					document.getElementById("1I1").checked = true;
+					doSend("1M1"+0);
+					doSend('1RR'+2);
+					playSound1(10);	
+					}
+				}
+				if (residu >= targetCelsius1 && document.getElementById("1J1").checked == true){// alarmReachTemp1 == true
+				//alarmReachTemp1 = false;		
+				document.getElementById("1J1").checked = false;	
+				document.getElementById("1I1").checked = true;				
+				doSend("1J1"+0);
+				doSend('1RR'+1);
+				playSound1(10);	
+				}
+			}	
+		}
+		else if (x == 1){
+		document.getElementById("temperature2").innerHTML = residu;
+			if (targetCelsius2 > 0){
+				if (residu >= targetCelsius2 && document.getElementById("1J2").checked == true){ // alarmReachTemp2 == true
+				//alarmReachTemp2 = false;	
+				document.getElementById("1J2").checked = false;	
+				document.getElementById("1I2").checked = true;					
+				doSend("1J2"+0);
+				doSend('1RR'+1);
+				playSound2(10);				
+				}
+			}	
+		}
+		else if (x == 2){
+			document.getElementById("temperature3").innerHTML = residu;
+		}	
+		else if (x == 3){
+			document.getElementById("temperature4").innerHTML = residu;
+		}
+		else if (x == 4){
+			document.getElementById("temperature5").innerHTML = residu;
+		}	
+	}
+}
+else if (string.charAt(0) == 'S'){	
+	if (string.charAt(1) == 'C'){
+		var residu = string.slice(2, string.length);	
+		var residuFloat = parseFloat(residu).toFixed(2);
+		drawChart(residuFloat);
+	}
+	else if (string.charAt(1) == 'D'){
+		var residu = string.slice(2, string.length);	
+		var residuFloat = parseFloat(residu).toFixed(2);
+		drawChart1(residuFloat);
+	}	
+    else if (string.charAt(1) == 'E'){
+		var residu = string.slice(2, string.length);
+		document.getElementById("timer").innerHTML = residu;
+		var checkValue = parseInt(residu);
+	    if (checkValue <= 1){
+			playSound1(1);
+		}	
+	}
+    else if (string.charAt(1) == 'G'){
+		var residu = string.slice(2, string.length);
+		document.getElementById("BBQcounter").innerHTML = residu;	
+		var checkValue = parseInt(residu);
+			if (alarmTime1 > 1){
+				if (document.getElementById("1G1").checked == true && checkValue >= alarmTime1){  //&& alarmActiveTimer1 == true
+				//doSend('1H1');
+				//alarmActiveTimer1 = false;
+				document.getElementById("1G1").checked = false;
+				document.getElementById("1I1").checked = true;
+				doSend("1G1"+0);
+				doSend('1RR'+3);
+				playSound1(5);
+				}
+			}	
+	}
+    else if (string.charAt(1) == 'H'){
+		var residu = string.slice(2, string.length);
+		document.getElementById("Foodcounter").innerHTML = residu;	
+		var checkValue = parseInt(residu);
+			if (alarmTime2 > 1){
+				if (document.getElementById("1G2").checked == true && checkValue >= alarmTime2){ // && alarmActiveTimer2 == true
+				//doSend('1H1');
+				//alarmActiveTimer2 = false;
+				document.getElementById("1G2").checked = false;
+				document.getElementById("1I2").checked = true;
+				doSend("1G2"+0); 				
+				playSound2(5);
+				}		
+			}	
+	}
+}
+else if (string.charAt(0) == 'R'){
+	if (string.charAt(1) == 'P'){
+		var residu = string.slice(2, string.length);
+		//console.log('redidu pass'); console.log(residu);
+		document.getElementById("PASS").innerHTML = residu;	
+	}
+	else if (string.charAt(1) == 'I'){
+		var residu = string.slice(2, string.length);
+		//console.log('redidu ssid'); console.log(residu);
+		document.getElementById("SSID").innerHTML = residu;	
+	}	
+}	
+}	
+ 
+// Sends a message to the server (and prints it to the console)
+function doSend(message) {
+	String(message);
+    //console.log("Sending: " + message);
+    websocket.send(message);
+}
+	
+	
+</script>	
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+
+<script>
+ 	var chartT = new Highcharts.Chart({
+            chart: { renderTo : 'chart-temperature' },
+            title: { text: 'pt100 sensor' },
+            series: [
+                {
+                    //showInLegend: true,
+                    name: 'BBQ probe',
+                    data: [],
+                    color: '#FF3933'
+                }, 
+                {
+                    //showInLegend: true,
+					dashStyle: 'ShortDash',
+                    name: 'BBQ target',
+                    data: [], 
+                    color: '#3373FF'
+                },
+				{
+                    //showInLegend: true,
+                    name: 'Food probe',
+                    data: [],
+                    color: '#ACFF33'
+                },
+				{
+                    //showInLegend: true,
+					dashStyle: 'ShortDash',
+                    name: 'Food target',
+                    data: [], 
+                    color: '#F39C12'
+                }
+            ],
+			tooltip: {
+				valueSuffix: '\xB0 C'
+			},
+			 plotOptions: {
+				line: {
+					lineWidth: 3,
+					states: {
+						hover: {
+							lineWidth: 5
+						}
+					},
+					
+					marker: {
+						enabled: false
+					}
+					
+				}
+			},
+			/*
+            plotOptions: {
+                line: { 
+                    animation: false,
+                    dataLabels: {
+					crop: false,
+					}
+                },
+            },
+			*/
+            xAxis: { 
+               type: 'datetime',
+                dateTimeLabelFormats: { second: '%H:%M:%S' }
+            },
+            yAxis: {
+                title: { text: 'Temperature (Celsius)' }
+            },
+            credits: { enabled: false }
+        });
+function drawChart(temp){
+            var x = (new Date()).getTime();
+			var currentCelsius = parseFloat(temp);
+			if(chartT.series[0].data.length > 720) {
+				chartT.series[0].addPoint([x, currentCelsius], true, true, true);
+			} else {
+				chartT.series[0].addPoint([x, currentCelsius], true, false, true);
+			}
+            if (targetCelsius1 > 0) {
+                if(chartT.series[1].data.length > 720) {
+                    chartT.series[1].addPoint([x, targetCelsius1], true, true, true);
+                } else {
+                    chartT.series[1].addPoint([x, targetCelsius1], true, false, true);
+                }
+            }
+};
+function drawChart1(temp){
+            var x = (new Date()).getTime();
+			var currentCelsius = parseFloat(temp);
+			if(chartT.series[2].data.length > 720) {
+				chartT.series[2].addPoint([x, currentCelsius], true, true, true);
+			} else {
+				chartT.series[2].addPoint([x, currentCelsius], true, false, true);
+			}
+            if (targetCelsius2 > 0) {
+                if(chartT.series[3].data.length > 720) {
+                    chartT.series[3].addPoint([x, targetCelsius2], true, true, true);
+                } else {
+                    chartT.series[3].addPoint([x, targetCelsius2], true, false, true);
+                }
+            }
+};
+</script>
+
+<script type="text/javascript">
+        // Changing data parameters
+        $('input[data-purpose="change-data-param"], select[data-purpose="change-data-param"]').each(function(){ // each
+            $(this).unbind("change"); 
+            $(this).change(function() {
+                targetId = $(this).attr('data-target-id');
+                targetParam = $(this).attr('data-target-param');
+                targetValue = $(this).val();
+                $('#'+targetId).attr(targetParam, targetValue);
+				doSend("1A1"+targetValue);
+				//console.log("1A1"); console.log(targetValue);
+            }); 
+        });
+		
+		$('input[data-purpose="change-data-param7"], select[data-purpose="change-data-param7"]').each(function(){ // each
+            $(this).unbind("change"); 
+            $(this).change(function() {
+                targetId = $(this).attr('data-target-id');
+                targetParam = $(this).attr('data-target-param7');
+                targetValue = $(this).val();
+                $('#'+targetId).attr(targetParam, targetValue);
+				//console.log("wifi ID "); console.log(targetValue);
+				doSend("I"+targetValue);
+            }); 
+        });
+		
+		$('input[data-purpose="change-data-param8"], select[data-purpose="change-data-param8"]').each(function(){ // each
+            $(this).unbind("change"); 
+            $(this).change(function() {
+                targetId = $(this).attr('data-target-id');
+                targetParam = $(this).attr('data-target-param8');
+                targetValue = $(this).val();
+                $('#'+targetId).attr(targetParam, targetValue);
+				//console.log("wifi pass "); console.log(targetValue);
+				doSend("P"+targetValue);
+            }); 
+        });
+		
+		$('input[data-purpose="change-data-param4"], select[data-purpose="change-data-param4"]').each(function(){ // each
+            $(this).unbind("change"); 
+            $(this).change(function() {
+                targetId = $(this).attr('data-target-id');
+                targetParam = $(this).attr('data-target-param4');
+                targetValue = $(this).val();
+                $('#'+targetId).attr(targetParam, targetValue);
+				doSend("1A2"+targetValue);
+				//console.log("1A2"); console.log(targetValue);
+            }); 
+        });
+		
+		$('input[data-purpose="change-data-param5"], select[data-purpose="change-data-param5"]').each(function(){ // each
+            $(this).unbind("change"); 
+            $(this).change(function() {
+                targetId = $(this).attr('data-target-id');
+                targetParam = $(this).attr('data-target-param5');
+                targetValue = $(this).val();
+                $('#'+targetId).attr(targetParam, targetValue);
+				doSend("1K1"+targetValue);
+				console.log("1K1"); console.log(targetValue);
+				offsetFromTargetTemp1 = targetValue;
+            }); 
+        });
+	/*
+       $('input[data-purpose="change-data-param7"], select[data-purpose="change-data-param7"]').each(function(){ // each
+            $(this).unbind("change"); 
+            $(this).click(function() {
+                targetId = $(this).attr('data-target-id');
+                targetParam = $(this).attr('data-target-param7');
+                targetValue = $(this).val();
+                $('#'+targetId).attr(targetParam, targetValue);
+				console.log("wifi ID "); console.log(targetValue);
+				doSend("WID"+targetValue);
+            });
+        });
+
+        $('input[data-purpose="change-data-param8"], select[data-purpose="change-data-param8"]').each(function(){ // each
+            $(this).unbind("change"); 
+            $(this).click(function() {
+                targetId = $(this).attr('data-target-id');
+                targetParam = $(this).attr('data-target-param8');
+                targetValue = $(this).val();
+                $('#'+targetId).attr(targetParam, targetValue);
+				console.log("wifi pass "); console.log(targetValue);
+				doSend("WPW"+targetValue);
+            });
+        });			
+		*/
+		$('input[data-purpose="change-data-param3"], select[data-purpose="change-data-param3"]').each(function(){ // each
+            $(this).unbind("change"); 
+            $(this).change(function() {
+                targetId = $(this).attr('data-target-id');
+                targetParam = $(this).attr('data-target-param3');
+                targetValue = $(this).val();
+                $('#'+targetId).attr(targetParam, targetValue);
+				doSend("1F1"+targetValue);
+				alarmTime1 = targetValue;
+            }); 
+        });
+		
+		$('input[data-purpose="change-data-param6"], select[data-purpose="change-data-param6"]').each(function(){ // each
+            $(this).unbind("change"); 
+            $(this).change(function() {
+                targetId = $(this).attr('data-target-id');
+                targetParam = $(this).attr('data-target-param6');
+                targetValue = $(this).val();
+                $('#'+targetId).attr(targetParam, targetValue);
+				doSend("1F2"+targetValue);
+				alarmTime2 = targetValue;
+            }); 
+        });		
+		
+        $('input[data-purpose="change-data-param2"], select[data-purpose="change-data-param2"]').click(function(){ // each
+            $(this).unbind("change"); 
+            $(this).click(function() {
+                targetId = $(this).attr('data-target-id');
+                targetParam = $(this).attr('data-target-param2');
+                targetValue = $(this).val();
+                $('#'+targetId).attr(targetParam, targetValue);
+				doSend("1B1"+targetValue);
+            });
+        });		
+
+</script>
+
+<script>
+function selectProbeType(event) {
+    //var selected_text = event.options[event.selectedIndex].innerHTML;
+	//console.log("text "); console.log(selected_text);
+    var selected_value = event.value;
+	//console.log("value "); console.log(selected_value);
+	doSend('1ST'+selected_value);
+}
+function selectProbeAmount(event) {
+    //var selected_text = event.options[event.selectedIndex].innerHTML;
+	//console.log("text "); console.log(selected_text);
+    var selected_value = event.value;
+	//console.log("value "); console.log(selected_value);
+	doSend('1SN'+selected_value);
+}
+</script>
+	
+<script>
+	function updateButton(fixedVariable) { 
+	if (document.getElementById(fixedVariable).checked == true){
+		timer1Counter = 0;
+		if (fixedVariable == '1D1'){
+		doSend(fixedVariable+1);
+		timer1failsafe = true;
+		}
+		else if (fixedVariable == '1G1'){
+		doSend(fixedVariable+1);
+		doSend('1C1'+1);
+		}
+		else if (fixedVariable == '1G2'){
+		doSend(fixedVariable+1);
+		doSend('1C2'+1);
+		}			
+		else if (fixedVariable == '1I1'){
+		clearInterval(refreshIntervalId1); 
+		document.getElementById("1I1").checked = false;
+		//doSend('1I1'+0);
+		}
+		else if (fixedVariable == '1I2'){
+		clearInterval(refreshIntervalId2);
+		document.getElementById("1I2").checked = false;
+		//doSend('1I2'+0);
+		}	
+		else if (fixedVariable == '1U1'){
+//		document.getElementById("1U1").checked = true;
+		doSend('1U1');
+		}		
+		else {
+		doSend(fixedVariable+1);
+		}
+		}
+	else if (document.getElementById(fixedVariable).checked == false){	
+		if (fixedVariable == '1I1'){
+		clearInterval(refreshIntervalId1);
+		document.getElementById("1I1").checked = false;
+		//doSend('1I1'+0);
+		}
+		else if (fixedVariable == '1I2'){
+		clearInterval(refreshIntervalId2);
+		document.getElementById("1I2").checked = false;
+		//doSend('1I2'+0);
+		}					
+		else {
+		doSend(fixedVariable+0);
+	}  
+	}
+	}
+</script>
+	
+<script>
+	function playSound1(repeats){
+		//console.log("enter playsound1");
+		numberofRingsAlarm1=repeats;
+		//console.log("numberofRingsAlarm1"); console.log(numberofRingsAlarm1);
+		var sound = new Audio('/alarm.mp3');
+		sound.play();
+			if (numberofRingsAlarm1 > 1){
+			refreshIntervalId1 = setInterval(function(){
+			var sound = new Audio('/alarm.mp3');
+			sound.play(); 
+			timer1Counter = timer1Counter + 1;
+			//console.log("timer1counter"); console.log(timer1Counter);
+			blockSound1(numberofRingsAlarm1, timer1Counter);
+			}, 2900);
+			}
+	}	
+	function playSound2(repeats){
+		//console.log("enter playsound2");
+		numberofRingsAlarm2=repeats;
+		var sound = new Audio('/alarm.mp3');
+		sound.play();
+			if (numberofRingsAlarm2 > 1){
+			refreshIntervalId2 = setInterval(function(){
+			var sound = new Audio('/alarm.mp3');
+			sound.play(); 
+			timer2Counter = timer2Counter + 1;
+			blockSound2(numberofRingsAlarm2, timer2Counter);
+			}, 2900);
+			}
+	}		
+	
+</script>
+<script>
+	function blockSound1(numberofRings, timerCounter){
+		if (timerCounter >= numberofRings){
+		clearInterval(refreshIntervalId1);
+		document.getElementById("1I1").checked = false;
+		//console.log("switches alarm sign off");
+		}
+	}
+	
+	function blockSound2(numberofRings, timerCounter){
+		if (timerCounter >= numberofRings){
+		clearInterval(refreshIntervalId2);
+		document.getElementById("1I2").checked = false;
+		//console.log("switches alarm sign off");
+		}
+	}
+</script>
+
+<script>
+/*
+function setTab() {
+  var x = document.getElementById("SetTab");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+*/
+
+function setTab(fixedVariable) {
+  var x = document.getElementById(fixedVariable);
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+<script>
+function updateTime(){
+        var momentNow = moment();
+        $('#date-part').html(momentNow.format('YYYY MMMM DD') + ' '
+                            + momentNow.format('dddd')
+                             .substring(0,3).toUpperCase());
+        $('#time-part').html(momentNow.format('HH:mm:ss'));
+}
+</script>
+  
+</body>
