@@ -1,2 +1,4 @@
 # BBQ controller
- temperature sensor and fan control
+ temperature sensors and fan control
+
+ Works, but still work in progress. Mainly made public for easy sharing.
