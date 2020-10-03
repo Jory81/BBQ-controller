@@ -30,7 +30,7 @@ void setupEEPROM(){
   int check  = EEPROM.readInt(0);
   #endif
   
-  if (check == 016520){
+  if (check == 165243){
   display.print(F("code: ")); display.println(check);
   display.println(F("EEPROM SET"));
   display.display();
@@ -38,7 +38,7 @@ void setupEEPROM(){
   delay(1000);
   }
   
-  else if (check != 016520){
+  else if (check != 165243){
   display.println(F("EEPROM not initialized"));
   display.println(F("Write to EEPROM"));
   display.display();
@@ -62,13 +62,15 @@ void setupWIFI(){
   Serial.printf("Trying to connect [%s] ", WiFi.macAddress().c_str());
   while (WiFi.status() != WL_CONNECTED) {
       Serial.println(".");
-       display.clearDisplay();
+      display.clearDisplay();
       display.setCursor(0,0);
       display.println(F("connecting to wifi..."));
       display.display();
       delay(500);
       wifiCounter++;
+      wifiStationMode = true;
       if (wifiCounter > 20){
+      wifiStationMode = false;  
       break;  
       }
   }
@@ -83,14 +85,22 @@ void setupWIFI(){
   display.println(WiFi.softAPIP());
   display.display();    
   }
+  if (wifiStationMode){
   Serial.printf(" %s\n", WiFi.localIP().toString().c_str());
+  }
+  else{
   Serial.printf(" %s\n", WiFi.softAPIP().toString().c_str());
+  }
   
   display.clearDisplay();
   display.setCursor(0,0);
 
+  if (wifiStationMode){
   display.printf(" %s\n", WiFi.localIP().toString().c_str());
+  }
+  else {
   display.printf(" %s\n", WiFi.softAPIP().toString().c_str());
+  }
     
   initWebSocket();
   initWebServer();
@@ -128,7 +138,7 @@ sensorAmount = EEPROM.read(offsetof(storeInEEPROM, sensorAmount));
   ssidStorage[m]  = EEPROM.read(offsetPosition+m);
   }
   wifiID = String(ssidStorage);
-  Serial.print("wifiID "); Serial.println(wifiID);
+  //Serial.print("wifiID "); Serial.println(wifiID);
   
   for (int m = 0; m < 32; m++){
   //Serial.print(m); Serial.print("m ");   
@@ -136,6 +146,6 @@ sensorAmount = EEPROM.read(offsetof(storeInEEPROM, sensorAmount));
   passStorage[m]  = EEPROM.read(offsetPosition+m);
   }
   wifiPASS = String(passStorage);
-  Serial.print("wifiPASS "); Serial.println(wifiPASS);
+  //Serial.print("wifiPASS "); Serial.println(wifiPASS);
 
 }

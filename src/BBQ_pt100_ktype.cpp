@@ -71,10 +71,7 @@ Thermocouple* thermocouple[5];
 #define updateTimeTemp 1000
 #define updateTimeGraph 10000
 
-// Use software SPI: CS, DI, DO, CLK
-//Adafruit_MAX31865 maxthermo = Adafruit_MAX31865(10, 11, 12, 13);
-// use hardware SPI, just pass in the CS pin
-Adafruit_MAX31865 maxthermo[5] = {Adafruit_MAX31865(5), Adafruit_MAX31865(26), Adafruit_MAX31865(5), Adafruit_MAX31865(5), Adafruit_MAX31865(5)} ;
+Adafruit_MAX31865 maxthermo[5] = {Adafruit_MAX31865(5), Adafruit_MAX31865(26), Adafruit_MAX31865(27), Adafruit_MAX31865(32), Adafruit_MAX31865(12)} ; // 5, 26, 27, 32, 12
 
 // The value of the Rref resistor. Use 430.0!
 #define RREF 430.0
@@ -97,7 +94,7 @@ void sendCounterToClient1 (uint16_t Time);
 void sendCounterToClient2 (uint16_t Time);
 void updateGraph (float temp);
 void updateGraph2 (float temp);
-void displayOledScreen(float temp1, float temp2);
+void displayOledScreen(float temp1, float temp2, float temp3, float temp4);
 void fanControl();
 
 void onRootRequest(AsyncWebServerRequest *request);
@@ -142,7 +139,7 @@ void loop()
               temp[sensor] = processRTD(rtd);
               oldtemp[sensor] = temp[sensor];
             }
-            sendAllTempToClient ();
+            sendAllTempToClient();
           }
 
           break;
@@ -153,12 +150,12 @@ void loop()
                   oldtemp[sensor] = temp[sensor];             
                   }
             }
-            sendAllTempToClient ();
+            sendAllTempToClient();
           }
           break;
         }
   
-    displayOledScreen(temp[0], temp[1]);
+    displayOledScreen(temp[0], temp[1], temp[2], temp[3]);
     fanControl();
     updateTimeAndGraph();
   

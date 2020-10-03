@@ -67,6 +67,7 @@ boolean alarmReachTemp2 = false;
 boolean fanON = false;
 boolean tempOffsetAlarm=false;
 boolean fanManual = false;
+boolean wifiStationMode=false;
 
 uint32_t targetTime1 = 0;
 //uint32_t targetTime2 = 0;
