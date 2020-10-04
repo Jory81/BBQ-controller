@@ -206,6 +206,55 @@
 	<i class="glyphicon glyphicon-menu-down"></i>
 	</span> 
 
+	calibration settings: 
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1N1" onclick="setTab('SetTab3')"/>  
+	<i class="glyphicon glyphicon-menu-down"></i>
+	</span> 
+
+	<div id="SetTab3">
+		<div>
+			<span class="inputparam"> <input type="number" placeholder="calibrationValue 1" class="form-controlx input-sl" id="cv1" value=""></span> <span><button onclick="updateText('cv1')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
+			<i class="glyphicon glyphicon-signal"></i>
+			<span class="dht-labels">calibration Value T1</span> 
+			<span id="cal_val1">%c%</span>
+			<sup class="units">&deg;C</sup>
+		</div>
+
+		<div>
+			<span class="inputparam"> <input type="number" placeholder="calibrationValue 2" class="form-controlx input-sl" id="cv2" value=""></span> <span><button onclick="updateText('cv2')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
+			<i class="glyphicon glyphicon-signal"></i> 
+			<span class="dht-labels">calibration Value T2</span> 
+			<span id="cal_val2">%c%</span>
+			<sup class="units">&deg;C</sup>
+		</div>
+
+		<div>
+			<span class="inputparam"> <input type="number" placeholder="calibrationValue 3" class="form-controlx input-sl" id="cv3" value=""></span> <span><button onclick="updateText('cv3')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
+			<i class="glyphicon glyphicon-signal"></i>
+			<span class="dht-labels">calibration Value T3</span> 
+			<span id="cal_val3">%c%</span>
+			<sup class="units">&deg;C</sup>
+		</div>
+
+		<div>
+			<span class="inputparam"> <input type="number" placeholder="calibrationValue 4" class="form-controlx input-sl" id="cv4" value=""></span> <span><button onclick="updateText('cv4')" class="btnx btn-primary">submit</button> </span>      	&nbsp; &nbsp;
+			<i class="glyphicon glyphicon-signal"></i>
+			<span class="dht-labels">calibration Value T4</span> 
+			<span id="cal_val4">%c%</span>
+			<sup class="units">&deg;C</sup>
+		</div>
+
+		<div>
+			<span class="inputparam"> <input type="number" placeholder="calibrationValue 5" class="form-controlx input-sl" id="cv5" value=""></span> <span><button onclick="updateText('cv5')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
+			<i class="glyphicon glyphicon-signal"></i> 
+			<span class="dht-labels">calibration Value T5</span> 
+			<span id="cal_val5">%c%</span>
+			<sup class="units">&deg;C</sup>	
+		</div>		
+	</div>
+	<br>
+
 	<div id="SetTab">
 	
 	<select name="selectProbeType" id="probe_id" onchange="selectProbeType(this)">
@@ -240,64 +289,6 @@
 	<input class="ckeckbox-element" type="checkbox" id="1U1" onclick="updateButton('1U1')"/>  
 	<i class="glyphicon glyphicon-refresh"></i>
 	</span> 
-	</div>
-
-	calibration settings: 
-	<span id="checkbox1">
-	<input class="ckeckbox-element" type="checkbox" id="1N1" onclick="setTab('SetTab3')"/>  
-	<i class="glyphicon glyphicon-menu-down"></i>
-	</span> 
-
-	<div id="SetTab3">
-		<div>
-			<input name="calval1-input" placeholder="calibrationValue 1" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param9" data-target-id="confirm-calval1-input" data-target-param="data-action-1-param-9-value" style="width: 64px;">
-			<button id="confirm-calval1-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-calval1-input" data-action-1-param-9-name="calval1" data-action-1-param-9-value="">submit</button>
-
-			<i class="glyphicon glyphicon-signal"></i>
-			<span class="dht-labels">calibration Value T1</span> 
-			<span id="cal_val1">%c%</span>
-			<sup class="units">&deg;C</sup>
-		</div>
-
-		<div>
-			<input name="calval2-input" placeholder="calibrationValue 2" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param10" data-target-id="confirm-calval1-input" data-target-param="data-action-1-param-10-value" style="width: 64px;">
-			<button id="confirm-calval2-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-calval2-input" data-action-1-param-10-name="calval2" data-action-1-param-10-value="">submit</button>
-
-			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels">calibration Value T2</span> 
-			<span id="cal_val2">%c%</span>
-			<sup class="units">&deg;C</sup>
-		</div>
-
-		<div>
-			<input name="calval3-input" placeholder="calibrationValue 3" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param11" data-target-id="confirm-calval3-input" data-target-param="data-action-1-param-11-value" style="width: 64px;">
-			<button id="confirm-calval3-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-calval3-input" data-action-1-param-11-name="calval3" data-action-1-param-11-value="">submit</button>
-
-			<i class="glyphicon glyphicon-signal"></i>
-			<span class="dht-labels">calibration Value T3</span> 
-			<span id="cal_val3">%c%</span>
-			<sup class="units">&deg;C</sup>
-		</div>
-
-		<div>
-			<input name="calval4-input" placeholder="calibrationValue 4" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param12" data-target-id="confirm-calval4-input" data-target-param="data-action-1-param-12-value" style="width: 64px;">
-			<button id="confirm-calval4-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-calval4-input" data-action-1-param-12-name="calval4" data-action-1-param-12-value="">submit</button>
-
-			<i class="glyphicon glyphicon-signal"></i>
-			<span class="dht-labels">calibration Value T4</span> 
-			<span id="cal_val4">%c%</span>
-			<sup class="units">&deg;C</sup>
-		</div>
-
-		<div>
-			<input name="calval5-input" placeholder="calibrationValue 5" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param13" data-target-id="confirm-calval5-input" data-target-param="data-action-1-param-13-value" style="width: 64px;">
-			<button id="confirm-calval5-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-calval5-input" data-action-1-param-13-name="calval5" data-action-1-param-13-value="">submit</button>
-
-			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels">calibration Value T5</span> 
-			<span id="cal_val5">%c%</span>
-			<sup class="units">&deg;C</sup>	
-		</div>		
 	</div>	
 	
 	</div>
@@ -567,11 +558,12 @@ if (string.charAt(0) == 'G'){
 		var pos1 = 1;
 		var pos2 = 0;
 		var cal_values = new Array(5)
-		var fullString = string.slice(2, string.length);
-		for( var t = 0; t < string.length; t++ ){
-			if (string[t] == '+'){
+		var altString = string.slice(1, string.length);
+		//console.log(altString);
+		for( var t = 0; t < altString.length; t++ ){
+			if (altString[t] == '+'){
 				pos2 = t;
-				var cal = string.substring(pos1, pos2);
+				var cal = altString.substring(pos1, pos2);
 				cal_values[numArgs] = cal;		
 				numArgs = numArgs+1;
 				pos1 = t+1;		
@@ -966,62 +958,6 @@ function drawChart1(temp){
             });
 		});	
 		
-		$('input[data-purpose="change-data-param9"], select[data-purpose="change-data-param9"]').each(function(){ // each
-            $(this).unbind("change"); 
-            $(this).change(function() {
-                targetId = $(this).attr('data-target-id');
-                targetParam = $(this).attr('data-target-param9');
-                targetValue = $(this).val();
-                $('#'+targetId).attr(targetParam, targetValue);
-				doSend("1V1"+targetValue);
-				//console.log("1A1"); console.log(targetValue);
-			}); 
-			
-			$('input[data-purpose="change-data-param10"], select[data-purpose="change-data-param10"]').each(function(){ // each
-            $(this).unbind("change"); 
-            $(this).change(function() {
-                targetId = $(this).attr('data-target-id');
-                targetParam = $(this).attr('data-target-param10');
-                targetValue = $(this).val();
-                $('#'+targetId).attr(targetParam, targetValue);
-				doSend("1V2"+targetValue);
-				//console.log("1A1"); console.log(targetValue);
-			}); 
-			
-			$('input[data-purpose="change-data-param11"], select[data-purpose="change-data-param11"]').each(function(){ // each
-            $(this).unbind("change"); 
-            $(this).change(function() {
-                targetId = $(this).attr('data-target-id');
-                targetParam = $(this).attr('data-target-param11');
-                targetValue = $(this).val();
-                $('#'+targetId).attr(targetParam, targetValue);
-				doSend("1V3"+targetValue);
-				//console.log("1A1"); console.log(targetValue);
-			}); 
-			
-			$('input[data-purpose="change-data-param12"], select[data-purpose="change-data-param12"]').each(function(){ // each
-            $(this).unbind("change"); 
-            $(this).change(function() {
-                targetId = $(this).attr('data-target-id');
-                targetParam = $(this).attr('data-target-param12');
-                targetValue = $(this).val();
-                $('#'+targetId).attr(targetParam, targetValue);
-				doSend("1V4"+targetValue);
-				//console.log("1A1"); console.log(targetValue);
-			}); 
-			
-			$('input[data-purpose="change-data-param13"], select[data-purpose="change-data-param13"]').each(function(){ // each
-            $(this).unbind("change"); 
-            $(this).change(function() {
-                targetId = $(this).attr('data-target-id');
-                targetParam = $(this).attr('data-target-param13');
-                targetValue = $(this).val();
-                $('#'+targetId).attr(targetParam, targetValue);
-				doSend("1V5"+targetValue);
-				//console.log("1A1"); console.log(targetValue);
-            }); 
-        });
-
 </script>
 
 <script>
@@ -1039,10 +975,8 @@ function selectProbeAmount(event) {
 	//console.log("value "); console.log(selected_value);
 	doSend('1SN'+selected_value);
 }
-</script>
-	
-<script>
-	function updateButton(fixedVariable) { 
+
+function updateButton(fixedVariable) { 
 	if (document.getElementById(fixedVariable).checked == true){
 		timer1Counter = 0;
 		if (fixedVariable == '1D1'){
@@ -1091,10 +1025,27 @@ function selectProbeAmount(event) {
 	}  
 	}
 	}
-</script>
-	
-<script>
-	function playSound1(repeats){
+
+function updateText(fixedVariable) {
+	if (fixedVariable == 'cv1'){
+	 doSend('1V1'+cv1.value);
+	}
+	else if (fixedVariable == 'cv2'){
+	 doSend('1V2'+cv2.value);
+	}
+	else if (fixedVariable == 'cv3'){
+	doSend('1V3'+cv3.value);
+	}
+	else if (fixedVariable == 'cv4'){
+	doSend('1V4'+cv4.value);
+	}
+	else if (fixedVariable == 'cv5'){
+	//console.log(cv5.value);
+	doSend('1V5'+cv5.value);
+	}
+}	
+
+function playSound1(repeats){
 		//console.log("enter playsound1");
 		numberofRingsAlarm1=repeats;
 		//console.log("numberofRingsAlarm1"); console.log(numberofRingsAlarm1);
@@ -1110,7 +1061,7 @@ function selectProbeAmount(event) {
 			}, 2900);
 			}
 	}	
-	function playSound2(repeats){
+function playSound2(repeats){
 		//console.log("enter playsound2");
 		numberofRingsAlarm2=repeats;
 		var sound = new Audio('/alarm.mp3');

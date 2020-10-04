@@ -87,6 +87,7 @@ pt100rtd PT100 = pt100rtd();
 float processRTD(uint16_t rtd);
 void initializeEEPROMvariables();
 void sendAllTempToClient();
+void sendAllCalibrationValues();
 
 void updateTimeAndGraph();
 void sendTimeToClient1 (uint16_t Time);
@@ -105,6 +106,7 @@ void notifyClients();
 void handleWebSocketMessage(void *arg, uint8_t *data, size_t len);
 void processWebSocketMessageS(String str, int stringLength, String dataString);
 void processWebSocketMessage(String str, int dataVar);
+void processWebSocketMessageFloat(String str, float dataVar);
 
 void setupESP32();
 void setupOledScreen();

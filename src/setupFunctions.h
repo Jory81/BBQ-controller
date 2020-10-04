@@ -149,6 +149,8 @@ sensorAmount = EEPROM.read(offsetof(storeInEEPROM, sensorAmount));
   //Serial.print("wifiPASS "); Serial.println(wifiPASS);
 
 for (int m = 0; m < 5; m++){
-calibrationValue[m]  = EEPROM.read(offsetof(storeInEEPROM, calibrationValue[m]));
+int offsetPosition = offsetof(storeInEEPROM, calibrationValue[0]);
+calibrationValue[m]  = EEPROM.readFloat(offsetPosition+4*m);
+//Serial.print("position: "); Serial.print(offsetPosition+4*m); Serial.print(" cal. value: "); Serial.println(calibrationValue[m]);
 }
 }

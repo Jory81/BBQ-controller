@@ -12,6 +12,7 @@ const char *WIFI_PASS_AP =  "";
 
 char strval[5]={0};
 uint16_t dataVar=0;
+float dataVarFloat =0.0f;
 
 uint16_t EEPROMposition = 0;
 uint16_t stringLength;
