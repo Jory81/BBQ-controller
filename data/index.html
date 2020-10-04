@@ -202,7 +202,7 @@
 	<hr>
 	Additional settings: 
 	<span id="checkbox1">
-	<input class="ckeckbox-element" type="checkbox" id="1N1" onclick="setTab('SetTab')"/>  
+	<input class="ckeckbox-element" type="checkbox" id="1O1" onclick="setTab('SetTab')"/>  
 	<i class="glyphicon glyphicon-menu-down"></i>
 	</span> 
 
@@ -241,6 +241,58 @@
 	<i class="glyphicon glyphicon-refresh"></i>
 	</span> 
 	</div>
+
+	calibration settings: 
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1N1" onclick="setTab('SetTab3')"/>  
+	<i class="glyphicon glyphicon-menu-down"></i>
+	</span> 
+
+	<div id="SetTab3">
+
+		<p>
+			<input name="calval1-input" placeholder="calibrationValue 1" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param9" data-target-id="confirm-calval1-input" data-target-param="data-action-1-param-9-value" style="width: 64px;">
+			<button id="confirm-calval1-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-calval1-input" data-action-1-param-9-name="calval1" data-action-1-param-9-value="">submit</button>
+
+			<i class="glyphicon glyphicon-signal"></i>
+			<span class="dht-labels">calibration Value T1</span> 
+			<span id="cal_val1">%c%</span>
+			<sup class="units">&deg;C</sup>
+
+			<input name="calval2-input" placeholder="calibrationValue 2" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param10" data-target-id="confirm-calval1-input" data-target-param="data-action-1-param-10-value" style="width: 64px;">
+			<button id="confirm-calval2-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-calval2-input" data-action-1-param-10-name="calval2" data-action-1-param-10-value="">submit</button>
+	
+			<i class="glyphicon glyphicon-signal"></i> 
+			<span class="dht-labels">calibration Value T2</span> 
+			<span id="cal_val2">%c%</span>
+			<sup class="units">&deg;C</sup>
+
+			<input name="calval3-input" placeholder="calibrationValue 3" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param11" data-target-id="confirm-calval3-input" data-target-param="data-action-1-param-11-value" style="width: 64px;">
+			<button id="confirm-calval3-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-calval3-input" data-action-1-param-11-name="calval3" data-action-1-param-11-value="">submit</button>
+	
+			<i class="glyphicon glyphicon-signal"></i>
+			<span class="dht-labels">calibration Value T3</span> 
+			<span id="cal_val3">%c%</span>
+			<sup class="units">&deg;C</sup>
+
+			<input name="calval4-input" placeholder="calibrationValue 4" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param12" data-target-id="confirm-calval4-input" data-target-param="data-action-1-param-12-value" style="width: 64px;">
+			<button id="confirm-calval4-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-calval4-input" data-action-1-param-12-name="calval4" data-action-1-param-12-value="">submit</button>
+
+			<i class="glyphicon glyphicon-signal"></i>
+			<span class="dht-labels">calibration Value T4</span> 
+			<span id="cal_val4">%c%</span>
+			<sup class="units">&deg;C</sup>
+
+			<input name="calval5-input" placeholder="calibrationValue 5" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param13" data-target-id="confirm-calval5-input" data-target-param="data-action-1-param-13-value" style="width: 64px;">
+			<button id="confirm-calval5-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-calval5-input" data-action-1-param-13-name="calval5" data-action-1-param-13-value="">submit</button>
+	
+			<i class="glyphicon glyphicon-signal"></i> 
+			<span class="dht-labels">calibration Value T5</span> 
+			<span id="cal_val5">%c%</span>
+			<sup class="units">&deg;C</sup>			
+		</p>
+
+	</div>	
 	
 	</div>
 	<br>
@@ -324,6 +376,7 @@ function onOpen(event) {
     console.log("Connected");
 	document.getElementById("SetTab").style.display = "none";
 	document.getElementById("SetTab2").style.display = "none";	
+	document.getElementById("SetTab3").style.display = "none";	
 	document.getElementById("1U1").checked = true;
 	k = 0;
 	doSend("GGG"+k);
@@ -501,13 +554,34 @@ if (string.charAt(0) == 'G'){
 		document.getElementById("1T1").checked = true;
 		//alarmActiveTimer2 = true;
 		}
-	}	
+	}
 	
+	else if (string.charAt(1) == 'V'){// checkBox - activates alarm1 Timer checkbox (alarmTime1)
+		var numArgs = 0;
+		var pos1 = 1;
+		var pos2 = 0;
+		var cal_values = new Array(5)
+		var fullString = string.slice(2, string.length);
+		for( var t = 0; t < string.length; t++ ){
+			if (string[t] == '+'){
+				pos2 = t;
+				var cal = string.substring(pos1, pos2);
+				cal_values[numArgs] = cal;		
+				numArgs = numArgs+1;
+				pos1 = t+1;		
+			}
+		}	
+		document.getElementById("cal_val1").innerHTML = cal_values[0];
+		document.getElementById("cal_val2").innerHTML = cal_values[1];
+		document.getElementById("cal_val3").innerHTML = cal_values[2];
+		document.getElementById("cal_val4").innerHTML = cal_values[3];
+		document.getElementById("cal_val5").innerHTML = cal_values[4];
+	}
 	
 	else {
 	};
 	
-	if (k < 16){
+	if (k < 17){
 	//console.log("k "); console.log(k);
     doSend("GGG"+k);
 	k = k + 1;
@@ -884,7 +958,63 @@ function drawChart1(temp){
                 $('#'+targetId).attr(targetParam, targetValue);
 				doSend("1B1"+targetValue);
             });
-        });		
+		});	
+		
+		$('input[data-purpose="change-data-param9"], select[data-purpose="change-data-param9"]').each(function(){ // each
+            $(this).unbind("change"); 
+            $(this).change(function() {
+                targetId = $(this).attr('data-target-id');
+                targetParam = $(this).attr('data-target-param9');
+                targetValue = $(this).val();
+                $('#'+targetId).attr(targetParam, targetValue);
+				doSend("1V1"+targetValue);
+				//console.log("1A1"); console.log(targetValue);
+			}); 
+			
+			$('input[data-purpose="change-data-param10"], select[data-purpose="change-data-param10"]').each(function(){ // each
+            $(this).unbind("change"); 
+            $(this).change(function() {
+                targetId = $(this).attr('data-target-id');
+                targetParam = $(this).attr('data-target-param10');
+                targetValue = $(this).val();
+                $('#'+targetId).attr(targetParam, targetValue);
+				doSend("1V2"+targetValue);
+				//console.log("1A1"); console.log(targetValue);
+			}); 
+			
+			$('input[data-purpose="change-data-param11"], select[data-purpose="change-data-param11"]').each(function(){ // each
+            $(this).unbind("change"); 
+            $(this).change(function() {
+                targetId = $(this).attr('data-target-id');
+                targetParam = $(this).attr('data-target-param11');
+                targetValue = $(this).val();
+                $('#'+targetId).attr(targetParam, targetValue);
+				doSend("1V3"+targetValue);
+				//console.log("1A1"); console.log(targetValue);
+			}); 
+			
+			$('input[data-purpose="change-data-param12"], select[data-purpose="change-data-param12"]').each(function(){ // each
+            $(this).unbind("change"); 
+            $(this).change(function() {
+                targetId = $(this).attr('data-target-id');
+                targetParam = $(this).attr('data-target-param12');
+                targetValue = $(this).val();
+                $('#'+targetId).attr(targetParam, targetValue);
+				doSend("1V4"+targetValue);
+				//console.log("1A1"); console.log(targetValue);
+			}); 
+			
+			$('input[data-purpose="change-data-param13"], select[data-purpose="change-data-param13"]').each(function(){ // each
+            $(this).unbind("change"); 
+            $(this).change(function() {
+                targetId = $(this).attr('data-target-id');
+                targetParam = $(this).attr('data-target-param13');
+                targetValue = $(this).val();
+                $('#'+targetId).attr(targetParam, targetValue);
+				doSend("1V5"+targetValue);
+				//console.log("1A1"); console.log(targetValue);
+            }); 
+        });
 
 </script>
 

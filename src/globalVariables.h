@@ -33,6 +33,8 @@ boolean setBlink = false;
 float temp[5] = {0,0,0,0,0};
 float oldtemp[5] = {0,0,0,0,0};
 
+float calibrationValue[5] = {-0.0, -0.0, -0.0, -0.0, -0.0};
+
 uint32_t Time1=0;
 uint32_t cTime1=0;
 uint32_t cTime2=0;
@@ -80,6 +82,7 @@ uint8_t sensorType;
 uint8_t sensorAmount;
 char ssidStorage[32];
 char passStorage[32];
+float calibrationValue[5];
 };
 
 storeInEEPROM customVar = {
@@ -87,7 +90,8 @@ storeInEEPROM customVar = {
       1, // sensorType ; 1 is PT100 2 is thermokoppel
       1, // sensorAmount 
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // ssidstorage
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  // passstorage
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // passstorage
+      0, 0, 0, 0, 0
     };
 
 char stringStorage[32];

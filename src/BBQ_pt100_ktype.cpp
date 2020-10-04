@@ -136,7 +136,7 @@ void loop()
           case 1: {
             for (int sensor = 0; sensor <sensorAmount; sensor++){
               uint16_t rtd = maxthermo[sensor].readRTD();
-              temp[sensor] = processRTD(rtd);
+              temp[sensor] = processRTD(rtd) - calibrationValue[sensor];
               oldtemp[sensor] = temp[sensor];
             }
             sendAllTempToClient();
