@@ -71,7 +71,7 @@
 	
 	<hr>
 	<h2>Timers</h2>
-    <input name="timer-input" placeholder="countdown time" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param2" data-target-id="confirm-timer-input" data-target-param="data-action-1-param-2-value" style="width: 64px;">
+    <input name="timer-input" placeholder="countdown time" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param2" data-target-id="confirm-timer-input" data-target-param="data-action-1-param-2-value">
 		<span class="dht-labels">Counter</span> 
 		<span id="timer">%s%</span>
 		<span class="units">(s)</span>
@@ -106,7 +106,7 @@
 	<hr>
     <h2>BBQ probe</h2>
 	<div>
-    <input name="celsius-input" placeholder="targetTemp 1" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param" data-target-id="confirm-celsius-input" data-target-param="data-action-1-param-1-value" style="width: 64px;">
+    <input name="celsius-input" placeholder="input Temp 1" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param" data-target-id="confirm-celsius-input" data-target-param="data-action-1-param-1-value">
     <button id="confirm-celsius-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-celsius-input" data-action-1-param-1-name="celsius" data-action-1-param-1-value="">submit</button>
     
 	    <span class="dht-labels"></span> 
@@ -126,7 +126,7 @@
 	</div>	
 	
 	<div>
-    <input name="celsiusOffset-input" placeholder="offsetTemp 1" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param5" data-target-id="confirm-celsiusOffset-input" data-target-param5="data-action-1-param-5-value" style="width: 64px;">
+    <input name="celsiusOffset-input" placeholder="offsetTemp 1" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param5" data-target-id="confirm-celsiusOffset-input" data-target-param5="data-action-1-param-5-value">
     <button id="confirm-celsiusOffset-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-celsiusOffset-input" data-action-1-param-5-name="celsiusOffset" data-action-1-param-5-value="">submit</button>
 	    <span class="dht-labels"></span> 
         <span id="offsetFromTargetTemp1">%c%</span>
@@ -139,7 +139,7 @@
 	
 	</div>
     <div>
-    <input name="alarm-input" placeholder="alarmTime 1" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param3" data-target-id="confirm-alarm-input" data-target-param="data-action-1-param-3-value" style="width: 64px;">
+    <input name="alarm-input" placeholder="alarmTime 1" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param3" data-target-id="confirm-alarm-input" data-target-param="data-action-1-param-3-value">
     <button id="confirm-alarm-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-alarm-input" data-action-1-param-3-name="alarm" data-action-1-param-3-value="">submit</button>
     
 		<span class="dht-labels"></span> 
@@ -163,7 +163,7 @@
 	<hr>
     <h2>FOOD probe</h2>
 	<div>
-    <input name="celsius2-input" placeholder="targetTemp 2" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param4" data-target-id="confirm-celsius2-input" data-target-param="data-action-1-param-4-value" style="width: 64px;">
+    <input name="celsius2-input" placeholder="input Temp 2" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param4" data-target-id="confirm-celsius2-input" data-target-param="data-action-1-param-4-value">
     <button id="confirm-celsius2-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-celsius2-input" data-action-1-param-4-name="celsius2" data-action-1-param-4-value="">submit</button>
     
 	<span class="dht-labels"></span> 
@@ -178,7 +178,7 @@
 	</div>
 	
     <div>
-    <input name="alarm2-input" placeholder="alarmTime 2" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param6" data-target-id="confirm-alarm2-input" data-target-param="data-action-1-param-6-value" style="width: 64px;">
+    <input name="alarm2-input" placeholder="alarmTime 2" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param6" data-target-id="confirm-alarm2-input" data-target-param="data-action-1-param-6-value">
     <button id="confirm-alarm2-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-alarm2-input" data-action-1-param-6-name="alarm2" data-action-1-param-6-value="">submit</button>
     
 		<span class="dht-labels"></span> 
@@ -214,7 +214,7 @@
 
 	<div id="SetTab3">
 		<div>
-			<span class="inputparam"> <input type="number" placeholder="calibrationValue 1" class="form-controlx input-sl" id="cv1" value=""></span> <span><button onclick="updateText('cv1')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
+			<span class="inputparam"> <input type="number" placeholder="input cal. 1" class="form-controlx input-sl" id="cv1" value=""></span> <span><button onclick="updateText('cv1')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i>
 			<span class="dht-labels">calibration Value T1</span> 
 			<span id="cal_val1">%c%</span>
@@ -222,7 +222,7 @@
 		</div>
 
 		<div>
-			<span class="inputparam"> <input type="number" placeholder="calibrationValue 2" class="form-controlx input-sl" id="cv2" value=""></span> <span><button onclick="updateText('cv2')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
+			<span class="inputparam"> <input type="number" placeholder="input cal. 2" class="form-controlx input-sl" id="cv2" value=""></span> <span><button onclick="updateText('cv2')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
 			<span class="dht-labels">calibration Value T2</span> 
 			<span id="cal_val2">%c%</span>
@@ -230,7 +230,7 @@
 		</div>
 
 		<div>
-			<span class="inputparam"> <input type="number" placeholder="calibrationValue 3" class="form-controlx input-sl" id="cv3" value=""></span> <span><button onclick="updateText('cv3')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
+			<span class="inputparam"> <input type="number" placeholder="input cal. 3" class="form-controlx input-sl" id="cv3" value=""></span> <span><button onclick="updateText('cv3')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i>
 			<span class="dht-labels">calibration Value T3</span> 
 			<span id="cal_val3">%c%</span>
@@ -238,7 +238,7 @@
 		</div>
 
 		<div>
-			<span class="inputparam"> <input type="number" placeholder="calibrationValue 4" class="form-controlx input-sl" id="cv4" value=""></span> <span><button onclick="updateText('cv4')" class="btnx btn-primary">submit</button> </span>      	&nbsp; &nbsp;
+			<span class="inputparam"> <input type="number" placeholder="input cal. 4" class="form-controlx input-sl" id="cv4" value=""></span> <span><button onclick="updateText('cv4')" class="btnx btn-primary">submit</button> </span>      	&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i>
 			<span class="dht-labels">calibration Value T4</span> 
 			<span id="cal_val4">%c%</span>
@@ -246,7 +246,7 @@
 		</div>
 
 		<div>
-			<span class="inputparam"> <input type="number" placeholder="calibrationValue 5" class="form-controlx input-sl" id="cv5" value=""></span> <span><button onclick="updateText('cv5')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
+			<span class="inputparam"> <input type="number" placeholder="input cal. 5" class="form-controlx input-sl" id="cv5" value=""></span> <span><button onclick="updateText('cv5')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
 			<span class="dht-labels">calibration Value T5</span> 
 			<span id="cal_val5">%c%</span>
@@ -273,13 +273,13 @@
 	<br>
 	<br>
 	
-	<input name="WID-input" placeholder="Wifi ID" class="form-controlx input-sl" type="text" data-rule-required="true" data-purpose="change-data-param7" data-target-id="confirm-WID-input" data-target-param="data-action-1-param-7-value" style="width: 64px;">
+	<input name="WID-input" placeholder="input Wifi ID" class="form-controlx input-sl" type="text" data-rule-required="true" data-purpose="change-data-param7" data-target-id="confirm-WID-input" data-target-param="data-action-1-param-7-value" style="width: 64px;">
     <button id="confirm-WID-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-WID-input" data-action-1-param-7-name="WID" data-action-1-param-7-value="">submit</button>
 	&nbsp
 	<span id="SSID"></span>
 	<br>
 	<br>
-	<input name="WPW-input" placeholder="Wifi pass" class="form-controlx input-sl" type="text" data-rule-required="true" data-purpose="change-data-param8" data-target-id="confirm-WPW-input" data-target-param="data-action-1-param-8-value" style="width: 64px;">
+	<input name="WPW-input" placeholder="input Wifi pass" class="form-controlx input-sl" type="text" data-rule-required="true" data-purpose="change-data-param8" data-target-id="confirm-WPW-input" data-target-param="data-action-1-param-8-value" style="width: 64px;">
     <button id="confirm-WPW-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-WPW-input" data-action-1-param-8-name="WPW" data-action-1-param-8-value="">submit</button>
 	&nbsp
 	<span id="PASS"></span>	
