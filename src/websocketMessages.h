@@ -147,7 +147,7 @@ void processWebSocketMessage(String str, int dataVar){
       else if (str == "1L1"){fanON = dataVar; fanState = !fanON; String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);}
       else if (str == "1RR"){alarmMessage = dataVar; alarmMessageTimer = millis();}
       else if (str == "1ST"){sensorType = dataVar; EEPROM.put(offsetof(storeInEEPROM, sensorType), sensorType);  EEPROM.commit(); String mergedString = "GT"+String(sensorType); ws.textAll(mergedString); }
-      else if (str == "1SN"){sensorAmount = dataVar; EEPROM.put(offsetof(storeInEEPROM, sensorAmount), sensorAmount);  EEPROM.commit(); String mergedString = "GS"+String(sensorAmount); ws.textAll(mergedString); }
+      else if (str == "1SN"){sensorAmount = dataVar; EEPROM.put(offsetof(storeInEEPROM, sensorAmount), sensorAmount);  EEPROM.commit(); ESP.restart(); }
       else if (str == "1T1"){fanManual = dataVar; fanState = !fanON; String mergedString = "GU"+String(fanManual); ws.textAll(mergedString);}
       else if (str == "1U1"){ESP.restart();};
   }    
