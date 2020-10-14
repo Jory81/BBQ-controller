@@ -12,6 +12,10 @@
 
   Written by Limor Fried/Ladyada for Adafruit Industries.  
   BSD license, all text above must be included in any redistribution
+
+
+HALLO LEON
+
  ****************************************************/
 
 #include <Arduino.h>
