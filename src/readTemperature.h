@@ -86,57 +86,57 @@ float processRTD(uint16_t rtd){
 //  }
 //}
 
-void fanControl()
-{
-      //Serial.println("how many times do I enter fan control?"); 
-      if (targetTemperature1 != 0 && temp[0] > targetTemperature1){
-        tempState = true;
-        if (tempState != lastTempState){
-          lastTempState = tempState;
-          fanState = !fanON;
-        }  
-      }
-      else if (targetTemperature1 != 0 && temp[0] < targetTemperature1){
-        tempState = false;
-        if (tempState != lastTempState){
-          lastTempState = tempState;
-          fanState = !fanON;
-        }   
-      }
+// void fanControl()
+// {
+//       //Serial.println("how many times do I enter fan control?"); 
+//       if (targetTemperature1 != 0 && temp[0] > targetTemperature1){
+//         tempState = true;
+//         if (tempState != lastTempState){
+//           lastTempState = tempState;
+//           fanState = !fanON;
+//         }  
+//       }
+//       else if (targetTemperature1 != 0 && temp[0] < targetTemperature1){
+//         tempState = false;
+//         if (tempState != lastTempState){
+//           lastTempState = tempState;
+//           fanState = !fanON;
+//         }   
+//       }
   
-      if (targetTemperature1 != 0 && fanManual == false && fanState != fanON){
-        if (temp[0] > targetTemperature1){
-        digitalWrite(LED,LOW);
-        digitalWrite(RELAY, LOW);
-        fanON = false;
-        fanState = false;
-        String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);
-        }
-        else {
-        digitalWrite(LED, HIGH);
-        digitalWrite(RELAY, HIGH);
-        fanON = true;
-        fanState = true;
-        String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);
-        }
-      }
-      else if ((targetTemperature1 == 0 || fanManual == true) && fanState != fanON){
-        if (fanON == true){
-          digitalWrite(LED, HIGH);
-          digitalWrite(RELAY, HIGH);
-          fanON = true;
-          fanState = true;
-          String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);   
-        }
-        else {
-          digitalWrite(LED,LOW);
-          digitalWrite(RELAY, LOW);
-          fanON = false;
-          fanState = false;
-          String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);          
-        }
-      }
-}
+//       if (targetTemperature1 != 0 && fanManual == false && fanState != fanON){
+//         if (temp[0] > targetTemperature1){
+//         digitalWrite(LED,LOW);
+//         digitalWrite(RELAY, LOW);
+//         fanON = false;
+//         fanState = false;
+//         String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);
+//         }
+//         else {
+//         digitalWrite(LED, HIGH);
+//         digitalWrite(RELAY, HIGH);
+//         fanON = true;
+//         fanState = true;
+//         String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);
+//         }
+//       }
+//       else if ((targetTemperature1 == 0 || fanManual == true) && fanState != fanON){
+//         if (fanON == true){
+//           digitalWrite(LED, HIGH);
+//           digitalWrite(RELAY, HIGH);
+//           fanON = true;
+//           fanState = true;
+//           String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);   
+//         }
+//         else {
+//           digitalWrite(LED,LOW);
+//           digitalWrite(RELAY, LOW);
+//           fanON = false;
+//           fanState = false;
+//           String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);          
+//         }
+//       }
+// }
 
 void updateTimeAndGraph ()
 {   

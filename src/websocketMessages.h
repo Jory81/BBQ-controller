@@ -129,7 +129,7 @@ void processWebSocketMessage(String str, int dataVar){
   }
   
   else if (firstChar == "1"){  
-      if (str == "1A1"){targetTemperature1 = dataVar; fanState = !fanON; String mergedString = "GC"+String(targetTemperature1); ws.textAll(mergedString); } // alarmActiveT1 = true;}
+      if (str == "1A1"){targetTemperature1 = dataVar; setPoint = dataVar; fanState = !fanON; String mergedString = "GC"+String(targetTemperature1); ws.textAll(mergedString); } // alarmActiveT1 = true;}
       else if (str == "1A2"){targetTemperature2 = dataVar; String mergedString = "GD"+String(targetTemperature2); ws.textAll(mergedString); } // alarmActiveT2 = true;}   
       else if (str == "1B1"){targetTime1 = dataVar*1000; timer = true; startTime1=millis();}
       else if (str == "1C1"){counter1 = dataVar; startCounter1=millis();}
@@ -142,7 +142,7 @@ void processWebSocketMessage(String str, int dataVar){
       else if (str == "1G2"){alarmActive2 = dataVar; String mergedString = "GH"+String(alarmActive2); ws.textAll(mergedString);}// blinkON = false; digitalWrite(LED, LOW);}      
       else if (str == "1J1"){alarmReachTemp1 = dataVar; String mergedString = "GM"+String(alarmReachTemp1); ws.textAll(mergedString);}
       else if (str == "1J2"){alarmReachTemp2 = dataVar; String mergedString = "GN"+String(alarmReachTemp2); ws.textAll(mergedString);}
-      else if (str == "1K1"){offsetTemperature1 = dataVar; String mergedString = "GO"+String(offsetTemperature1); ws.textAll(mergedString);}
+      else if (str == "1K1"){offsetTemperature1 = dataVar; (double) dataVar; myPID.setBangBang(dataVar);  String mergedString = "GO"+String(offsetTemperature1); ws.textAll(mergedString);}
       else if (str == "1M1"){tempOffsetAlarm = dataVar; String mergedString = "GR"+String(tempOffsetAlarm); ws.textAll(mergedString);}
       else if (str == "1L1"){fanON = dataVar; fanState = !fanON; String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);}
       else if (str == "1RR"){alarmMessage = dataVar; alarmMessageTimer = millis();}

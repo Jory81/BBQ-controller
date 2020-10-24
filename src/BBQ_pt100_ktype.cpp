@@ -47,6 +47,7 @@ HALLO LEON
 #endif
 
 #include <pt100rtd.h>
+#include <AutoPID.h>
 
 // OLED SD1306 properties
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
@@ -119,11 +120,30 @@ void setupEEPROM();
 void setupWIFI();
 void setupTempSensors();
 
+//pid settings and gains
+#define OUTPUT_MIN 30
+#define OUTPUT_MAX 255
+#define KP .12
+#define KI .0003
+#define KD 0
+
+double temperature, setPoint, outputVal;
+
+//input/output variables passed by reference, so they are updated automatically
+AutoPID myPID(&temperature, &setPoint, &outputVal, OUTPUT_MIN, OUTPUT_MAX, KP, KI, KD);
+
+#define OUTPUT_PIN 4
+const int freq = 10;
+const int ledChannel = 0;
+const int resolution = 8;
+
 #include "globalVariables.h"
 #include "readTemperature.h"
 #include "setupFunctions.h"
 #include "websocketMessages.h"
 #include "oledDisplay.h"
+
+//#include <OneWire.h>
 
 void setup()
 {
@@ -133,6 +153,14 @@ setupSPIFFS();
 setupEEPROM();
 setupWIFI();
 setupTempSensors();
+
+ledcSetup(ledChannel, freq, resolution);
+ledcAttachPin(OUTPUT_PIN, ledChannel);
+//if temperature is more than 4 degrees below or above setpoint, OUTPUT will be set to min or max respectively
+myPID.setBangBang(4);
+//set PID update interval to 4000ms
+myPID.setTimeStep(4000);
+
 }
 
 void loop()
@@ -145,6 +173,7 @@ void loop()
               temp[sensor] = processRTD(rtd) - calibrationValue[sensor];
               oldtemp[sensor] = temp[sensor];
             }
+            temperature=temp[0];
             sendAllTempToClient();
           }
 
@@ -156,15 +185,19 @@ void loop()
                   oldtemp[sensor] = temp[sensor];             
                   }
             }
+            temperature=temp[0];
             sendAllTempToClient();
           }
           break;
         }
   
     displayOledScreen(temp[0], temp[1], temp[2], temp[3]);
-    fanControl();
+    //fanControl();
     updateTimeAndGraph();
   
     previousMillis1 = millis();
     }
+    myPID.run(); //call every loop, updates automatically at certain time interval
+    ledcWrite(ledChannel, outputVal);
+    digitalWrite(LED, myPID.atSetPoint(1));
 }
