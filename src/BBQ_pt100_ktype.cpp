@@ -164,11 +164,9 @@ setupTempSensors();
 
 ledcSetup(ledChannel, freq, resolution);
 ledcAttachPin(OUTPUT_PIN, ledChannel);
-//if temperature is more than 4 degrees below or above setpoint, OUTPUT will be set to min or max respectively
-myPID.setBangBang(10);
-//set PID update interval to 4000ms
-myPID.setTimeStep(100);
 
+myPID.setBangBang(offsetTemperature1);
+myPID.setTimeStep(100);
 }
 
 void loop()
@@ -181,8 +179,6 @@ void loop()
               temp[sensor] = processRTD(rtd) - calibrationValue[sensor];
               oldtemp[sensor] = temp[sensor];
             }
-            //temperature=temp[0];
-            //myPID.run(); //call every loop, updates automatically at certain time interval
             sendAllTempToClient();
           }
           break;
@@ -193,8 +189,6 @@ void loop()
                   oldtemp[sensor] = temp[sensor];             
                   }
             }
-            //temperature=temp[0];
-            //myPID.run(); //call every loop, updates automatically at certain time interval
             sendAllTempToClient();
           }
           break;
@@ -205,6 +199,4 @@ void loop()
     updateTimeAndGraph();
     previousMillis1 = millis();
     }
-    
-//    digitalWrite(LED, myPID.atSetPoint(1)); 
 }

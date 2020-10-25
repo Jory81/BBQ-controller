@@ -132,6 +132,7 @@ void processWebSocketMessage(String str, int dataVar){
     else if (dataVar == 15){String mergedString = "GU"+String(fanManual); ws.textAll(mergedString);}
     else if (dataVar == 16){sendAllCalibrationValues();}
     else if (dataVar == 17){sendAllPIDValues();}
+    else if (dataVar == 18){String mergedString = "GX"+String(tempControlPID); ws.textAll(mergedString);}
   }
   
   else if (firstChar == "1"){  
@@ -155,6 +156,7 @@ void processWebSocketMessage(String str, int dataVar){
       else if (str == "1ST"){sensorType = dataVar; EEPROM.put(offsetof(storeInEEPROM, sensorType), sensorType);  EEPROM.commit(); String mergedString = "GT"+String(sensorType); ws.textAll(mergedString); }
       else if (str == "1SN"){sensorAmount = dataVar; EEPROM.put(offsetof(storeInEEPROM, sensorAmount), sensorAmount);  EEPROM.commit(); ESP.restart(); }
       else if (str == "1T1"){fanManual = dataVar; fanState = !fanON; String mergedString = "GU"+String(fanManual); ws.textAll(mergedString);}
+      else if (str == "1X1"){tempControlPID = dataVar; EEPROM.put(offsetof(storeInEEPROM, tempControlPID), tempControlPID);  EEPROM.commit(); sendAllPIDValues();}
       else if (str == "1U1"){ESP.restart();};
   }    
   else {
@@ -164,20 +166,45 @@ void processWebSocketMessage(String str, int dataVar){
 
 void processWebSocketMessageFloat(String str, float dataVar){
   if (firstChar == "1"){
-      if (str == "1V1"){calibrationValue[0] = dataVar; EEPROM.put(offsetof(storeInEEPROM, calibrationValue[0]), calibrationValue[0]);  EEPROM.commit(); sendAllCalibrationValues(); }
-      else if (str == "1V2"){calibrationValue[1] = dataVar; EEPROM.put(offsetof(storeInEEPROM, calibrationValue[1]), calibrationValue[1]);  EEPROM.commit(); sendAllCalibrationValues(); }
-      else if (str == "1V3"){calibrationValue[2] = dataVar; EEPROM.put(offsetof(storeInEEPROM, calibrationValue[2]), calibrationValue[2]);  EEPROM.commit(); sendAllCalibrationValues(); }
-      else if (str == "1V4"){calibrationValue[3] = dataVar; EEPROM.put(offsetof(storeInEEPROM, calibrationValue[3]), calibrationValue[3]);  EEPROM.commit(); sendAllCalibrationValues(); }
-      else if (str == "1V5"){calibrationValue[4] = dataVar; EEPROM.put(offsetof(storeInEEPROM, calibrationValue[4]), calibrationValue[4]);  EEPROM.commit(); sendAllCalibrationValues(); }  
+      if (str == "1V1"){calibrationValue[0] = dataVar; EEPROM.put(offsetof(storeInEEPROM, calibrationValue[0]), calibrationValue[0]);  EEPROM.commit(); }
+      else if (str == "1V2"){calibrationValue[1] = dataVar; EEPROM.put(offsetof(storeInEEPROM, calibrationValue[1]), calibrationValue[1]);  EEPROM.commit(); }
+      else if (str == "1V3"){calibrationValue[2] = dataVar; EEPROM.put(offsetof(storeInEEPROM, calibrationValue[2]), calibrationValue[2]);  EEPROM.commit(); }
+      else if (str == "1V4"){calibrationValue[3] = dataVar; EEPROM.put(offsetof(storeInEEPROM, calibrationValue[3]), calibrationValue[3]);  EEPROM.commit(); }
+      else if (str == "1V5"){calibrationValue[4] = dataVar; EEPROM.put(offsetof(storeInEEPROM, calibrationValue[4]), calibrationValue[4]);  EEPROM.commit(); }  
   }
+  sendAllCalibrationValues(); 
 }
 
 void processWebSocketMessageDouble(String str, double dataVar){
   if (firstChar == "1"){
-      if (str == "1W1"){PIDValue[0] = dataVar; KP = dataVar; OUTPUT_MIN = dataVar; sendAllPIDValues(); } // EEPROM.put(offsetof(storeInEEPROM, PIDValue[0]), PIDValue[0]);  EEPROM.commit(); sendAllPIDValues(); } 
-      else if (str == "1W2"){PIDValue[1] = dataVar; KI = dataVar; OUTPUT_MAX = dataVar; sendAllPIDValues(); } //  EEPROM.put(offsetof(storeInEEPROM, PIDValue[1]), PIDValue[1]);  EEPROM.commit(); sendAllPIDValues(); }
-      else if (str == "1W3"){PIDValue[2] = dataVar; KD = dataVar; sendAllPIDValues(); } // EEPROM.put(offsetof(storeInEEPROM, PIDValue[2]), PIDValue[2]);  EEPROM.commit(); sendAllPIDValues(); }
-  }
+      if (str == "1W1"){
+        if (tempControlPID){
+          KP = dataVar;
+          // EEPROM.put(offsetof(storeInEEPROM, KP), KP);  EEPROM.commit(); 
+        }
+        else {
+          OUTPUT_MIN = dataVar; 
+          // EEPROM.put(offsetof(storeInEEPROM, OUTPUT_MIN), OUTPUT_MIN);  EEPROM.commit(); 
+        }
+      } 
+      else if (str == "1W2"){
+        if (tempControlPID){
+          KI = dataVar;
+          //  EEPROM.put(offsetof(storeInEEPROM, KI), KI);  EEPROM.commit();
+        }
+        else {
+          OUTPUT_MAX = dataVar; 
+          // EEPROM.put(offsetof(storeInEEPROM, OUTPUT_MAX), OUTPUT_MAX);  EEPROM.commit(); 
+        }
+      }
+      else if (str == "1W3"){
+      if (tempControlPID){
+        KD = dataVar;
+        // EEPROM.put(offsetof(storeInEEPROM, KD), KD);  EEPROM.commit();
+      }
+      }
+  sendAllPIDValues();
+}
 }
 
 
@@ -195,7 +222,7 @@ void sendAllCalibrationValues(){
 }
 
 void sendAllPIDValues(){
-            String mergedString = "GW" + String(PIDValue[0], 4) + "+" + String(PIDValue[1], 4) + "+" + String(PIDValue[2], 4) + "+"; 
+            String mergedString = "GW" + String(KP, 4) + "+" + String(KI, 4) + "+" + String(KD, 4) + "+"; 
             ws.textAll(mergedString);
             Serial.println(mergedString);
 }

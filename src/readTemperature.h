@@ -88,6 +88,7 @@ float processRTD(uint16_t rtd){
 
 void fanControl()
 {
+  if (!tempControlPID){
       // checks conditions. If conditions change drastically system is set up to be reevaluated. The code is not readable anymore and overcomplicated (due to new featues), but works so not optimized.
       if (targetTemperature1 != 0 && temp[0] > targetTemperature1){
         tempState = true;
@@ -147,6 +148,11 @@ void fanControl()
      else{
      outputVal = 0;  
      }
+  }
+  else if (tempControlPID){
+      temperature=temp[0];
+      myPID.run(); //call every loop, updates automatically at certain time interval
+  }
 
 ledcWrite(ledChannel, outputVal);
 fanSpeed = map(outputVal, 0, 255, 0, 100);

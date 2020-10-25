@@ -36,7 +36,6 @@ float temp[5] = {0,0,0,0,0};
 float oldtemp[5] = {0,0,0,0,0};
 
 float calibrationValue[5] = {-0.0, -0.0, -0.0, -0.0, -0.0};
-double PIDValue[5] = {-0.0, -0.0, -0.0};
 
 uint32_t Time1=0;
 uint32_t cTime1=0;
@@ -59,6 +58,7 @@ boolean alarmReachTemp1 = false;
 boolean fanState=false;
 boolean lastTempState=false;
 boolean tempState=false;
+boolean tempControlPID=false; 
 byte fanSpeed = 0;
 
 uint16_t targetTemperature2=0;
@@ -87,17 +87,21 @@ uint8_t sensorAmount;
 char ssidStorage[32];
 char passStorage[32];
 float calibrationValue[5];
-double PIDValue[3];
+boolean tempControlPID;
+double KP, KI, KD;
+double OUTPUT_MIN, OUTPUT_MAX;
 };
 
 storeInEEPROM customVar = {
-      22553, // code to check
+      22443, // code to check
       1, // sensorType ; 1 is PT100 2 is thermokoppel
       1, // sensorAmount 
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // ssidstorage
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // passstorage
       0, 0, 0, 0, 0, // calibration values
-      0, 0, 0 // PID values
+      0, // boolean tempControlPID;
+      5, 3, 1, // PID values
+      0, 255
     };
 
 char stringStorage[32];

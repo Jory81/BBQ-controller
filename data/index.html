@@ -224,7 +224,7 @@
 		<div>
 			<span class="inputparam"> <input type="number" placeholder="input cal. 1" class="form-controlx input-sl" id="cv1" value=""></span> <span><button onclick="updateText('cv1')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i>
-			<span class="dht-labels">calibration Value T1</span> 
+			<span class="dht-labels">cal. val1</span> 
 			<span id="cal_val1">%c%</span>
 			<sup class="units">&deg;C</sup>
 		</div>
@@ -232,7 +232,7 @@
 		<div>
 			<span class="inputparam"> <input type="number" placeholder="input cal. 2" class="form-controlx input-sl" id="cv2" value=""></span> <span><button onclick="updateText('cv2')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels">calibration Value T2</span> 
+			<span class="dht-labels">cal. val2</span> 
 			<span id="cal_val2">%c%</span>
 			<sup class="units">&deg;C</sup>
 		</div>
@@ -240,7 +240,7 @@
 		<div>
 			<span class="inputparam"> <input type="number" placeholder="input cal. 3" class="form-controlx input-sl" id="cv3" value=""></span> <span><button onclick="updateText('cv3')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i>
-			<span class="dht-labels">calibration Value T3</span> 
+			<span class="dht-labels">cal. val3</span> 
 			<span id="cal_val3">%c%</span>
 			<sup class="units">&deg;C</sup>
 		</div>
@@ -248,7 +248,7 @@
 		<div>
 			<span class="inputparam"> <input type="number" placeholder="input cal. 4" class="form-controlx input-sl" id="cv4" value=""></span> <span><button onclick="updateText('cv4')" class="btnx btn-primary">submit</button> </span>      	&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i>
-			<span class="dht-labels">calibration Value T4</span> 
+			<span class="dht-labels">cal. val4</span> 
 			<span id="cal_val4">%c%</span>
 			<sup class="units">&deg;C</sup>
 		</div>
@@ -256,7 +256,7 @@
 		<div>
 			<span class="inputparam"> <input type="number" placeholder="input cal. 5" class="form-controlx input-sl" id="cv5" value=""></span> <span><button onclick="updateText('cv5')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels">calibration Value T5</span> 
+			<span class="dht-labels">cal. val5</span> 
 			<span id="cal_val5">%c%</span>
 			<sup class="units">&deg;C</sup>	
 		</div>	
@@ -264,24 +264,24 @@
 		<br>
 		
 		<div>
-			<span class="inputparam"> <input type="number" placeholder="input KP (MIN)" class="form-controlx input-sl" id="pv1" value=""></span> <span><button onclick="updateText('pv1')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
+			<span class="inputparam"> <input type="number" placeholder="input KP or MIN" class="form-controlx input-sl" id="pv1" value=""></span> <span><button onclick="updateText('pv1')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels">PID Value 1</span>
-			<span id="pid_val1">%c%</span>
+			<span class="dht-labels">KP or OUTPUT_MIN</span>
+			<span id="pid_val1"></span>
 		</div>	
 		
 		<div>
-			<span class="inputparam"> <input type="number" placeholder="input KI (MAX)" class="form-controlx input-sl" id="pv2" value=""></span> <span><button onclick="updateText('pv2')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
+			<span class="inputparam"> <input type="number" placeholder="input KI or MAX" class="form-controlx input-sl" id="pv2" value=""></span> <span><button onclick="updateText('pv2')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels">PID Value 2</span> 
-			<span id="pid_val2">%c%</span>
+			<span class="dht-labels">KI or OUTPUT_MAX</span> 
+			<span id="pid_val2"></span>
 		</div>	
 		
 		<div>
 			<span class="inputparam"> <input type="number" placeholder="input KD (-)" class="form-controlx input-sl" id="pv3" value=""></span> <span><button onclick="updateText('pv3')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels">PID Value 3</span> 
-			<span id="pid_val3">%c%</span>
+			<span class="dht-labels">KD (-)</span> 
+			<span id="pid_val3"></span>
 		</div>			
 
 
@@ -304,6 +304,14 @@
 	<option value="5" >5 probes</option>
 	</select>	
 	<br>
+
+	<div>
+		<span id="checkbox1">PID control (checked) or linear control
+		<input class="ckeckbox-element" type="checkbox" id="1X1" onclick="updateButton('1X1')"/>  
+		<i class="glyphicon glyphicon-tasks"></i>
+		</span> 
+	</div>		
+
 	<br>
 	
 	<input name="WID-input" placeholder="input Wifi ID" class="form-controlx input-sl" type="text" data-rule-required="true" data-purpose="change-data-param7" data-target-id="confirm-WID-input" data-target-param="data-action-1-param-7-value" style="width: 64px;">
@@ -586,6 +594,18 @@ if (string.charAt(0) == 'G'){
 		//alarmActiveTimer2 = true;
 		}
 	}
+
+	else if (string.charAt(1) == 'X'){// checkBox - activates alarm1 Timer checkbox (alarmTime1)
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		document.getElementById("1X1").checked = false;
+		//alarmActiveTimer2 = false;
+		}
+		else if (residu == '1'){
+		document.getElementById("1X1").checked = true;
+		//alarmActiveTimer2 = true;
+		}
+	}	
 	
 	else if (string.charAt(1) == 'V'){// checkBox - activates alarm1 Timer checkbox (alarmTime1)
 		var numArgs = 0;
