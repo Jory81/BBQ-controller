@@ -45,8 +45,9 @@ void displayOledScreen(float temp1, float temp2, float temp3, float temp4){
   }
   display.setTextSize(3); 
   display.setCursor(24,8);
-  display.print(temp1, 0); display.println((char)247);
+  display.print(temp1, 0); display.setTextSize(1); display.println((char)247);
   display.setCursor(24,32); 
-  display.print(temp2, 0); display.println((char)247);
+  display.setTextSize(3);
+  display.print(temp2, 0); display.setTextSize(1); display.println((char)247);
   display.display();
 }
