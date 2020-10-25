@@ -30,7 +30,7 @@ void setupEEPROM(){
   int check  = EEPROM.readInt(0);
   #endif
   
-  if (check == 22443){
+  if (check == 11332){
   display.print(F("code: ")); display.println(check);
   display.println(F("EEPROM SET"));
   display.display();
@@ -38,7 +38,7 @@ void setupEEPROM(){
   delay(1000);
   }
   
-  else if (check != 22443){
+  else if (check != 11332){
   display.println(F("EEPROM not initialized"));
   display.println(F("Write to EEPROM"));
   display.display();
@@ -140,6 +140,7 @@ EEPROM.get(offsetof(storeInEEPROM, KI), KI);
 EEPROM.get(offsetof(storeInEEPROM, KD), KD);
 EEPROM.get(offsetof(storeInEEPROM, OUTPUT_MIN), OUTPUT_MIN);
 EEPROM.get(offsetof(storeInEEPROM, OUTPUT_MAX), OUTPUT_MAX);
+EEPROM.get(offsetof(storeInEEPROM, targetTemperature1), targetTemperature1;
 
 for (int m = 0; m < 5; m++){
 int offsetPosition = offsetof(storeInEEPROM, calibrationValue[0]);
@@ -147,6 +148,7 @@ EEPROM.get(offsetPosition+(4*m), calibrationValue[m]);
 }
 
 #else
+targetTemperature1 = EEPROM.readInt(offsetof(storeInEEPROM, targetTemperature1));
 KP = EEPROM.readDouble(offsetof(storeInEEPROM, KP));
 KI = EEPROM.readDouble(offsetof(storeInEEPROM, KI));
 KD = EEPROM.readDouble(offsetof(storeInEEPROM, KD));

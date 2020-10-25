@@ -74,7 +74,7 @@ Thermocouple* thermocouple[5];
 
 #define LED 2
 #define updateTimeTemp 1000
-#define updateTimeGraph 10000
+#define updateTimeGraph 5000
 
 Adafruit_MAX31865 maxthermo[5] = {Adafruit_MAX31865(5), Adafruit_MAX31865(26), Adafruit_MAX31865(27), Adafruit_MAX31865(32), Adafruit_MAX31865(12)} ; // 5, 26, 27, 32, 12
 
@@ -103,6 +103,7 @@ void updateGraph (float temp);
 void updateGraph2 (float temp);
 void displayOledScreen(float temp1, float temp2, float temp3, float temp4);
 void fanControl();
+void messageFanState();
 void updateFanSpeed(byte fanSpeed);
 
 void onRootRequest(AsyncWebServerRequest *request);
@@ -131,9 +132,9 @@ double OUTPUT_MAX = 255;
 // #define KI .0003
 // #define KD 0
 
-double KP = .12;
-double KI =  .0003;
-double KD =  0;
+double KP = 5;
+double KI = 3;
+double KD = 1;
 
 double temperature, setPoint, outputVal;
 

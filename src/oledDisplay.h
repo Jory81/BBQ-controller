@@ -6,7 +6,11 @@ void displayOledScreen(float temp1, float temp2, float temp3, float temp4){
   display.print("bbq");
   display.setCursor(0,46); // 54 is fit
   display.print("food");
-  uint8_t calposition = 46-(sensorAmount*8);
+  display.setCursor(96,8); 
+  display.print(targetTemperature1); display.print((char)247); //display.print((char)247);
+  display.setCursor(96,16); 
+  display.print(fanSpeed); display.print("%");
+  uint8_t calposition = 54-(sensorAmount*8);
   display.setCursor(96, calposition);
   display.print("cal:");
   for (int sensor = 0; sensor < sensorAmount; sensor++){
@@ -18,10 +22,10 @@ void displayOledScreen(float temp1, float temp2, float temp3, float temp4){
   if (alarmMessage == 0){  
      if (wifiStationMode){
      //display.print("wifi "); display.println(WiFi.localIP());
-     display.print("wifi "); display.print(WiFi.localIP());  display.setCursor(96,0); display.print(fanSpeed); display.print("%");
+     display.print("wifi "); display.print(WiFi.localIP());  
      }
      else {
-     display.print("soft-AP "); display.println(WiFi.softAPIP());   display.setCursor(96,0); display.print(fanSpeed); display.print("%");
+     display.print("soft-AP "); display.println(WiFi.softAPIP());  
      }
   }
   else if (alarmMessage > 0){
@@ -32,20 +36,17 @@ void displayOledScreen(float temp1, float temp2, float temp3, float temp4){
     }
   }
 
-  display.setCursor(0,56);
-  display.print("outputVal: "); display.print(outputVal, 1);
-
   if (sensorAmount > 2){
     display.setCursor(0,56);
-    display.print("T3: "); display.print(temp3, 1);
+    display.print("T3:"); display.print(temp3, 0);
       if (sensorAmount > 3){
-      display.print(" T4: "); display.print(temp4, 1);  
+      display.print(" T4:"); display.print(temp4, 0);  
       }
   }
   display.setTextSize(3); 
   display.setCursor(24,8);
-  display.println(temp1, 1);
+  display.print(temp1, 0); display.println((char)247);
   display.setCursor(24,32); 
-  display.println(temp2, 1);
+  display.print(temp2, 0); display.println((char)247);
   display.display();
 }

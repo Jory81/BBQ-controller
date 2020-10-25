@@ -136,7 +136,7 @@ void processWebSocketMessage(String str, int dataVar){
   }
   
   else if (firstChar == "1"){  
-      if (str == "1A1"){targetTemperature1 = dataVar; setPoint = dataVar; fanState = !fanON; String mergedString = "GC"+String(targetTemperature1); ws.textAll(mergedString); } // alarmActiveT1 = true;}
+      if (str == "1A1"){targetTemperature1 = dataVar; setPoint = dataVar; msgFanState = true; String mergedString = "GC"+String(targetTemperature1); EEPROM.put(offsetof(storeInEEPROM, targetTemperature1), targetTemperature1);  EEPROM.commit(); ws.textAll(mergedString); } // alarmActiveT1 = true;}
       else if (str == "1A2"){targetTemperature2 = dataVar; String mergedString = "GD"+String(targetTemperature2); ws.textAll(mergedString); } // alarmActiveT2 = true;}   
       else if (str == "1B1"){targetTime1 = dataVar*1000; timer = true; startTime1=millis();}
       else if (str == "1C1"){counter1 = dataVar; startCounter1=millis();}
@@ -151,11 +151,11 @@ void processWebSocketMessage(String str, int dataVar){
       else if (str == "1J2"){alarmReachTemp2 = dataVar; String mergedString = "GN"+String(alarmReachTemp2); ws.textAll(mergedString);}
       else if (str == "1K1"){offsetTemperature1 = dataVar; (double) dataVar; myPID.setBangBang(dataVar);  String mergedString = "GO"+String(offsetTemperature1); ws.textAll(mergedString);}
       else if (str == "1M1"){tempOffsetAlarm = dataVar; String mergedString = "GR"+String(tempOffsetAlarm); ws.textAll(mergedString);}
-      else if (str == "1L1"){fanON = dataVar; fanState = !fanON; String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);}
+      else if (str == "1L1"){fanON = dataVar; msgFanState = true; String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);}
       else if (str == "1RR"){alarmMessage = dataVar; alarmMessageTimer = millis();}
       else if (str == "1ST"){sensorType = dataVar; EEPROM.put(offsetof(storeInEEPROM, sensorType), sensorType);  EEPROM.commit(); String mergedString = "GT"+String(sensorType); ws.textAll(mergedString); }
       else if (str == "1SN"){sensorAmount = dataVar; EEPROM.put(offsetof(storeInEEPROM, sensorAmount), sensorAmount);  EEPROM.commit(); ESP.restart(); }
-      else if (str == "1T1"){fanManual = dataVar; fanState = !fanON; String mergedString = "GU"+String(fanManual); ws.textAll(mergedString);}
+      else if (str == "1T1"){fanManual = dataVar; msgFanState = true; String mergedString = "GU"+String(fanManual); ws.textAll(mergedString);}
       else if (str == "1X1"){tempControlPID = dataVar; EEPROM.put(offsetof(storeInEEPROM, tempControlPID), tempControlPID);  EEPROM.commit(); sendAllPIDValues();}
       else if (str == "1U1"){ESP.restart();};
   }    
@@ -211,20 +211,27 @@ void processWebSocketMessageDouble(String str, double dataVar){
 void sendAllTempToClient (){
             String mergedString = "T" + String(temp[0]) + "+" + String(temp[1]) + "+" + String(temp[2]) + "+" + String(temp[3])+ "+" + String(temp[4]) + "+";
             ws.textAll(mergedString); 
-            Serial.println(mergedString);
+            //Serial.println(mergedString);
   
 }
 
 void sendAllCalibrationValues(){
             String mergedString = "GV" + String(calibrationValue[0], 1) + "+" + String(calibrationValue[1], 1) + "+" + String(calibrationValue[2], 1) + "+" + String(calibrationValue[3], 1)+ "+" + String(calibrationValue[4], 1) + "+"; 
             ws.textAll(mergedString);
-            Serial.println(mergedString);
+            //Serial.println(mergedString);
 }
 
 void sendAllPIDValues(){
+    if (tempControlPID){
             String mergedString = "GW" + String(KP, 4) + "+" + String(KI, 4) + "+" + String(KD, 4) + "+"; 
             ws.textAll(mergedString);
-            Serial.println(mergedString);
+            //Serial.println(mergedString);
+    }
+    else{
+            String mergedString = "GW" + String(OUTPUT_MIN,0) + "+" + String(OUTPUT_MAX,0) + "+" + String("-") + "+"; 
+            ws.textAll(mergedString);
+            //Serial.println(mergedString);      
+    }
 }
 
 void updateGraph (float temp){

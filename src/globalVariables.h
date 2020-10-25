@@ -55,9 +55,7 @@ boolean timerCheck1 = false;
 boolean alarmActive1 = false;
 //boolean alarmActiveT1 = false;
 boolean alarmReachTemp1 = false; 
-boolean fanState=false;
-boolean lastTempState=false;
-boolean tempState=false;
+boolean lastfanONState=false;
 boolean tempControlPID=false; 
 byte fanSpeed = 0;
 
@@ -71,6 +69,7 @@ boolean alarmActive2 = false;
 boolean alarmActiveT2 = false;
 boolean alarmReachTemp2 = false; 
 boolean fanON = false;
+boolean msgFanState= true;
 boolean tempOffsetAlarm=false;
 boolean fanManual = false;
 boolean wifiStationMode=false;
@@ -90,10 +89,11 @@ float calibrationValue[5];
 boolean tempControlPID;
 double KP, KI, KD;
 double OUTPUT_MIN, OUTPUT_MAX;
+uint16_t targetTemperature1;
 };
 
 storeInEEPROM customVar = {
-      22443, // code to check
+      11332, // code to check
       1, // sensorType ; 1 is PT100 2 is thermokoppel
       1, // sensorAmount 
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // ssidstorage
@@ -101,7 +101,8 @@ storeInEEPROM customVar = {
       0, 0, 0, 0, 0, // calibration values
       0, // boolean tempControlPID;
       5, 3, 1, // PID values
-      0, 255
+      0, 255,
+      50
     };
 
 char stringStorage[32];

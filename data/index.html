@@ -224,7 +224,7 @@
 		<div>
 			<span class="inputparam"> <input type="number" placeholder="input cal. 1" class="form-controlx input-sl" id="cv1" value=""></span> <span><button onclick="updateText('cv1')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i>
-			<span class="dht-labels">cal. val1</span> 
+			<span class="dht-labels"></span> 
 			<span id="cal_val1">%c%</span>
 			<sup class="units">&deg;C</sup>
 		</div>
@@ -232,7 +232,7 @@
 		<div>
 			<span class="inputparam"> <input type="number" placeholder="input cal. 2" class="form-controlx input-sl" id="cv2" value=""></span> <span><button onclick="updateText('cv2')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels">cal. val2</span> 
+			<span class="dht-labels"></span> 
 			<span id="cal_val2">%c%</span>
 			<sup class="units">&deg;C</sup>
 		</div>
@@ -240,7 +240,7 @@
 		<div>
 			<span class="inputparam"> <input type="number" placeholder="input cal. 3" class="form-controlx input-sl" id="cv3" value=""></span> <span><button onclick="updateText('cv3')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i>
-			<span class="dht-labels">cal. val3</span> 
+			<span class="dht-labels"></span> 
 			<span id="cal_val3">%c%</span>
 			<sup class="units">&deg;C</sup>
 		</div>
@@ -248,7 +248,7 @@
 		<div>
 			<span class="inputparam"> <input type="number" placeholder="input cal. 4" class="form-controlx input-sl" id="cv4" value=""></span> <span><button onclick="updateText('cv4')" class="btnx btn-primary">submit</button> </span>      	&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i>
-			<span class="dht-labels">cal. val4</span> 
+			<span class="dht-labels"></span> 
 			<span id="cal_val4">%c%</span>
 			<sup class="units">&deg;C</sup>
 		</div>
@@ -256,7 +256,7 @@
 		<div>
 			<span class="inputparam"> <input type="number" placeholder="input cal. 5" class="form-controlx input-sl" id="cv5" value=""></span> <span><button onclick="updateText('cv5')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels">cal. val5</span> 
+			<span class="dht-labels"></span> 
 			<span id="cal_val5">%c%</span>
 			<sup class="units">&deg;C</sup>	
 		</div>	
@@ -266,21 +266,21 @@
 		<div>
 			<span class="inputparam"> <input type="number" placeholder="input KP or MIN" class="form-controlx input-sl" id="pv1" value=""></span> <span><button onclick="updateText('pv1')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels">KP or OUTPUT_MIN</span>
+			<span class="dht-labels"></span>
 			<span id="pid_val1"></span>
 		</div>	
 		
 		<div>
 			<span class="inputparam"> <input type="number" placeholder="input KI or MAX" class="form-controlx input-sl" id="pv2" value=""></span> <span><button onclick="updateText('pv2')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels">KI or OUTPUT_MAX</span> 
+			<span class="dht-labels"></span> 
 			<span id="pid_val2"></span>
 		</div>	
 		
 		<div>
 			<span class="inputparam"> <input type="number" placeholder="input KD (-)" class="form-controlx input-sl" id="pv3" value=""></span> <span><button onclick="updateText('pv3')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels">KD (-)</span> 
+			<span class="dht-labels"></span> 
 			<span id="pid_val3"></span>
 		</div>			
 
@@ -433,7 +433,7 @@ function onClose(event) {
 function onMessage(event) {
  
     // Print out our received message
-    console.log("Received: " + event.data);
+    // console.log("Received: " + event.data);
 
 	var string = event.data;
 	
@@ -595,7 +595,7 @@ if (string.charAt(0) == 'G'){
 		}
 	}
 
-	else if (string.charAt(1) == 'X'){// checkBox - activates alarm1 Timer checkbox (alarmTime1)
+	else if (string.charAt(1) == 'X'){
 		var residu = string.slice(2, string.length);	
 		if (residu == '0'){
 		document.getElementById("1X1").checked = false;
@@ -646,15 +646,15 @@ if (string.charAt(0) == 'G'){
 				pos1 = t+1;		
 			}
 		}	
-		document.getElementById("cal_pid1").innerHTML = pid_cal_values[0];
-		document.getElementById("cal_pid2").innerHTML = pid_cal_values[1];
-		document.getElementById("cal_pid3").innerHTML = pid_cal_values[2];
+		document.getElementById("pid_val1").innerHTML = pid_cal_values[0];
+		document.getElementById("pid_val2").innerHTML = pid_cal_values[1];
+		document.getElementById("pid_val3").innerHTML = pid_cal_values[2];
 	}	
 	
 	else {
 	};
 	
-	if (k < 18){
+	if (k < 19){
 	//console.log("k "); console.log(k);
     doSend("GGG"+k);
 	k = k + 1;
@@ -785,6 +785,7 @@ else if (string.charAt(0) == 'S'){
 		var residu = string.slice(2, string.length);
 		document.getElementById("fanSpeed").innerHTML = residu;	
 		fanSpeed = residu;	
+		//console.log(fanSpeed);
 	}
 }
 else if (string.charAt(0) == 'R'){
@@ -822,45 +823,37 @@ function doSend(message) {
                     //showInLegend: true,
                     name: 'BBQ probe',
                     data: [],
-                    color: '#FF3933'
+                    color: '#ff0000'
                 }, 
                 {
                     //showInLegend: true,
-					dashStyle: 'ShortDash',
                     name: 'BBQ target',
                     data: [], 
-                    color: '#3373FF'
+                    color: '#777777'
                 },
 				{
                     //showInLegend: true,
                     name: 'Food probe',
                     data: [],
-                    color: '#ACFF33'
+                    color: '#c87807'
                 },
 				{
                     //showInLegend: true,
-					dashStyle: 'ShortDash',
-                    name: 'Food target',
+                    name: 'fanSpeed',
                     data: [], 
-                    color: '#F39C12'
-				},
-				{
-                    //showInLegend: true,
-					dashStyle: 'ShortDot',
-                    name: 'fanSpeed%',
-                    data: [], 
-                    color: '#1912f3'
+                    color: '#76cc5f'
                 }
+
             ],
 			tooltip: {
 				valueSuffix: '\xB0 C'
 			},
 			 plotOptions: {
 				line: {
-					lineWidth: 3,
+					lineWidth: 2,
 					states: {
 						hover: {
-							lineWidth: 5
+							lineWidth: 3
 						}
 					},
 					
@@ -892,18 +885,16 @@ function doSend(message) {
 function drawChart(temp){
             var x = (new Date()).getTime();
 			var currentCelsius = parseFloat(temp);
-			if(chartT.series[0].data.length > 720) {
+			var currentFanSpeed = parseFloat(fanSpeed);
+			if(chartT.series[0].data.length > 1440) {
 				chartT.series[0].addPoint([x, currentCelsius], true, true, true);
+				chartT.series[3].addPoint([x, currentFanSpeed], true, true, true);
 			} else {
 				chartT.series[0].addPoint([x, currentCelsius], true, false, true);
-			}
-			if(chartT.series[1].data.length > 720) {
-                    chartT.series[1].addPoint([x, fanSpeed], true, true, true);
-			} else {
-				chartT.series[1].addPoint([x, fanSpeed], true, false, true);
+				chartT.series[3].addPoint([x, currentFanSpeed], true, false, true);
 			}
             if (targetCelsius1 > 0) {
-                if(chartT.series[1].data.length > 720) {
+                if(chartT.series[1].data.length > 1440) {
                     chartT.series[1].addPoint([x, targetCelsius1], true, true, true);
                 } else {
                     chartT.series[1].addPoint([x, targetCelsius1], true, false, true);
@@ -913,20 +904,14 @@ function drawChart(temp){
 function drawChart1(temp){
             var x = (new Date()).getTime();
 			var currentCelsius = parseFloat(temp);
-			if(chartT.series[2].data.length > 720) {
+			if(chartT.series[2].data.length > 1440) {
 				chartT.series[2].addPoint([x, currentCelsius], true, true, true);
 			} else {
 				chartT.series[2].addPoint([x, currentCelsius], true, false, true);
 			}
-            if (targetCelsius2 > 0) {
-                if(chartT.series[3].data.length > 720) {
-                    chartT.series[3].addPoint([x, targetCelsius2], true, true, true);
-                } else {
-                    chartT.series[3].addPoint([x, targetCelsius2], true, false, true);
-                }
-            }
 };
 </script>
+
 
 <script type="text/javascript">
         // Changing data parameters
@@ -1136,14 +1121,14 @@ function updateText(fixedVariable) {
 	doSend('1V5'+cv5.value);
 	}
 	else if (fixedVariable == 'pv1'){
-	doSend('1W1'+cv3.value);
+	doSend('1W1'+pv1.value);
 	}
 	else if (fixedVariable == 'pv2'){
-	doSend('1W2'+cv4.value);
+	doSend('1W2'+pv2.value);
 	}
 	else if (fixedVariable == 'pv3'){
 	//console.log(cv5.value);
-	doSend('1W3'+cv5.value);
+	doSend('1W3'+pv3.value);
 	}	
 }	
 
