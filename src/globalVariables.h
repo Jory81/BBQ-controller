@@ -13,6 +13,7 @@ const char *WIFI_PASS_AP =  "";
 char strval[5]={0};
 uint16_t dataVar=0;
 float dataVarFloat =0.0f;
+double dataVarDouble =0;
 
 uint16_t EEPROMposition = 0;
 uint16_t stringLength;
@@ -35,6 +36,7 @@ float temp[5] = {0,0,0,0,0};
 float oldtemp[5] = {0,0,0,0,0};
 
 float calibrationValue[5] = {-0.0, -0.0, -0.0, -0.0, -0.0};
+double PIDValue[5] = {-0.0, -0.0, -0.0};
 
 uint32_t Time1=0;
 uint32_t cTime1=0;
@@ -57,6 +59,7 @@ boolean alarmReachTemp1 = false;
 boolean fanState=false;
 boolean lastTempState=false;
 boolean tempState=false;
+byte fanSpeed = 0;
 
 uint16_t targetTemperature2=0;
 uint8_t alarmMessage=0;
@@ -75,7 +78,7 @@ boolean wifiStationMode=false;
 uint32_t targetTime1 = 0;
 //uint32_t targetTime2 = 0;
 
-uint16_t offsetTemperature1 = 0;
+uint16_t offsetTemperature1 = 20;
 
 struct storeInEEPROM {
 int check;
@@ -84,15 +87,17 @@ uint8_t sensorAmount;
 char ssidStorage[32];
 char passStorage[32];
 float calibrationValue[5];
+double PIDValue[3];
 };
 
 storeInEEPROM customVar = {
-      016520, // code to check
+      22553, // code to check
       1, // sensorType ; 1 is PT100 2 is thermokoppel
       1, // sensorAmount 
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // ssidstorage
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // passstorage
-      0, 0, 0, 0, 0
+      0, 0, 0, 0, 0, // calibration values
+      0, 0, 0 // PID values
     };
 
 char stringStorage[32];

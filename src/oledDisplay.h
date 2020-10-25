@@ -18,10 +18,10 @@ void displayOledScreen(float temp1, float temp2, float temp3, float temp4){
   if (alarmMessage == 0){  
      if (wifiStationMode){
      //display.print("wifi "); display.println(WiFi.localIP());
-     display.print("wifi "); display.print(WiFi.localIP());
+     display.print("wifi "); display.print(WiFi.localIP());  display.setCursor(96,0); display.print(fanSpeed); display.print("%");
      }
      else {
-     display.print("soft-AP "); display.println(WiFi.softAPIP());
+     display.print("soft-AP "); display.println(WiFi.softAPIP());   display.setCursor(96,0); display.print(fanSpeed); display.print("%");
      }
   }
   else if (alarmMessage > 0){
@@ -31,6 +31,9 @@ void displayOledScreen(float temp1, float temp2, float temp3, float temp4){
       case 3: {display.print("reached alarmTimer");} break;
     }
   }
+
+  display.setCursor(0,56);
+  display.print("outputVal: "); display.print(outputVal, 1);
 
   if (sensorAmount > 2){
     display.setCursor(0,56);

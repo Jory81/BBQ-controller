@@ -30,7 +30,7 @@ void setupEEPROM(){
   int check  = EEPROM.readInt(0);
   #endif
   
-  if (check == 165243){
+  if (check == 22553){
   display.print(F("code: ")); display.println(check);
   display.println(F("EEPROM SET"));
   display.display();
@@ -38,7 +38,7 @@ void setupEEPROM(){
   delay(1000);
   }
   
-  else if (check != 165243){
+  else if (check != 22553){
   display.println(F("EEPROM not initialized"));
   display.println(F("Write to EEPROM"));
   display.display();
@@ -132,6 +132,23 @@ void setupTempSensors(){
 void initializeEEPROMvariables(){
 sensorType  = EEPROM.read(offsetof(storeInEEPROM, sensorType));
 sensorAmount = EEPROM.read(offsetof(storeInEEPROM, sensorAmount));
+
+// KP = EEPROM.read(offsetof(storeInEEPROM, PIDValue[0]));
+// KI = EEPROM.read(offsetof(storeInEEPROM, PIDValue[1]));
+// KD = EEPROM.read(offsetof(storeInEEPROM, PIDValue[2]));
+
+#ifdef ESP8266  
+EEPROM.get(offsetof(storeInEEPROM, PIDValue[0], KP);
+EEPROM.get(offsetof(storeInEEPROM, PIDValue[0]), KI);
+EEPROM.get(offsetof(storeInEEPROM, PIDValue[0]), KD);
+#else
+KP = EEPROM.readDouble(offsetof(storeInEEPROM, PIDValue[0]));
+OUTPUT_MIN = KP;
+KI = EEPROM.readDouble(offsetof(storeInEEPROM, PIDValue[1]));
+OUTPUT_MAX = KI;
+KD = EEPROM.readDouble(offsetof(storeInEEPROM, PIDValue[2]));
+#endif
+
  
   for (int m = 0; m < 32; m++){
   int offsetPosition = offsetof(storeInEEPROM, ssidStorage[0]);

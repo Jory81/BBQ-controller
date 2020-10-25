@@ -86,61 +86,83 @@ float processRTD(uint16_t rtd){
 //  }
 //}
 
-// void fanControl()
-// {
-//       //Serial.println("how many times do I enter fan control?"); 
-//       if (targetTemperature1 != 0 && temp[0] > targetTemperature1){
-//         tempState = true;
-//         if (tempState != lastTempState){
-//           lastTempState = tempState;
-//           fanState = !fanON;
-//         }  
-//       }
-//       else if (targetTemperature1 != 0 && temp[0] < targetTemperature1){
-//         tempState = false;
-//         if (tempState != lastTempState){
-//           lastTempState = tempState;
-//           fanState = !fanON;
-//         }   
-//       }
+void fanControl()
+{
+      // checks conditions. If conditions change drastically system is set up to be reevaluated. The code is not readable anymore and overcomplicated (due to new featues), but works so not optimized.
+      if (targetTemperature1 != 0 && temp[0] > targetTemperature1){
+        tempState = true;
+        if (tempState != lastTempState){
+          lastTempState = tempState;
+          fanState = !fanON;
+        }  
+      }
+      else if (targetTemperature1 != 0 && temp[0] < targetTemperature1){
+        tempState = false;
+        if (tempState != lastTempState){
+          lastTempState = tempState;
+          fanState = !fanON;
+        }   
+      }
   
-//       if (targetTemperature1 != 0 && fanManual == false && fanState != fanON){
-//         if (temp[0] > targetTemperature1){
-//         digitalWrite(LED,LOW);
-//         digitalWrite(RELAY, LOW);
-//         fanON = false;
-//         fanState = false;
-//         String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);
-//         }
-//         else {
-//         digitalWrite(LED, HIGH);
-//         digitalWrite(RELAY, HIGH);
-//         fanON = true;
-//         fanState = true;
-//         String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);
-//         }
-//       }
-//       else if ((targetTemperature1 == 0 || fanManual == true) && fanState != fanON){
-//         if (fanON == true){
-//           digitalWrite(LED, HIGH);
-//           digitalWrite(RELAY, HIGH);
-//           fanON = true;
-//           fanState = true;
-//           String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);   
-//         }
-//         else {
-//           digitalWrite(LED,LOW);
-//           digitalWrite(RELAY, LOW);
-//           fanON = false;
-//           fanState = false;
-//           String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);          
-//         }
-//       }
-// }
+      // conditons are reevaluated, and set according to set parameters. these additional [if statements] prevent overloading of websocket messages.
+      if (fanState != fanON){
+        if (targetTemperature1 != 0 && fanManual == false ){
+          if (temp[0] > targetTemperature1){
+          digitalWrite(LED,LOW);
+          fanON = false;
+          fanState = false;
+          String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);
+          }
+          else {
+          digitalWrite(LED, HIGH);
+          fanON = true;
+          fanState = true;
+          String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);
+          }
+        }
+        else if ((targetTemperature1 == 0 || fanManual == true) && fanState != fanON){
+          if (fanON == true){
+            digitalWrite(LED, HIGH);
+            fanON = true;
+            fanState = true;
+            String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);   
+          }
+          else {
+            digitalWrite(LED,LOW);
+            fanON = false;
+            fanState = false;
+            String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);          
+          }
+        }
+      }
+
+     if (fanON){
+      if (temp[0] < targetTemperature1- offsetTemperature1){
+        outputVal=255;
+      }
+      else {
+        outputVal = modifiedMap((targetTemperature1-temp[0]), 0, offsetTemperature1, OUTPUT_MIN, OUTPUT_MAX);
+      }  
+     } 
+     else{
+     outputVal = 0;  
+     }
+
+ledcWrite(ledChannel, outputVal);
+fanSpeed = map(outputVal, 0, 255, 0, 100);
+updateFanSpeed(fanSpeed);
+Serial.print("fanSpeed "); Serial.println(fanSpeed);
+}
+
+double modifiedMap(double x, double in_min, double in_max, double out_min, double out_max)
+{
+ double temp = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+ temp = (int) (4*temp + .5);
+ return (double) temp/4;
+}
 
 void updateTimeAndGraph ()
 {   
-      //Serial.println("how many times do I enter?");
       if (millis()-previousMillis >= updateTimeGraph){
         updateGraph (oldtemp[0]);
         if (sensorAmount > 1){

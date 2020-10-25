@@ -57,6 +57,11 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         processWebSocketMessageFloat(str, dataVarFloat);
         //Serial.print(str); Serial.println(dataVarFloat);
         }
+        else if (str == "1W1" || str == "1W2" || str == "1W3"){
+        dataVarDouble = (double) strtof((const char *) &data[3], NULL); 
+        processWebSocketMessageDouble(str, dataVarDouble);
+        //Serial.print(str); Serial.println(dataVarFloat);
+        }  
         else{
         dataVar = (uint16_t) strtol((const char *) &data[3], NULL, 10);  
         processWebSocketMessage(str, dataVar);
@@ -126,6 +131,7 @@ void processWebSocketMessage(String str, int dataVar){
     else if (dataVar == 14){String mergedString = "GT"+String(sensorType); ws.textAll(mergedString);}
     else if (dataVar == 15){String mergedString = "GU"+String(fanManual); ws.textAll(mergedString);}
     else if (dataVar == 16){sendAllCalibrationValues();}
+    else if (dataVar == 17){sendAllPIDValues();}
   }
   
   else if (firstChar == "1"){  
@@ -166,19 +172,41 @@ void processWebSocketMessageFloat(String str, float dataVar){
   }
 }
 
+void processWebSocketMessageDouble(String str, double dataVar){
+  if (firstChar == "1"){
+      if (str == "1W1"){PIDValue[0] = dataVar; KP = dataVar; OUTPUT_MIN = dataVar; sendAllPIDValues(); } // EEPROM.put(offsetof(storeInEEPROM, PIDValue[0]), PIDValue[0]);  EEPROM.commit(); sendAllPIDValues(); } 
+      else if (str == "1W2"){PIDValue[1] = dataVar; KI = dataVar; OUTPUT_MAX = dataVar; sendAllPIDValues(); } //  EEPROM.put(offsetof(storeInEEPROM, PIDValue[1]), PIDValue[1]);  EEPROM.commit(); sendAllPIDValues(); }
+      else if (str == "1W3"){PIDValue[2] = dataVar; KD = dataVar; sendAllPIDValues(); } // EEPROM.put(offsetof(storeInEEPROM, PIDValue[2]), PIDValue[2]);  EEPROM.commit(); sendAllPIDValues(); }
+  }
+}
+
+
 void sendAllTempToClient (){
             String mergedString = "T" + String(temp[0]) + "+" + String(temp[1]) + "+" + String(temp[2]) + "+" + String(temp[3])+ "+" + String(temp[4]) + "+";
             ws.textAll(mergedString); 
+            Serial.println(mergedString);
   
 }
 
 void sendAllCalibrationValues(){
             String mergedString = "GV" + String(calibrationValue[0], 1) + "+" + String(calibrationValue[1], 1) + "+" + String(calibrationValue[2], 1) + "+" + String(calibrationValue[3], 1)+ "+" + String(calibrationValue[4], 1) + "+"; 
             ws.textAll(mergedString);
+            Serial.println(mergedString);
+}
+
+void sendAllPIDValues(){
+            String mergedString = "GW" + String(PIDValue[0], 4) + "+" + String(PIDValue[1], 4) + "+" + String(PIDValue[2], 4) + "+"; 
+            ws.textAll(mergedString);
+            Serial.println(mergedString);
 }
 
 void updateGraph (float temp){
             String mergedString = "SC"+String(temp);
+            ws.textAll(mergedString);                
+}
+
+void updateFanSpeed(byte fanSpeed){
+            String mergedString = "SI"+String(fanSpeed);
             ws.textAll(mergedString);                
 }
 

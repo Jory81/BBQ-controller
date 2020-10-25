@@ -93,6 +93,7 @@ float processRTD(uint16_t rtd);
 void initializeEEPROMvariables();
 void sendAllTempToClient();
 void sendAllCalibrationValues();
+void sendAllPIDValues();
 
 void updateTimeAndGraph();
 void sendTimeToClient1 (uint16_t Time);
@@ -102,6 +103,7 @@ void updateGraph (float temp);
 void updateGraph2 (float temp);
 void displayOledScreen(float temp1, float temp2, float temp3, float temp4);
 void fanControl();
+void updateFanSpeed(byte fanSpeed);
 
 void onRootRequest(AsyncWebServerRequest *request);
 void initWebServer();
@@ -112,6 +114,8 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len);
 void processWebSocketMessageS(String str, int stringLength, String dataString);
 void processWebSocketMessage(String str, int dataVar);
 void processWebSocketMessageFloat(String str, float dataVar);
+void processWebSocketMessageDouble(String str, double dataVar);
+double modifiedMap(double x, double in_min, double in_max, double out_min, double out_max);
 
 void setupESP32();
 void setupOledScreen();
@@ -121,11 +125,15 @@ void setupWIFI();
 void setupTempSensors();
 
 //pid settings and gains
-#define OUTPUT_MIN 30
-#define OUTPUT_MAX 255
-#define KP .12
-#define KI .0003
-#define KD 0
+double OUTPUT_MIN = 0;
+double OUTPUT_MAX = 255;
+// #define KP .12
+// #define KI .0003
+// #define KD 0
+
+double KP = .12;
+double KI =  .0003;
+double KD =  0;
 
 double temperature, setPoint, outputVal;
 
@@ -157,9 +165,9 @@ setupTempSensors();
 ledcSetup(ledChannel, freq, resolution);
 ledcAttachPin(OUTPUT_PIN, ledChannel);
 //if temperature is more than 4 degrees below or above setpoint, OUTPUT will be set to min or max respectively
-myPID.setBangBang(4);
+myPID.setBangBang(10);
 //set PID update interval to 4000ms
-myPID.setTimeStep(4000);
+myPID.setTimeStep(100);
 
 }
 
@@ -173,10 +181,10 @@ void loop()
               temp[sensor] = processRTD(rtd) - calibrationValue[sensor];
               oldtemp[sensor] = temp[sensor];
             }
-            temperature=temp[0];
+            //temperature=temp[0];
+            //myPID.run(); //call every loop, updates automatically at certain time interval
             sendAllTempToClient();
           }
-
           break;
           case 2: {
             for (int sensor = 0; sensor <sensorAmount; sensor++){
@@ -185,19 +193,18 @@ void loop()
                   oldtemp[sensor] = temp[sensor];             
                   }
             }
-            temperature=temp[0];
+            //temperature=temp[0];
+            //myPID.run(); //call every loop, updates automatically at certain time interval
             sendAllTempToClient();
           }
           break;
         }
   
     displayOledScreen(temp[0], temp[1], temp[2], temp[3]);
-    //fanControl();
+    fanControl();
     updateTimeAndGraph();
-  
     previousMillis1 = millis();
     }
-    myPID.run(); //call every loop, updates automatically at certain time interval
-    ledcWrite(ledChannel, outputVal);
-    digitalWrite(LED, myPID.atSetPoint(1));
+    
+//    digitalWrite(LED, myPID.atSetPoint(1)); 
 }
