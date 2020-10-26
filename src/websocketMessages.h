@@ -149,7 +149,7 @@ void processWebSocketMessage(String str, int dataVar){
       else if (str == "1G2"){alarmActive2 = dataVar; String mergedString = "GH"+String(alarmActive2); ws.textAll(mergedString);}// blinkON = false; digitalWrite(LED, LOW);}      
       else if (str == "1J1"){alarmReachTemp1 = dataVar; String mergedString = "GM"+String(alarmReachTemp1); ws.textAll(mergedString);}
       else if (str == "1J2"){alarmReachTemp2 = dataVar; String mergedString = "GN"+String(alarmReachTemp2); ws.textAll(mergedString);}
-      else if (str == "1K1"){offsetTemperature1 = dataVar; (double) dataVar; myPID.setBangBang(dataVar);  String mergedString = "GO"+String(offsetTemperature1); ws.textAll(mergedString);}
+      else if (str == "1K1"){offsetTemperature1 = dataVar; (double) dataVar; myPID.setBangBang(dataVar);  String mergedString = "GO"+String(offsetTemperature1); EEPROM.put(offsetof(storeInEEPROM, offsetTemperature1), offsetTemperature1);  EEPROM.commit();  ws.textAll(mergedString);}
       else if (str == "1M1"){tempOffsetAlarm = dataVar; String mergedString = "GR"+String(tempOffsetAlarm); ws.textAll(mergedString);}
       else if (str == "1L1"){fanON = dataVar; msgFanState = true; String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);}
       else if (str == "1RR"){alarmMessage = dataVar; alarmMessageTimer = millis();}
@@ -180,27 +180,27 @@ void processWebSocketMessageDouble(String str, double dataVar){
       if (str == "1W1"){
         if (tempControlPID){
           KP = dataVar;
-          // EEPROM.put(offsetof(storeInEEPROM, KP), KP);  EEPROM.commit(); 
+          EEPROM.put(offsetof(storeInEEPROM, KP), KP);  EEPROM.commit(); 
         }
         else {
           OUTPUT_MIN = dataVar; 
-          // EEPROM.put(offsetof(storeInEEPROM, OUTPUT_MIN), OUTPUT_MIN);  EEPROM.commit(); 
+          EEPROM.put(offsetof(storeInEEPROM, OUTPUT_MIN), OUTPUT_MIN);  EEPROM.commit(); 
         }
       } 
       else if (str == "1W2"){
         if (tempControlPID){
           KI = dataVar;
-          //  EEPROM.put(offsetof(storeInEEPROM, KI), KI);  EEPROM.commit();
+          EEPROM.put(offsetof(storeInEEPROM, KI), KI);  EEPROM.commit();
         }
         else {
           OUTPUT_MAX = dataVar; 
-          // EEPROM.put(offsetof(storeInEEPROM, OUTPUT_MAX), OUTPUT_MAX);  EEPROM.commit(); 
+          EEPROM.put(offsetof(storeInEEPROM, OUTPUT_MAX), OUTPUT_MAX);  EEPROM.commit(); 
         }
       }
       else if (str == "1W3"){
       if (tempControlPID){
         KD = dataVar;
-        // EEPROM.put(offsetof(storeInEEPROM, KD), KD);  EEPROM.commit();
+        EEPROM.put(offsetof(storeInEEPROM, KD), KD);  EEPROM.commit();
       }
       }
   sendAllPIDValues();

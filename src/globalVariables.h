@@ -87,9 +87,13 @@ char ssidStorage[32];
 char passStorage[32];
 float calibrationValue[5];
 boolean tempControlPID;
-double KP, KI, KD;
-double OUTPUT_MIN, OUTPUT_MAX;
+double KP;
+double KI;
+double KD;
+double OUTPUT_MIN;
+double OUTPUT_MAX;
 uint16_t targetTemperature1;
+uint16_t offsetTemperature1;
 };
 
 storeInEEPROM customVar = {
@@ -101,8 +105,9 @@ storeInEEPROM customVar = {
       0, 0, 0, 0, 0, // calibration values
       0, // boolean tempControlPID;
       5, 3, 1, // PID values
-      0, 255,
-      50
+      0, 255, // OUTPUT_MIN OUTPUT_MAX
+      50, // targetTemp
+      30 // offsetTemp
     };
 
 char stringStorage[32];
