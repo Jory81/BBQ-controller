@@ -20,6 +20,15 @@
   cursor:pointer;
 }
 
+#checkbox3{
+  background:#FFF;
+  display:inline-block;
+  padding:10px 10px;
+  border-radius:2px;
+  position:relative;
+  cursor:pointer;
+}
+
 .ckeckbox-element{
   display:block;
   position:absolute;
@@ -46,6 +55,14 @@
 
 #checkbox2>input[type='checkbox']:checked+i{
   color:#ed3b00;
+}
+
+#checkbox3>input[type='checkbox']+i{
+  color:#999999;
+}
+
+#checkbox3>input[type='checkbox']:checked+i{
+  color:#444444;
 }
 
 .form-controlx{
@@ -186,8 +203,54 @@ input:checked + .sliderround:before {
 
 div.inline { 
   float:left; 
-  height:100%;
+  height:flex;
   width:25%;
   outline: solid;
   color: grey;
 }
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab checkbox {
+  background-color: #ffffff;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 10px 10px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab checkbox:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab checkbox.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: none;
+  border-top: none;
+}
+
+/* Style the close button */
+.topright {
+  float: right;
+  cursor: pointer;
+  font-size: 28px;
+}
+
+.topright:hover {color: red;}
