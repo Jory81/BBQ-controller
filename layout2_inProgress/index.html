@@ -15,12 +15,11 @@
     <span> &nbsp  / &nbsp  </span>
     <span id='time-part'></span>
 </div>
-<hr>
 
 <div id="Bbqtemp" class="tabcontent">
   <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
 
-    <h2>BBQ probe</h2>
+    <h4>BBQ probe</h4>
 	<div>
     <input name="celsius-input" placeholder="input Temp 1" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param" data-target-id="confirm-celsius-input" data-target-param="data-action-1-param-1-value">
     <button id="confirm-celsius-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-celsius-input" data-action-1-param-1-name="celsius" data-action-1-param-1-value="">submit</button>
@@ -81,7 +80,7 @@
 
 <div id="Foodtemp" class="tabcontent">
   <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
-<h2>FOOD probe</h2>
+<h4>FOOD probe</h4>
 	<div>
     <input name="celsius2-input" placeholder="input Temp 2" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param4" data-target-id="confirm-celsius2-input" data-target-param="data-action-1-param-4-value">
     <button id="confirm-celsius2-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-celsius2-input" data-action-1-param-4-name="celsius2" data-action-1-param-4-value="">submit</button>
@@ -122,7 +121,7 @@
 
 
 <div id="Calsettings" class="tabcontent">
-<h2>calibration settings:</h2>
+<h4>calibration settings:</h4>
   <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
 		<div>
 			<span class="inputparam"> <input type="number" placeholder="input cal. 1" class="form-controlx input-sl" id="cv1" value=""></span> <span><button onclick="updateText('cv1')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
@@ -190,13 +189,17 @@
 
 <div id="Systemsettings" class="tabcontent">
   <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
-	<h2>system settings:</h2>
+	<h4>system settings:</h4>
+	<p>
+	<span class="inputparam">
 	<select name="selectProbeType" id="probe_id" onchange="selectProbeType(this)">
     <option value="1" >PT100</option>
     <option value="2" >Thermokoppel</option>
 	</select>
+	</span>
 	<br>
 	<br>
+	<span class="inputparam">
 	<select name="selectProbeAmount" id="probe_number" onchange="selectProbeAmount(this)">
     <option value="1" >1 probe</option>
     <option value="2" >2 probes</option>
@@ -204,6 +207,8 @@
 	<option value="4" >4 probes</option>
 	<option value="5" >5 probes</option>
 	</select>	
+	</span>
+	</p>
 	<br>
 
 	<div>
@@ -246,20 +251,10 @@
 			
 			<span class="tab">
 			<span id="checkbox3">
-			<input class="ckeckbox-element" type="checkbox" onclick="openTab(event, 'Bbqtemp')"/>  
-			&nbsp;
+			<input class="ckeckbox-element" id="1Z1" type="checkbox" onclick="openTab('1Z1', event, 'Bbqtemp')"/>  
 			<i class="glyphicon glyphicon-pencil"></i>
 			</span> 
-
-<span class="tab">	
-</span>		
-<span class="tab">	
-</span>
-<span class="tab">	
-</span>
-<span class="tab">	
-</span>
-			
+		
 		</p>	
 		
 		<p>
@@ -270,8 +265,7 @@
 			
 			<span class="tab">
 			<span id="checkbox3">
-			<input class="ckeckbox-element" type="checkbox" onclick="openTab(event, 'Foodtemp')"/>  
-			&nbsp;
+			<input class="ckeckbox-element" id="1Z2" type="checkbox" onclick="openTab('1Z2', event, 'Foodtemp')"/>  
 			<i class="glyphicon glyphicon-pencil"></i>
 			</span> 
 			
@@ -309,13 +303,13 @@
 
 			
 			<div>
-			<label for="1T1">manual control</label>
+			<span class="textinfo">manual control</span>
 			<input type="checkbox" id="1T1" onclick="updateButton('1T1')"> 
 			</div>
 		
 			<div>
 			<label class="slidercontainerx">	
-			<input id="1Y1" type="range" min="0" max="255" step="1" value="128" onchange="updateSlider('1Y1', this.value)">
+			<input id="1Y1" type="range" class="slider" min="0" max="255" step="1" value="128" onchange="updateSlider('1Y1', this.value)">
 			</label>
 			</div>
 
@@ -325,14 +319,14 @@
 
 	<input name="timer-input" placeholder="countdown time" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param2" data-target-id="confirm-timer-input" data-target-param="data-action-1-param-2-value">
 	<span class="dht-labels">Counter</span> 
-	<span id="timer">%s%</span>
+	<span id="timer"></span>
 	<span class="units">(s)</span>
 	<br>
 	<br>
 	<div>
 
 	<span class="dht-labels">BBQ Timer</span> 
-	<span id="BBQcounter">%s%</span>
+	<span id="BBQcounter"></span>
 	<span class="units">(s)</span>	
 	
 	<span id="checkbox1">
@@ -343,7 +337,7 @@
 	<div>
 
 	<span class="dht-labels">Food Timer</span> 
-	<span id="Foodcounter">%s%</span>
+	<span id="Foodcounter"></span>
 	<span class="units">(s)</span>	
 	
 	<span id="checkbox1">
@@ -353,13 +347,14 @@
 	</div>
 
 	</div>
-	<div class="inline">settings
+	<div class="inline">
+	<h4>settings</h4>
 			
 	<div>
 	<span class="dht-labels">system settings</span>
 	<span class="tab">
 	<span id="checkbox3">
-	<input class="ckeckbox-element" type="checkbox" onclick="openTab(event, 'Systemsettings')"/>  
+	<input class="ckeckbox-element" type="checkbox" id="1Z3" onclick="openTab('1Z3', event, 'Systemsettings')"/>  
 	&nbsp;
 	<i class="glyphicon glyphicon-pencil"></i>
 	</span>
@@ -369,32 +364,19 @@
 	<span class="dht-labels">calibration settings</span>
 	<span class="tab">
 	<span id="checkbox3">
-	<input class="ckeckbox-element" type="checkbox" onclick="openTab(event, 'Calsettings')"/>  
+	<input class="ckeckbox-element" type="checkbox" id="1Z4" onclick="openTab('1Z4', event, 'Calsettings')"/>  
 	&nbsp;
 	<i class="glyphicon glyphicon-pencil"></i>
 	</span>
 	</div>	
 	</div>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<hr>
-    
+
     <h2>Temperature History</h2>
-    <div id="chart-temperature" class="container"></div>
+    <div id="chart-temperature" class="container">
+	</div>
+	
+	<hr>
   
 <script>
 /*
@@ -1289,7 +1271,29 @@ function updateTime(){
 </script>
 
 <script>
-function openTab(evt, cityName) {
+function openTab(fixedVariable, evt, cityName) {
+if (fixedVariable == '1Z1'){
+document.getElementById('1Z2').checked = false;
+document.getElementById('1Z3').checked = false;
+document.getElementById('1Z4').checked = false;
+}
+else if (fixedVariable == '1Z2'){
+document.getElementById('1Z1').checked = false;
+document.getElementById('1Z3').checked = false;
+document.getElementById('1Z4').checked = false;
+}
+else if (fixedVariable == '1Z3'){
+document.getElementById('1Z2').checked = false;
+document.getElementById('1Z1').checked = false;
+document.getElementById('1Z4').checked = false;
+}
+else if (fixedVariable == '1Z4'){
+document.getElementById('1Z2').checked = false;
+document.getElementById('1Z3').checked = false;
+document.getElementById('1Z1').checked = false;
+}
+
+if (document.getElementById(fixedVariable).checked == true){
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
@@ -1301,6 +1305,11 @@ function openTab(evt, cityName) {
   }
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
+  }
+  else {
+  document.getElementById(fixedVariable).checked = false;
+  document.getElementById(cityName).style.display = "none";
+  }
 }
 
 // Get the element with id="defaultOpen" and click on it

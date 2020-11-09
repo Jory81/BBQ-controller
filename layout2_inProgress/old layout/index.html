@@ -15,17 +15,116 @@
     <span> &nbsp  / &nbsp  </span>
     <span id='time-part'></span>
 </div>
+<hr>
+    <h2>Actual Temperature</h2>
+    <p>
+        <i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
+        <span class="dht-labels">BBQ probe</span> 
+        <span id="temperature1">%c%</span>
+        <sup class="units">&deg;C</sup>
+	
+	<span id="checkbox2">
+	<input class="ckeckbox-element" type="checkbox" id="1L1" onclick="updateButton('1L1')"/>  
+	<i class="glyphicon glyphicon-fire"></i>
+	</span> 
 
-<div id="Bbqtemp" class="tabcontent">
-  <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+	<span>
+		<span class="dht-labels">Speed</span> 		
+		<span id="fanSpeed">%%%</span>
+		<span class="dht-labels">%</span> 	
+	</span>
+	
+	
+	<span>
+	<label class="switch">
+	<input type="checkbox" id="1T1" onclick="updateButton('1T1')"> 
+	<span class="sliderround"></span>
+	</label>
+	</span>
 
-    <h4>BBQ probe</h4>
+	<span>
+	<label class="slidercontainerx">	
+	<input id="1Y1" type="range" min="0" max="255" step="1" value="128" onchange="updateSlider('1Y1', this.value)">
+	</label>
+	</span>
+
+	</p>	
+	
+	<p>
+        <i class="fas fa-thermometer-half" style="color:#9e0519;"></i> 
+        <span class="dht-labels">Food Probe</span> 
+        <span id="temperature2">%c%</span>
+        <sup class="units">&deg;C</sup>
+    </p>
+	
+	<span class="dht-labels">Additional probes:</span>
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1N1" onclick="setTab('SetTab2')"/>  
+	<i class="glyphicon glyphicon-menu-down"></i>
+	</span> 
+
+	<div id="SetTab2">
+	
+	<p>
+        <i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
+        <span class="dht-labels">T3</span> 
+        <span id="temperature3">%c%</span>
+        <sup class="units">&deg;C</sup>
+
+        <i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
+        <span class="dht-labels">T4</span> 
+        <span id="temperature4">%c%</span>
+        <sup class="units">&deg;C</sup>
+
+        <i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
+        <span class="dht-labels">T5</span> 
+        <span id="temperature5">%c%</span>
+        <sup class="units">&deg;C</sup>
+    </p>
+	</div>
+	
+	<hr>
+	<h2>Timers</h2>
+    <input name="timer-input" placeholder="countdown time" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param2" data-target-id="confirm-timer-input" data-target-param="data-action-1-param-2-value">
+		<span class="dht-labels">Counter</span> 
+		<span id="timer">%s%</span>
+		<span class="units">(s)</span>
+	<br>
+	<br>
+	<div>
+
+	<span class="dht-labels">BBQ Timer</span> 
+	<span id="BBQcounter">%s%</span>
+	<span class="units">(s)</span>	
+	
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1C1" onclick="updateButton('1C1')"/>  
+	<i class="glyphicon glyphicon-time"></i>
+	</span>
+	</div>
+	<div>
+
+	<span class="dht-labels">Food Timer</span> 
+	<span id="Foodcounter">%s%</span>
+	<span class="units">(s)</span>	
+	
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1C2" onclick="updateButton('1C2')"/>  
+	<i class="glyphicon glyphicon-time"></i>
+	</span>	
+	</div>
+	<hr>
+    <h2>Temperature History</h2>
+    <div id="chart-temperature" class="container"></div>
+	
+	<hr>
+    <h2>BBQ probe</h2>
 	<div>
     <input name="celsius-input" placeholder="input Temp 1" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param" data-target-id="confirm-celsius-input" data-target-param="data-action-1-param-1-value">
     <button id="confirm-celsius-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-celsius-input" data-action-1-param-1-name="celsius" data-action-1-param-1-value="">submit</button>
     
 	    <span class="dht-labels"></span> 
-        <span id="targetTemperature1"></span>
+        <span id="targetTemperature1">%c%</span>
         <sup class="units">&deg;C</sup>
 		
 		<span id="checkbox1">
@@ -44,7 +143,7 @@
     <input name="celsiusOffset-input" placeholder="offsetTemp 1" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param5" data-target-id="confirm-celsiusOffset-input" data-target-param5="data-action-1-param-5-value">
     <button id="confirm-celsiusOffset-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-celsiusOffset-input" data-action-1-param-5-name="celsiusOffset" data-action-1-param-5-value="">submit</button>
 	    <span class="dht-labels"></span> 
-        <span id="offsetFromTargetTemp1"></span>
+        <span id="offsetFromTargetTemp1">%c%</span>
         <sup class="units">&deg;C</sup>
 		
 		<span id="checkbox1">
@@ -58,7 +157,7 @@
     <button id="confirm-alarm-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-alarm-input" data-action-1-param-3-name="alarm" data-action-1-param-3-value="">submit</button>
     
 		<span class="dht-labels"></span> 
-		<span id="alarm1"></span>
+		<span id="alarm1">%s%</span>
 		<span class="units">(s)</span>
 		
 		<span id="checkbox1">
@@ -75,18 +174,14 @@
 	</span>  
 	
 	</div>
-
-</div>
-
-<div id="Foodtemp" class="tabcontent">
-  <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
-<h4>FOOD probe</h4>
+	<hr>
+    <h2>FOOD probe</h2>
 	<div>
     <input name="celsius2-input" placeholder="input Temp 2" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param4" data-target-id="confirm-celsius2-input" data-target-param="data-action-1-param-4-value">
     <button id="confirm-celsius2-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-celsius2-input" data-action-1-param-4-name="celsius2" data-action-1-param-4-value="">submit</button>
     
 	<span class="dht-labels"></span> 
-    <span id="targetTemperature2"></span>
+    <span id="targetTemperature2">%c%</span>
     <sup class="units">&deg;C</sup>
 	
 	<span id="checkbox1">
@@ -101,7 +196,7 @@
     <button id="confirm-alarm2-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-alarm2-input" data-action-1-param-6-name="alarm2" data-action-1-param-6-value="">submit</button>
     
 		<span class="dht-labels"></span> 
-		<span id="alarm2"></span>
+		<span id="alarm2">%s%</span>
 		<span class="units">(s)</span>
 	
 		<span id="checkbox1">
@@ -117,17 +212,26 @@
 	<i class="glyphicon glyphicon-volume-off"></i>
 	</span> 
 	</div>
-</div>
+	
+	<hr>
+	Additional settings: 
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1O1" onclick="setTab('SetTab')"/>  
+	<i class="glyphicon glyphicon-menu-down"></i>
+	</span> 
 
+	calibration settings: 
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1N1" onclick="setTab('SetTab3')"/>  
+	<i class="glyphicon glyphicon-menu-down"></i>
+	</span> 
 
-<div id="Calsettings" class="tabcontent">
-<h4>calibration settings:</h4>
-  <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+	<div id="SetTab3">
 		<div>
 			<span class="inputparam"> <input type="number" placeholder="input cal. 1" class="form-controlx input-sl" id="cv1" value=""></span> <span><button onclick="updateText('cv1')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i>
 			<span class="dht-labels"></span> 
-			<span id="cal_val1"></span>
+			<span id="cal_val1">%c%</span>
 			<sup class="units">&deg;C</sup>
 		</div>
 
@@ -135,7 +239,7 @@
 			<span class="inputparam"> <input type="number" placeholder="input cal. 2" class="form-controlx input-sl" id="cv2" value=""></span> <span><button onclick="updateText('cv2')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
 			<span class="dht-labels"></span> 
-			<span id="cal_val2"></span>
+			<span id="cal_val2">%c%</span>
 			<sup class="units">&deg;C</sup>
 		</div>
 
@@ -143,7 +247,7 @@
 			<span class="inputparam"> <input type="number" placeholder="input cal. 3" class="form-controlx input-sl" id="cv3" value=""></span> <span><button onclick="updateText('cv3')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i>
 			<span class="dht-labels"></span> 
-			<span id="cal_val3"></span>
+			<span id="cal_val3">%c%</span>
 			<sup class="units">&deg;C</sup>
 		</div>
 
@@ -151,7 +255,7 @@
 			<span class="inputparam"> <input type="number" placeholder="input cal. 4" class="form-controlx input-sl" id="cv4" value=""></span> <span><button onclick="updateText('cv4')" class="btnx btn-primary">submit</button> </span>      	&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i>
 			<span class="dht-labels"></span> 
-			<span id="cal_val4"></span>
+			<span id="cal_val4">%c%</span>
 			<sup class="units">&deg;C</sup>
 		</div>
 
@@ -159,7 +263,7 @@
 			<span class="inputparam"> <input type="number" placeholder="input cal. 5" class="form-controlx input-sl" id="cv5" value=""></span> <span><button onclick="updateText('cv5')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
 			<span class="dht-labels"></span> 
-			<span id="cal_val5"></span>
+			<span id="cal_val5">%c%</span>
 			<sup class="units">&deg;C</sup>	
 		</div>	
 
@@ -185,21 +289,19 @@
 			<span class="dht-labels"></span> 
 			<span id="pid_val3"></span>
 		</div>			
-</div>
 
-<div id="Systemsettings" class="tabcontent">
-  <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
-	<h4>system settings:</h4>
-	<p>
-	<span class="inputparam">
+
+	</div>
+	<br>
+
+	<div id="SetTab">
+	
 	<select name="selectProbeType" id="probe_id" onchange="selectProbeType(this)">
     <option value="1" >PT100</option>
     <option value="2" >Thermokoppel</option>
 	</select>
-	</span>
 	<br>
 	<br>
-	<span class="inputparam">
 	<select name="selectProbeAmount" id="probe_number" onchange="selectProbeAmount(this)">
     <option value="1" >1 probe</option>
     <option value="2" >2 probes</option>
@@ -207,8 +309,6 @@
 	<option value="4" >4 probes</option>
 	<option value="5" >5 probes</option>
 	</select>	
-	</span>
-	</p>
 	<br>
 
 	<div>
@@ -237,146 +337,9 @@
 	<i class="glyphicon glyphicon-refresh"></i>
 	</span> 
 	</div>	
-</div>
-
-	<div class="inline">
-
-		<h4>temperature</h4>
-		<p>
-			<i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
-			<span class="dht-labels">BBQ probe</span> 
-			<span id="temperature1"></span>
-			<sup class="units">&deg;C</sup>
-			
-			
-			<span class="tab">
-			<span id="checkbox3">
-			<input class="ckeckbox-element" id="1Z1" type="checkbox" onclick="openTab('1Z1', event, 'Bbqtemp')"/>  
-			<i class="glyphicon glyphicon-pencil"></i>
-			</span> 
-		
-		</p>	
-		
-		<p>
-			<i class="fas fa-thermometer-half" style="color:#9e0519;"></i> 
-			<span class="dht-labels">Food Probe</span> 
-			<span id="temperature2"></span>
-			<sup class="units">&deg;C</sup>
-			
-			<span class="tab">
-			<span id="checkbox3">
-			<input class="ckeckbox-element" id="1Z2" type="checkbox" onclick="openTab('1Z2', event, 'Foodtemp')"/>  
-			<i class="glyphicon glyphicon-pencil"></i>
-			</span> 
-			
-		</p>
-			
-		<p>
-			<span class="dht-labels">t3</span> 
-			<span id="temperature3"></span>
-			<sup class="units">&deg;C</sup>
 	
-			<span class="dht-labels">t4</span> 
-			<span id="temperature4"></span>
-			<sup class="units">&deg;C</sup>
-	
-			<span class="dht-labels">t5</span> 
-			<span id="temperature5"></span>
-			<sup class="units">&deg;C</sup>
-		</p>
-
 	</div>
-	<div class="inline">
-		<h4>fan</h4>
-
-			<span id="checkbox2">
-			<input class="ckeckbox-element" type="checkbox" id="1L1" onclick="updateButton('1L1')"/>  
-			&nbsp;
-			<i class="glyphicon glyphicon-fire"></i>
-			</span> 
-		
-			<span>
-				<span class="dht-labels">Speed</span> 		
-				<span id="fanSpeed"></span>
-				<span class="dht-labels">%</span> 	
-			</span>
-
-			
-			<div>
-			<span class="textinfo">manual control</span>
-			<input type="checkbox" id="1T1" onclick="updateButton('1T1')"> 
-			</div>
-		
-			<div>
-			<label class="slidercontainerx">	
-			<input id="1Y1" type="range" class="slider" min="0" max="255" step="1" value="128" onchange="updateSlider('1Y1', this.value)">
-			</label>
-			</div>
-
-	</div>
-	<div class="inline">
-	<h4>timers</h4>
-
-	<input name="timer-input" placeholder="countdown time" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param2" data-target-id="confirm-timer-input" data-target-param="data-action-1-param-2-value">
-	<span class="dht-labels">Counter</span> 
-	<span id="timer"></span>
-	<span class="units">(s)</span>
 	<br>
-	<br>
-	<div>
-
-	<span class="dht-labels">BBQ Timer</span> 
-	<span id="BBQcounter"></span>
-	<span class="units">(s)</span>	
-	
-	<span id="checkbox1">
-	<input class="ckeckbox-element" type="checkbox" id="1C1" onclick="updateButton('1C1')"/>  
-	<i class="glyphicon glyphicon-time"></i>
-	</span>
-	</div>
-	<div>
-
-	<span class="dht-labels">Food Timer</span> 
-	<span id="Foodcounter"></span>
-	<span class="units">(s)</span>	
-	
-	<span id="checkbox1">
-	<input class="ckeckbox-element" type="checkbox" id="1C2" onclick="updateButton('1C2')"/>  
-	<i class="glyphicon glyphicon-time"></i>
-	</span>	
-	</div>
-
-	</div>
-	<div class="inline">
-	<h4>settings</h4>
-			
-	<div>
-	<span class="dht-labels">system settings</span>
-	<span class="tab">
-	<span id="checkbox3">
-	<input class="ckeckbox-element" type="checkbox" id="1Z3" onclick="openTab('1Z3', event, 'Systemsettings')"/>  
-	&nbsp;
-	<i class="glyphicon glyphicon-pencil"></i>
-	</span>
-	</div>	
-	
-	<div>
-	<span class="dht-labels">calibration settings</span>
-	<span class="tab">
-	<span id="checkbox3">
-	<input class="ckeckbox-element" type="checkbox" id="1Z4" onclick="openTab('1Z4', event, 'Calsettings')"/>  
-	&nbsp;
-	<i class="glyphicon glyphicon-pencil"></i>
-	</span>
-	</div>	
-	</div>
-
-
-    <h2>Temperature History</h2>
-    <div id="chart-temperature" class="container">
-	</div>
-	
-	<hr>
   
 <script>
 /*
@@ -1268,52 +1231,6 @@ function updateTime(){
                              .substring(0,3).toUpperCase());
         $('#time-part').html(momentNow.format('HH:mm:ss'));
 }
-</script>
-
-<script>
-function openTab(fixedVariable, evt, cityName) {
-if (fixedVariable == '1Z1'){
-document.getElementById('1Z2').checked = false;
-document.getElementById('1Z3').checked = false;
-document.getElementById('1Z4').checked = false;
-}
-else if (fixedVariable == '1Z2'){
-document.getElementById('1Z1').checked = false;
-document.getElementById('1Z3').checked = false;
-document.getElementById('1Z4').checked = false;
-}
-else if (fixedVariable == '1Z3'){
-document.getElementById('1Z2').checked = false;
-document.getElementById('1Z1').checked = false;
-document.getElementById('1Z4').checked = false;
-}
-else if (fixedVariable == '1Z4'){
-document.getElementById('1Z2').checked = false;
-document.getElementById('1Z3').checked = false;
-document.getElementById('1Z1').checked = false;
-}
-
-if (document.getElementById(fixedVariable).checked == true){
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-  document.getElementById(cityName).style.display = "block";
-  evt.currentTarget.className += " active";
-  }
-  else {
-  document.getElementById(fixedVariable).checked = false;
-  document.getElementById(cityName).style.display = "none";
-  }
-}
-
-// Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
 </script>
   
 </body>

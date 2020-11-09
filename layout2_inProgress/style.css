@@ -3,7 +3,7 @@
 }
 
 #checkbox1{
-  background:#FFF;
+  background:#grey;
   display:inline-block;
   padding:10px 10px;
   border-radius:2px;
@@ -12,7 +12,7 @@
 }
 
 #checkbox2{
-  background:#FFF;
+  background:#grey;
   display:inline-block;
   padding:10px 10px;
   border-radius:2px;
@@ -21,7 +21,7 @@
 }
 
 #checkbox3{
-  background:#FFF;
+  background:#grey;
   display:inline-block;
   padding:10px 10px;
   border-radius:2px;
@@ -62,7 +62,7 @@
 }
 
 #checkbox3>input[type='checkbox']:checked+i{
-  color:#444444;
+  color:#ffffff;
 }
 
 .form-controlx{
@@ -89,9 +89,13 @@ h2 { font-size: 3.0rem; }
 
 h3 { font-size: 1.0rem; }
 
-h4 { font-size: 2.0rem; }
+h4 { font-size: 2.0rem; 
+color: white;
+}
 
-p { font-size: 3.0rem; }
+p { font-size: 2.0rem; 
+color: white;
+}
 
 .units { font-size: 1.2rem; }
 
@@ -99,6 +103,7 @@ p { font-size: 3.0rem; }
   font-size: 1.5rem;
   vertical-align:middle;
   padding-bottom: 15px;
+  color: white;
 }
 
 .switch-labels{
@@ -112,6 +117,8 @@ body {
   max-width: 1200px;
   height: 400px;
   margin: 0 auto;
+  background-color: grey;
+  color: white;
 }
 h2 {
   font-family: Arial;
@@ -176,13 +183,13 @@ input:checked + .sliderround:before {
 .slidercontainerx {
   position: relative;
   display: inline-block;
-  width: 110px;
+  width: 45%;
   height: 22px;
 }
 
 .time-frame {
 	text-align: center;
-    color: #000000;
+    color: #white;
     width: 100%;
     font-family: Arial;
 }
@@ -203,22 +210,20 @@ input:checked + .sliderround:before {
 
 div.inline { 
   float:left; 
-  height:flex;
+  height:50%;
   width:25%;
-  outline: solid;
-  color: grey;
+  outline: none;
 }
 
 /* Style the tab */
 .tab {
   overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
+  background-color: #grey;
 }
 
 /* Style the buttons inside the tab */
 .tab checkbox {
-  background-color: #ffffff;
+  background-color: #grey;
   float: left;
   border: none;
   outline: none;
@@ -228,22 +233,11 @@ div.inline {
   font-size: 17px;
 }
 
-/* Change background color of buttons on hover */
-.tab checkbox:hover {
-  background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-.tab checkbox.active {
-  background-color: #ccc;
-}
-
 /* Style the tab content */
 .tabcontent {
   display: none;
-  padding: 6px 12px;
+  padding: 6px 6px;
   border: none;
-  border-top: none;
 }
 
 /* Style the close button */
@@ -253,4 +247,48 @@ div.inline {
   font-size: 28px;
 }
 
-.topright:hover {color: red;}
+.inputparam {
+	color: grey;
+	text-align: center;
+}
+
+.textinfo {
+	color: white;
+	text-align: center;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  display: flex;
+  position: relative;
+  height: 15px;
+  border-radius: 10px;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 0.8;
+  background: #e09880;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  background: #ed3b00;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  background: #ed3b00;
+  cursor: pointer;
+}
