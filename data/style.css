@@ -148,6 +148,13 @@ input:checked + .sliderround:before {
   transform: translateX(16px);
 }
 
+.slidercontainerx {
+  position: relative;
+  display: inline-block;
+  width: 110px;
+  height: 22px;
+}
+
 .time-frame {
 	text-align: center;
     color: #000000;
