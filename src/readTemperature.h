@@ -88,7 +88,7 @@ float processRTD(uint16_t rtd){
 
 void fanControl(){
 if (fanManual){
-  if (fanON){ outputVal=255; }
+  if (fanON){ outputVal=fanManualAmount; }
   else { outputVal=0; }
   if (msgFanState){
     messageFanState();

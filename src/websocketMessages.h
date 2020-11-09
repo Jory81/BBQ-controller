@@ -160,7 +160,7 @@ void processWebSocketMessage(String str, int dataVar){
       else if (str == "1T1"){fanManual = dataVar; msgFanState = true; String mergedString = "GU"+String(fanManual); ws.textAll(mergedString);}
       else if (str == "1X1"){tempControlPID = dataVar; EEPROM.put(offsetof(storeInEEPROM, tempControlPID), tempControlPID);  EEPROM.commit(); sendAllPIDValues();}
       else if (str == "1U1"){ESP.restart();}
-      else if (str == "1Y1"){fanManualAmount = dataVar;}
+      else if (str == "1Y1"){fanManualAmount = dataVar; msgFanState = true;}
   }    
   else {
       return;
