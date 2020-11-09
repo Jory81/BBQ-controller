@@ -73,6 +73,7 @@ boolean msgFanState= true;
 boolean tempOffsetAlarm=false;
 boolean fanManual = false;
 boolean wifiStationMode=false;
+byte fanManualAmount = 127;
 
 uint32_t targetTime1 = 0;
 //uint32_t targetTime2 = 0;

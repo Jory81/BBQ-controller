@@ -133,6 +133,8 @@ void processWebSocketMessage(String str, int dataVar){
     else if (dataVar == 16){sendAllCalibrationValues();}
     else if (dataVar == 17){sendAllPIDValues();}
     else if (dataVar == 18){String mergedString = "GX"+String(tempControlPID); ws.textAll(mergedString);}
+    else if (dataVar == 19){String mergedString = "GY"+String(fanManualAmount); ws.textAll(mergedString);}
+
   }
   
   else if (firstChar == "1"){  
@@ -157,7 +159,8 @@ void processWebSocketMessage(String str, int dataVar){
       else if (str == "1SN"){sensorAmount = dataVar; EEPROM.put(offsetof(storeInEEPROM, sensorAmount), sensorAmount);  EEPROM.commit(); ESP.restart(); }
       else if (str == "1T1"){fanManual = dataVar; msgFanState = true; String mergedString = "GU"+String(fanManual); ws.textAll(mergedString);}
       else if (str == "1X1"){tempControlPID = dataVar; EEPROM.put(offsetof(storeInEEPROM, tempControlPID), tempControlPID);  EEPROM.commit(); sendAllPIDValues();}
-      else if (str == "1U1"){ESP.restart();};
+      else if (str == "1U1"){ESP.restart();}
+      else if (str == "1Y1"){fanManualAmount = dataVar;}
   }    
   else {
       return;

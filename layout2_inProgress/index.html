@@ -16,6 +16,135 @@
     <span id='time-part'></span>
 </div>
 <hr>
+
+	<div class="inline">
+
+		<h4>temperature</h4>
+		<p>
+			<i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
+			<span class="dht-labels">BBQ probe</span> 
+			<span id="temperature1">%c%</span>
+			<sup class="units">&deg;C</sup>
+			
+		</p>	
+		
+		<p>
+			<i class="fas fa-thermometer-half" style="color:#9e0519;"></i> 
+			<span class="dht-labels">Food Probe</span> 
+			<span id="temperature2">%c%</span>
+			<sup class="units">&deg;C</sup>
+		</p>
+		
+		<span class="dht-labels">Additional probes:</span>
+		<span id="checkbox1">
+		<input class="ckeckbox-element" type="checkbox" id="1N1" onclick="setTab('SetTab2')"/>  
+		<i class="glyphicon glyphicon-menu-down"></i>
+		</span> 
+	
+		<div id="SetTab2">
+		
+		<p>
+			<i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
+			<span class="dht-labels">T3</span> 
+			<span id="temperature3">%c%</span>
+			<sup class="units">&deg;C</sup>
+	
+			<i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
+			<span class="dht-labels">T4</span> 
+			<span id="temperature4">%c%</span>
+			<sup class="units">&deg;C</sup>
+	
+			<i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
+			<span class="dht-labels">T5</span> 
+			<span id="temperature5">%c%</span>
+			<sup class="units">&deg;C</sup>
+		</p>
+		</div>
+
+	</div>
+	<div class="inline">
+		<h4>fan</h4>
+
+			<span id="checkbox2">
+			<span class="dht-labels">State</span> 
+			<input class="ckeckbox-element" type="checkbox" id="1L1" onclick="updateButton('1L1')"/>  
+			&nbsp;
+			<i class="glyphicon glyphicon-fire"></i>
+			</span> 
+		
+			<span>
+				<span class="dht-labels">Speed</span> 		
+				<span id="fanSpeed">%%%</span>
+				<span class="dht-labels">%</span> 	
+			</span>
+			
+			
+			<div>
+			<span class="switch-labels">Manual:</span> 
+			<label class="switch">
+			<input type="checkbox" id="1T1" onclick="updateButton('1T1')"> 
+			<span class="sliderround"></span>
+			</label>
+			</div>
+		
+			<div>
+			<label class="slidercontainerx">	
+			<input id="1Y1" type="range" min="0" max="255" step="1" value="128" onchange="updateSlider('1Y1', this.value)">
+			</label>
+			</div>
+
+	</div>
+	<div class="inline">
+		<h4>timers</h4>
+
+		<input name="timer-input" placeholder="countdown time" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param2" data-target-id="confirm-timer-input" data-target-param="data-action-1-param-2-value">
+		<span class="dht-labels">Counter</span> 
+		<span id="timer">%s%</span>
+		<span class="units">(s)</span>
+	<br>
+	<br>
+	<div>
+
+	<span class="dht-labels">BBQ Timer</span> 
+	<span id="BBQcounter">%s%</span>
+	<span class="units">(s)</span>	
+	
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1C1" onclick="updateButton('1C1')"/>  
+	<i class="glyphicon glyphicon-time"></i>
+	</span>
+	</div>
+	<div>
+
+	<span class="dht-labels">Food Timer</span> 
+	<span id="Foodcounter">%s%</span>
+	<span class="units">(s)</span>	
+	
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1C2" onclick="updateButton('1C2')"/>  
+	<i class="glyphicon glyphicon-time"></i>
+	</span>	
+	</div>
+
+	</div>
+	<div class="inline">settings</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<hr>
     <h2>Actual Temperature</h2>
     <p>
         <i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
