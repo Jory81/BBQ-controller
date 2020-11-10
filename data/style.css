@@ -29,6 +29,15 @@
   cursor:pointer;
 }
 
+#checkbox4{
+  background:#grey;
+  display:inline-block;
+  padding:10px 10px;
+  border-radius:2px;
+  position:relative;
+  cursor:pointer;
+}
+
 .ckeckbox-element{
   display:block;
   position:absolute;
@@ -42,19 +51,19 @@
 
 
 #checkbox1>input[type='checkbox']+i{
-  color:#a3d4cd;
+  color:#999999;
 }
 
 #checkbox1>input[type='checkbox']:checked+i{
-  color:#059e8a;
+  color:#93dbd1;
 }
 
 #checkbox2>input[type='checkbox']+i{
-  color:#e09880;
+  color:#999999;
 }
 
 #checkbox2>input[type='checkbox']:checked+i{
-  color:#ed3b00;
+  color:#e09880;
 }
 
 #checkbox3>input[type='checkbox']+i{
@@ -63,6 +72,14 @@
 
 #checkbox3>input[type='checkbox']:checked+i{
   color:#ffffff;
+}
+
+#checkbox4>input[type='checkbox']+i{
+  color:#999999;
+}
+
+#checkbox4>input[type='checkbox']:checked+i{
+  color:#db7986
 }
 
 .form-controlx{
@@ -187,7 +204,7 @@ input:checked + .sliderround:before {
 
 .time-frame {
 	text-align: center;
-    color: #white;
+    color: white;
     width: 100%;
     font-family: Arial;
 }
@@ -208,7 +225,7 @@ input:checked + .sliderround:before {
 
 div.inline { 
   float:left; 
-  height:50%;
+  height:60%;
   width:33%;
   outline: none;
 }
@@ -262,7 +279,7 @@ div.inline {
   width: 100%;
   display: flex;
   position: relative;
-  height: 15px;
+  height: 10px;
   border-radius: 10px;
   outline: none;
   opacity: 0.7;
@@ -272,23 +289,29 @@ div.inline {
 
 .slider:hover {
   opacity: 0.8;
-  background: #e09880;
+  background: #f2cabd;
 }
 
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
   border-radius: 100%;
-  background: #ed3b00;
+  background: #e09880;
   cursor: pointer;
 }
 
 .slider::-moz-range-thumb {
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
   border-radius: 100%;
-  background: #ed3b00;
+  background: #e09880;
   cursor: pointer;
+}
+
+.container{
+	background-color: grey;
+	color:white;
+	
 }

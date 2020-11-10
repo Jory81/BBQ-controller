@@ -15,6 +15,17 @@
     <span id='date-part'></span>
     <span> &nbsp  / &nbsp  </span>
     <span id='time-part'></span>
+	
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1I1" onclick="updateButton('1I1')"/>  
+	<i class="glyphicon glyphicon-volume-off"></i>
+	</span>  
+
+	<span id="checkbox4">
+	<input class="ckeckbox-element" type="checkbox" id="1I2" onclick="updateButton('1I2')"/>  
+	<i class="glyphicon glyphicon-volume-off"></i>
+	</span> 
+	
 	</div>
 	
 	<div>	
@@ -37,7 +48,7 @@
 </div>
 <hr>
 <div id="Bbqtemp" class="tabcontent">
-  <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+  <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
 
     <h4>BBQ probe</h4>
 	<div>
@@ -77,28 +88,21 @@
     <input name="alarm-input" placeholder="alarmTime 1" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param3" data-target-id="confirm-alarm-input" data-target-param="data-action-1-param-3-value"style="width: 64px";>
     <button id="confirm-alarm-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-alarm-input" data-action-1-param-3-name="alarm" data-action-1-param-3-value="">submit</button>
     
-		<span class="dht-labels"></span> 
-		<span id="alarm1"></span>
-		<span class="units">(s)</span>
-		
-		<span id="checkbox1">
-		<input class="ckeckbox-element" type="checkbox" id="1G1" onclick="updateButton('1G1')"/>  
-		<i class="glyphicon glyphicon-bell"></i>
-		</span>
-		
-	</div>
+	<span class="dht-labels"></span> 
+	<span id="alarm1"></span>
+	<span class="units">(s)</span>
 	
-	<div>	
 	<span id="checkbox1">
-	<input class="ckeckbox-element" type="checkbox" id="1I1" onclick="updateButton('1I1')"/>  
-	<i class="glyphicon glyphicon-volume-off"></i>
-	</span>  
-	
+	<input class="ckeckbox-element" type="checkbox" id="1G1" onclick="updateButton('1G1')"/>  
+	<i class="glyphicon glyphicon-bell"></i>
+	</span>
+		
 	</div>
+	<hr>
 </div>
 
 <div id="Foodtemp" class="tabcontent">
-  <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+  <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
 <h4>FOOD probe</h4>
 	<div>
     <input name="celsius2-input" placeholder="input Temp 2" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param4" data-target-id="confirm-celsius2-input" data-target-param="data-action-1-param-4-value" style="width: 64px";>
@@ -119,29 +123,22 @@
     <input name="alarm2-input" placeholder="alarmTime 2" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param6" data-target-id="confirm-alarm2-input" data-target-param="data-action-1-param-6-value" style="width: 64px";>
     <button id="confirm-alarm2-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-alarm2-input" data-action-1-param-6-name="alarm2" data-action-1-param-6-value="">submit</button>
     
-		<span class="dht-labels"></span> 
-		<span id="alarm2"></span>
-		<span class="units">(s)</span>
-	
-		<span id="checkbox1">
-		<input class="ckeckbox-element" type="checkbox" id="1G2" onclick="updateButton('1G2')"/>  
-		<i class="glyphicon glyphicon-bell"></i>
-		</span> 	
-		
-	</div>
-	
-	<div>
+	<span class="dht-labels"></span> 
+	<span id="alarm2"></span>
+	<span class="units">(s)</span>
+
 	<span id="checkbox1">
-	<input class="ckeckbox-element" type="checkbox" id="1I2" onclick="updateButton('1I2')"/>  
-	<i class="glyphicon glyphicon-volume-off"></i>
-	</span> 
+	<input class="ckeckbox-element" type="checkbox" id="1G2" onclick="updateButton('1G2')"/>  
+	<i class="glyphicon glyphicon-bell"></i>
+	</span> 	
 	</div>
+	<hr>
 </div>
 
 
 <div id="Calsettings" class="tabcontent">
 <h4>calibration settings:</h4>
-  <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+  <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
 		<div>
 			<span class="inputparam"> <input type="number" placeholder="input cal. 1" class="form-controlx input-sl" id="cv1" value=""></span> <span><button onclick="updateText('cv1')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i>
@@ -203,11 +200,12 @@
 			<i class="glyphicon glyphicon-signal"></i> 
 			<span class="dht-labels"></span> 
 			<span id="pid_val3"></span>
-		</div>			
+		</div>
+		<hr>
 </div>
 
 <div id="Systemsettings" class="tabcontent">
-  <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+  <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
 	<h4>system settings:</h4>
 	<p>
 	<span class="inputparam">
@@ -256,28 +254,28 @@
 	<i class="glyphicon glyphicon-refresh"></i>
 	</span> 
 	</div>	
+	<hr>
 </div>
 
 	<div class="inline">
 
 		<h4>temperature</h4>
 		<p>
-			<i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
-			<span class="dht-labels">BBQ</span> 
-			<span id="temperature1"></span>
-			<sup class="units">&deg;C</sup>
-			
-			
-			<span class="tab">
-			<span id="checkbox3">
-			<input class="ckeckbox-element" id="1Z1" type="checkbox" onclick="openTab('1Z1', event, 'Bbqtemp')"/>  
-			<i class="glyphicon glyphicon-pencil"></i>
-			</span> 
+		<i class="fas fa-thermometer-half" style="color:#93dbd1;"></i> 
+		<span class="dht-labels">BBQ</span> 
+		<span id="temperature1"></span>
+		<sup class="units">&deg;C</sup>
+		
+		<span class="tab">
+		<span id="checkbox3">
+		<input class="ckeckbox-element" id="1Z1" type="checkbox" onclick="openTab('1Z1', event, 'Bbqtemp')"/>  
+		<i class="glyphicon glyphicon-pencil"></i>
+		</span> 
 		
 		</p>	
 		
 		<p>
-			<i class="fas fa-thermometer-half" style="color:#9e0519;"></i> 
+			<i class="fas fa-thermometer-half" style="color:#db7986;"></i> 
 			<span class="dht-labels">Food</span> 
 			<span id="temperature2"></span>
 			<sup class="units">&deg;C</sup>
@@ -378,7 +376,6 @@
 
 	</div>
 
-    <h4>Temperature History</h4>
     <div id="chart-temperature" class="container">
 	</div>
 	
@@ -869,32 +866,36 @@ function doSend(message) {
 
 <script>
  	var chartT = new Highcharts.Chart({
-            chart: { renderTo : 'chart-temperature' },
-            title: { text: 'pt100 sensor' },
+            chart: { renderTo : 'chart-temperature',
+					backgroundColor: '#808080',
+			},
+            title: { text: 'Temperature History',
+						style: {color: '#ffffff',}
+					},
             series: [
                 {
-                    //showInLegend: true,
+                    showInLegend: true,
                     name: 'BBQ probe',
                     data: [],
                     color: '#ff0000'
                 }, 
                 {
-                    //showInLegend: true,
+                    showInLegend: true,
                     name: 'BBQ target',
                     data: [], 
-                    color: '#777777'
+                    color: '#0000ff'
                 },
 				{
-                    //showInLegend: true,
+                    showInLegend: true,
                     name: 'Food probe',
                     data: [],
-                    color: '#c87807'
+                    color: '#ffff00'
                 },
 				{
-                    //showInLegend: true,
+                    showInLegend: true,
                     name: 'fanSpeed %',
                     data: [], 
-                    color: '#76cc5f'
+                    color: '#00ff00'
                 }
 
             ],
@@ -916,22 +917,21 @@ function doSend(message) {
 					
 				}
 			},
-			/*
-            plotOptions: {
-                line: { 
-                    animation: false,
-                    dataLabels: {
-					crop: false,
-					}
-                },
-            },
-			*/
+			legend: {
+				itemStyle: {
+					color: 'white'
+				}  
+			},
             xAxis: { 
                type: 'datetime',
-                dateTimeLabelFormats: { second: '%H:%M:%S' }
+               dateTimeLabelFormats: { second: '%H:%M:%S' },
+			   title: { style: {color:"#ffffff"}},
+			   labels: { style: {color:"#ffffff"}}
             },
             yAxis: {
-                title: { text: 'Temperature (Celsius)' }
+                title: { text: 'Temperature (Celsius)',
+						 style: {color:"#ffffff"}},
+				labels: { style: {color:"#ffffff"}}
             },
             credits: { enabled: false }
         });
@@ -1314,6 +1314,16 @@ if (document.getElementById(fixedVariable).checked == true){
   document.getElementById(fixedVariable).checked = false;
   document.getElementById(cityName).style.display = "none";
   }
+}
+
+function toggleoff(parentElement){
+
+parentElement.style.display='none';
+document.getElementById('1Z1').checked = false;
+document.getElementById('1Z2').checked = false;
+document.getElementById('1Z3').checked = false;
+document.getElementById('1Z4').checked = false;
+
 }
 
 // Get the element with id="defaultOpen" and click on it
