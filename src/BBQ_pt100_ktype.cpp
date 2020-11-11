@@ -166,7 +166,7 @@ setupTempSensors();
 ledcSetup(ledChannel, freq, resolution);
 ledcAttachPin(OUTPUT_PIN, ledChannel);
 
-myPID.setBangBang(offsetTemperature1);
+myPID.setBangBang(offsetTemperatureMin);
 myPID.setTimeStep(100);
 }
 

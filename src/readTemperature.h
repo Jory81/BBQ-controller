@@ -102,11 +102,11 @@ else if (!fanManual){
     }
     else if (temp[0] < targetTemperature1){
       fanON = true;
-      if(temp[0] < targetTemperature1 - offsetTemperature1){
+      if(temp[0] < targetTemperature1 - offsetTemperatureMin){
         outputVal = 255;
       }
-      else if (temp[0] > targetTemperature1 - offsetTemperature1){
-        outputVal = modifiedMap((targetTemperature1-temp[0]), 0, offsetTemperature1, OUTPUT_MIN, OUTPUT_MAX);
+      else if (temp[0] > targetTemperature1 - offsetTemperatureMin){
+        outputVal = modifiedMap((targetTemperature1-temp[0]), 0, offsetTemperatureMin, OUTPUT_MIN, OUTPUT_MAX);
       } 
     }
   }

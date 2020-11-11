@@ -53,7 +53,7 @@
     <h4>BBQ probe</h4>
 	<div>
     <input name="celsius-input" placeholder="input Temp 1" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param" data-target-id="confirm-celsius-input" data-target-param="data-action-1-param-1-value" style="width: 64px";>
-    <button id="confirm-celsius-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-celsius-input" data-action-1-param-1-name="celsius" data-action-1-param-1-value="">submit</button>
+    <button id="confirm-celsius-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-celsius-input" data-action-1-param-1-name="celsius" data-action-1-param-1-value="">_submit</button>
     
 	    <span class="dht-labels"></span> 
         <span id="targetTemperature1"></span>
@@ -72,10 +72,24 @@
 	</div>	
 	
 	<div>
-    <input name="celsiusOffset-input" placeholder="offsetTemp 1" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param5" data-target-id="confirm-celsiusOffset-input" data-target-param5="data-action-1-param-5-value" style="width: 64px";>
-    <button id="confirm-celsiusOffset-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-celsiusOffset-input" data-action-1-param-5-name="celsiusOffset" data-action-1-param-5-value="">submit</button>
+    <input name="celsiusOffset-input1" placeholder="offset min" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param7" data-target-id="confirm-celsiusOffset-input1" data-target-param7="data-action-1-param-7-value" style="width: 64px";>
+    <button id="confirm-celsiusOffset-input1" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-celsiusOffset-input1" data-action-1-param-7-name="celsiusOffset1" data-action-1-param-7-value="">_submit</button>
 	    <span class="dht-labels"></span> 
-        <span id="offsetFromTargetTemp1"></span>
+        <span id="offsetFromTargetTempMin"></span>
+        <sup class="units">&deg;C</sup>
+		
+		<span id="checkbox1">
+		<input class="ckeckbox-element" type="checkbox" id="1M2" onclick="updateButton('1M2')"/>  
+		<i class="glyphicon glyphicon-bell"></i>
+		</span>
+	
+	</div>
+	
+	<div>
+    <input name="celsiusOffset-input2" placeholder="offset max" class="form-controlx input-sl" type="number" data-rule-required="true" data-purpose="change-data-param5" data-target-id="confirm-celsiusOffset-input2" data-target-param5="data-action-1-param-5-value" style="width: 64px";>
+    <button id="confirm-celsiusOffset-input2" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-celsiusOffset-input2" data-action-1-param-5-name="celsiusOffset2" data-action-1-param-5-value="">_submit</button>
+	    <span class="dht-labels"></span> 
+        <span id="offsetFromTargetTempMax"></span>
         <sup class="units">&deg;C</sup>
 		
 		<span id="checkbox1">
@@ -117,6 +131,11 @@
 	<i class="glyphicon glyphicon-bell"></i>
 	</span> 
 	
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1D2" onclick="updateButton('1D2')"/>  
+	<i class="glyphicon glyphicon-time"></i>
+	</span>	
+	
 	</div>
 	
     <div>
@@ -130,7 +149,7 @@
 	<span id="checkbox1">
 	<input class="ckeckbox-element" type="checkbox" id="1G2" onclick="updateButton('1G2')"/>  
 	<i class="glyphicon glyphicon-bell"></i>
-	</span> 	
+	</span> 
 	</div>
 	<hr>
 </div>
@@ -139,64 +158,56 @@
 <div id="Calsettings" class="tabcontent">
 <h4>calibration settings:</h4>
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
-		<div>
-			<span class="inputparam"> <input type="number" placeholder="input cal. 1" class="form-controlx input-sl" id="cv1" value=""></span> <span><button onclick="updateText('cv1')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input cal. 1" class="form-controlx input-sl" id="cv1" value=""></span> <span><button onclick="updateText('cv1')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i>
 			<span class="dht-labels"></span> 
 			<span id="cal_val1"></span>
 			<sup class="units">&deg;C</sup>
 		</div>
-
-		<div>
-			<span class="inputparam"> <input type="number" placeholder="input cal. 2" class="form-controlx input-sl" id="cv2" value=""></span> <span><button onclick="updateText('cv2')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input cal. 2" class="form-controlx input-sl" id="cv2" value=""></span> <span><button onclick="updateText('cv2')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
 			<span class="dht-labels"></span> 
 			<span id="cal_val2"></span>
 			<sup class="units">&deg;C</sup>
 		</div>
-
-		<div>
-			<span class="inputparam"> <input type="number" placeholder="input cal. 3" class="form-controlx input-sl" id="cv3" value=""></span> <span><button onclick="updateText('cv3')" class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input cal. 3" class="form-controlx input-sl" id="cv3" value=""></span> <span><button onclick="updateText('cv3')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i>
 			<span class="dht-labels"></span> 
 			<span id="cal_val3"></span>
 			<sup class="units">&deg;C</sup>
 		</div>
-
-		<div>
-			<span class="inputparam"> <input type="number" placeholder="input cal. 4" class="form-controlx input-sl" id="cv4" value=""></span> <span><button onclick="updateText('cv4')"  class="btnx btn-primary">submit</button> </span>      	&nbsp; &nbsp;
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input cal. 4" class="form-controlx input-sl" id="cv4" value=""></span> <span><button onclick="updateText('cv4')"  class="btnx btn-primary">_submit</button> </span>      	&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i>
 			<span class="dht-labels"></span> 
 			<span id="cal_val4"></span>
 			<sup class="units">&deg;C</sup>
 		</div>
-
-		<div>
-			<span class="inputparam"> <input type="number" placeholder="input cal. 5" class="form-controlx input-sl" id="cv5" value=""></span> <span><button onclick="updateText('cv5')"  class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input cal. 5" class="form-controlx input-sl" id="cv5" value=""></span> <span><button onclick="updateText('cv5')"  class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
 			<span class="dht-labels"></span> 
 			<span id="cal_val5"></span>
 			<sup class="units">&deg;C</sup>	
 		</div>	
-
-		<br>
-		
-		<div>
-			<span class="inputparam"> <input type="number" placeholder="input KP or MIN" class="form-controlx input-sl" id="pv1" value=""></span> <span><button onclick="updateText('pv1')"  class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
+        <br>		
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input KP or MIN" class="form-controlx input-sl" id="pv1" value=""></span> <span><button onclick="updateText('pv1')"  class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
 			<span class="dht-labels"></span>
 			<span id="pid_val1"></span>
-		</div>	
-		
-		<div>
-			<span class="inputparam"> <input type="number" placeholder="input KI or MAX" class="form-controlx input-sl" id="pv2" value=""></span> <span><button onclick="updateText('pv2')"  class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
+		</div>			
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input KI or MAX" class="form-controlx input-sl" id="pv2" value=""></span> <span><button onclick="updateText('pv2')"  class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
 			<span class="dht-labels"></span> 
 			<span id="pid_val2"></span>
-		</div>	
-		
-		<div>
-			<span class="inputparam"> <input type="number" placeholder="input KD (-)" class="form-controlx input-sl" id="pv3" value=""></span> <span><button onclick="updateText('pv3')"  class="btnx btn-primary">submit</button> </span>			&nbsp; &nbsp;
+		</div>			
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input KD (-)" class="form-controlx input-sl" id="pv3" value=""></span> <span><button onclick="updateText('pv3')"  class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
 			<span class="dht-labels"></span> 
 			<span id="pid_val3"></span>
@@ -237,14 +248,14 @@
 
 	<br>
 	
-	<input name="WID-input" placeholder="input Wifi ID" class="form-controlx input-sl" type="text" data-rule-required="true" data-purpose="change-data-param7" data-target-id="confirm-WID-input" data-target-param="data-action-1-param-7-value" style="width: 64px";>
-    <button id="confirm-WID-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-WID-input" data-action-1-param-7-name="WID" data-action-1-param-7-value="">submit</button>
+	<input name="WID-input" placeholder="input Wifi ID" class="form-controlx input-sl" type="text" data-rule-required="true" data-purpose="change-data-param7" data-target-id="confirm-WID-input" data-target-param="data-action-1-param-7-value">
+    <button id="confirm-WID-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-WID-input" data-action-1-param-7-name="WID" data-action-1-param-7-value="">_submit</button>
 	&nbsp
 	<span id="SSID"></span>
 	<br>
 	<br>
-	<input name="WPW-input" placeholder="input Wifi pass" class="form-controlx input-sl" type="text" data-rule-required="true" data-purpose="change-data-param8" data-target-id="confirm-WPW-input" data-target-param="data-action-1-param-8-value" style="width: 64px";>
-    <button id="confirm-WPW-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-WPW-input" data-action-1-param-8-name="WPW" data-action-1-param-8-value="">submit</button>
+	<input name="WPW-input" placeholder="input Wifi pass" class="form-controlx input-sl" type="text" data-rule-required="true" data-purpose="change-data-param8" data-target-id="confirm-WPW-input" data-target-param="data-action-1-param-8-value">
+    <button id="confirm-WPW-input" type="button" class="btnx btn-primary" data-purpose="action" data-action="confirm-WPW-input" data-action-1-param-8-name="WPW" data-action-1-param-8-value="">_submit</button>
 	&nbsp
 	<span id="PASS"></span>	
 
@@ -295,21 +306,20 @@
 		</span> 
 
 		<div id="SetTab2">
-			
-		<p>
+		<p>	
+		<span>
 			<span class="dht-labels">t3</span> 
 			<span id="temperature3"></span>
 			<sup class="units">&deg;C</sup>
-		</p>
-		<p>
+
 			<span class="dht-labels">t4</span> 
 			<span id="temperature4"></span>
 			<sup class="units">&deg;C</sup>
-		</p>
-		<p>
+
 			<span class="dht-labels">t5</span> 
 			<span id="temperature5"></span>
 			<sup class="units">&deg;C</sup>
+		</span>
 		</p>
 		</div>
 
@@ -406,10 +416,12 @@ var k = 10;
 var residuFloat = 0; 
 
 var timer1failsafe = false;
+var timer2failsafe = false;
 
 var targetCelsius1=0;
 var targetCelsius2=0;
-var offsetFromTargetTemp1=0;
+var offsetFromTargetTempMax=0;
+var offsetFromTargetTempMin=0;
 //var tempOffsetAlarm=false;
 
 var alarmTime1=0;
@@ -492,6 +504,15 @@ if (string.charAt(0) == 'G'){
 		document.getElementById("1D1").checked = false;
 		}
 	}
+	else if (string.charAt(1) == 'a'){ // checkBox - Activates Timer1 at targetCelsius1
+		var residu = string.slice(2, string.length);
+	    if (residu == '1'){
+		document.getElementById("1D2").checked = true;
+		}
+		else if (residu == '0'){
+		document.getElementById("1D2").checked = false;
+		}
+	}
 	
 	else if (string.charAt(1) == 'C'){// receive targetCelsius1 parameter
 		var residu = string.slice(2, string.length);
@@ -545,7 +566,16 @@ if (string.charAt(0) == 'G'){
 		else if (residu == '1'){
 		timer1failsafe = true;
 		}
-	}		
+	}
+	else if (string.charAt(1) == 'i'){// failsafe to preven ongoing alarm1 firing when conditions are met
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		timer2failsafe = false;
+		}
+		else if (residu == '1'){
+		timer2failsafe = true;
+		}
+	}	
 	/*
 	else if (string.charAt(1) == 'K'){// alarm1 is activated when targetCelsius is set - give this it's own form to input deviation 
 		var residu = string.slice(2, string.length);	
@@ -594,8 +624,14 @@ if (string.charAt(0) == 'G'){
 	
 	else if (string.charAt(1) == 'O'){// receive alarmTime1 parameter
 		var residu = string.slice(2, string.length);
-		document.getElementById("offsetFromTargetTemp1").innerHTML = residu;
-		offsetFromTargetTemp1 = parseInt(residu);
+		document.getElementById("offsetFromTargetTempMax").innerHTML = residu;
+		offsetFromTargetTempMax = parseInt(residu);
+	}
+	
+	else if (string.charAt(1) == 'o'){// receive alarmTime1 parameter
+		var residu = string.slice(2, string.length);
+		document.getElementById("offsetFromTargetTempMin").innerHTML = residu;
+		offsetFromTargetTempMin = parseInt(residu);
 	}
 	
     else if (string.charAt(1) == 'Q'){// sets alarm1 when targetCelsius 1 is reached.
@@ -614,6 +650,15 @@ if (string.charAt(0) == 'G'){
 		}
 		else if (residu == '1'){
 		document.getElementById("1M1").checked = true;
+		}
+	}	
+    else if (string.charAt(1) == 'r'){// sets alarm1 when targetCelsius 1 is reached.
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		document.getElementById("1M2").checked = false;
+		}
+		else if (residu == '1'){
+		document.getElementById("1M2").checked = true;
 		}
 	}	
 	
@@ -704,7 +749,7 @@ if (string.charAt(0) == 'G'){
 	else {
 	};
 	
-	if (k < 20){
+	if (k < 23){
 	//console.log("k "); console.log(k);
     doSend("GGG"+k);
 	k = k + 1;
@@ -737,12 +782,21 @@ else if (string.charAt(0) == 'T'){
 				timer1failsafe = false;
 				doSend('1E1'+0);
 				}
-				if (offsetFromTargetTemp1 > 1){
-					if (((residu > targetCelsius1 + offsetFromTargetTemp1) || (residu < targetCelsius1 - offsetFromTargetTemp1)) && document.getElementById("1M1").checked == true){ //;tempOffsetAlarm == true){  // alarmActiveTemp1
+				if (offsetFromTargetTempMax > 1){
+					if ((residu > targetCelsius1 + offsetFromTargetTempMax) && document.getElementById("1M1").checked == true){ //;tempOffsetAlarm == true){  // alarmActiveTemp1
 					//tempOffsetAlarm = false; // alarmActiveTemp1
 					document.getElementById("1M1").checked = false;
 					document.getElementById("1I1").checked = true;
 					doSend("1M1"+0);
+					doSend('1RR'+2);
+					playSound1(10);	
+					}
+				}
+				if (offsetFromTargetTempMin > 1){
+					if ((residu < targetCelsius1 - offsetFromTargetTempMin) && document.getElementById("1M2").checked == true){
+					document.getElementById("1M2").checked = false;
+					document.getElementById("1I1").checked = true;
+					doSend("1M2"+0);
 					doSend('1RR'+2);
 					playSound1(10);	
 					}
@@ -760,6 +814,12 @@ else if (string.charAt(0) == 'T'){
 		else if (x == 1){
 		document.getElementById("temperature2").innerHTML = residu;
 			if (targetCelsius2 > 0){
+				if (document.getElementById("1D2").checked == true && residu >= targetCelsius2 && timer2failsafe == true){  // (residu >= parseFloat($('#confirm-celsius-input').attr('data-action-1-param-1-value')) || residu >= targetCCelsius)
+				doSend('1C2'+1);
+				timer2failsafe = false;
+				doSend('1E2'+0);
+				}
+			
 				if (residu >= targetCelsius2 && document.getElementById("1J2").checked == true){ // alarmReachTemp2 == true
 				//alarmReachTemp2 = false;	
 				document.getElementById("1J2").checked = false;	
@@ -1025,9 +1085,21 @@ function drawChart1(temp){
                 $('#'+targetId).attr(targetParam, targetValue);
 				doSend("1K1"+targetValue);
 				console.log("1K1"); console.log(targetValue);
-				offsetFromTargetTemp1 = targetValue;
+				offsetFromTargetTempMax = targetValue;
             }); 
         });
+		
+		$('input[data-purpose="change-data-param7"], select[data-purpose="change-data-param7"]').each(function(){ // each
+            $(this).unbind("change"); 
+            $(this).change(function() {
+                targetId = $(this).attr('data-target-id');
+                targetParam = $(this).attr('data-target-param7');
+                targetValue = $(this).val();
+                $('#'+targetId).attr(targetParam, targetValue);
+				doSend("1K2"+targetValue);
+				offsetFromTargetTempMin = targetValue;
+            }); 
+        });		
 	/*
        $('input[data-purpose="change-data-param7"], select[data-purpose="change-data-param7"]').each(function(){ // each
             $(this).unbind("change"); 
@@ -1112,6 +1184,10 @@ function updateButton(fixedVariable) {
 		if (fixedVariable == '1D1'){
 		doSend(fixedVariable+1);
 		timer1failsafe = true;
+		}
+		else if (fixedVariable == '1D2'){
+		doSend(fixedVariable+1);
+		timer2failsafe = true;
 		}
 		else if (fixedVariable == '1G1'){
 		doSend(fixedVariable+1);

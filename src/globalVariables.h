@@ -51,7 +51,9 @@ uint16_t alarmTime2=0;
 boolean timer = false;
 boolean counter1 = false;
 boolean presetTimer1 = false;
+boolean presetTimer2 = false;
 boolean timerCheck1 = false;
+boolean timerCheck2 = false;
 boolean alarmActive1 = false;
 //boolean alarmActiveT1 = false;
 boolean alarmReachTemp1 = false; 
@@ -63,14 +65,13 @@ uint16_t targetTemperature2=0;
 uint8_t alarmMessage=0;
 //boolean timer2 = false;
 boolean counter2 = false;
-//boolean presetTimer2 = false;
-//boolean timerCheck2 = false;
 boolean alarmActive2 = false;
 boolean alarmActiveT2 = false;
 boolean alarmReachTemp2 = false; 
 boolean fanON = false;
 boolean msgFanState= true;
-boolean tempOffsetAlarm=false;
+boolean tempOffsetAlarmMin=false;
+boolean tempOffsetAlarmMax=false;
 boolean fanManual = false;
 boolean wifiStationMode=false;
 byte fanManualAmount = 127;
@@ -78,7 +79,8 @@ byte fanManualAmount = 127;
 uint32_t targetTime1 = 0;
 //uint32_t targetTime2 = 0;
 
-uint16_t offsetTemperature1 = 20;
+uint16_t offsetTemperatureMax = 5;
+uint16_t offsetTemperatureMin = 20;
 
 struct storeInEEPROM {
 int check;
@@ -94,7 +96,8 @@ double KD;
 double OUTPUT_MIN;
 double OUTPUT_MAX;
 uint16_t targetTemperature1;
-uint16_t offsetTemperature1;
+uint16_t offsetTemperatureMax;
+uint16_t offsetTemperatureMin;
 };
 
 storeInEEPROM customVar = {
@@ -108,7 +111,8 @@ storeInEEPROM customVar = {
       5, 3, 1, // PID values
       0, 255, // OUTPUT_MIN OUTPUT_MAX
       50, // targetTemp
-      30 // offsetTemp
+      10, // offsetTempMax
+      30 // offsetTempMin
     };
 
 char stringStorage[32];

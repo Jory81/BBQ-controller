@@ -5,7 +5,7 @@
 #checkbox1{
   background:#grey;
   display:inline-block;
-  padding:10px 10px;
+  padding:2px 2px;
   border-radius:2px;
   position:relative;
   cursor:pointer;
@@ -14,7 +14,7 @@
 #checkbox2{
   background:#grey;
   display:inline-block;
-  padding:10px 10px;
+  padding:2px 2px;
   border-radius:2px;
   position:relative;
   cursor:pointer;
@@ -23,7 +23,7 @@
 #checkbox3{
   background:#grey;
   display:inline-block;
-  padding:10px 10px;
+  padding:2px 2px;
   border-radius:2px;
   position:relative;
   cursor:pointer;
@@ -32,7 +32,7 @@
 #checkbox4{
   background:#grey;
   display:inline-block;
-  padding:10px 10px;
+  padding:2px 2px;
   border-radius:2px;
   position:relative;
   cursor:pointer;
@@ -85,6 +85,8 @@
 .form-controlx{
 	font-size: 1.0rem;
 	border: 0;
+	color: grey;
+	text-align: center;
 }
 
 .btnx {
@@ -106,10 +108,16 @@ h3 { font-size: 1.0rem; }
 
 h4 { font-size: 1.2rem; 
 color: white;
+padding: 0px 0px;
 }
 
 p { font-size: 1.0rem; 
 color: white;
+}
+
+.form-controlx input-sl {
+	color: grey;
+	text-align: center;
 }
 
 .units { font-size: 1.0rem; }
@@ -130,15 +138,10 @@ color: white;
 body {
   min-width: 310px;
   max-width: 1200px;
-  height: 400px;
+  height: 550px;
   margin: 0 auto;
   background-color: grey;
   color: white;
-}
-h2 {
-  font-family: Arial;
-  font-size: 2.5rem;
-  text-align: center;
 }
 
 .switch {
@@ -225,7 +228,7 @@ input:checked + .sliderround:before {
 
 div.inline { 
   float:left; 
-  height:60%;
+  height:25%;
   width:33%;
   outline: none;
 }
@@ -252,7 +255,7 @@ div.inline {
 /* Style the tab content */
 .tabcontent {
   display: none;
-  padding: 6px 6px;
+  padding: 0px 0px;
   border: none;
 }
 
@@ -313,5 +316,10 @@ div.inline {
 .container{
 	background-color: grey;
 	color:white;
-	
+	height:75%;
+	width:100%;	
+}
+
+.inputcontainer{
+	height: 25px;
 }

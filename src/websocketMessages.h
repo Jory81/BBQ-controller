@@ -115,18 +115,22 @@ void processWebSocketMessageS(String str, int stringLength, String dataString){
 void processWebSocketMessage(String str, int dataVar){
   if (firstChar == "G"){
     if (dataVar == 0){String mergedString = "GA"+String(presetTimer1); ws.textAll(mergedString);}
+    else if (dataVar == 20){String mergedString = "Ga"+String(presetTimer2); ws.textAll(mergedString);}
     else if (dataVar == 1){if (targetTemperature1 > 0){String mergedString = "GC"+String(targetTemperature1); ws.textAll(mergedString);} else {ws.textAll("G");};}
     else if (dataVar == 2){if (targetTemperature2 > 0){String mergedString = "GD"+String(targetTemperature2); ws.textAll(mergedString);} else {ws.textAll("G");};}    
     else if (dataVar == 3){if (alarmTime1 > 0){String mergedString = "GE"+String(alarmTime1); ws.textAll(mergedString);} else {ws.textAll("G");};}
     else if (dataVar == 8){if (alarmTime2 > 0){String mergedString = "GF"+String(alarmTime2); ws.textAll(mergedString);} else {ws.textAll("G");};}
     else if (dataVar == 4){String mergedString = "GG"+String(alarmActive1); ws.textAll(mergedString);}
     else if (dataVar == 5){String mergedString = "GH"+String(alarmActive2); ws.textAll(mergedString);} 
-    else if (dataVar == 6){String mergedString = "GI"+String(timerCheck1); ws.textAll(mergedString);}        
+    else if (dataVar == 6){String mergedString = "GI"+String(timerCheck1); ws.textAll(mergedString);} 
+    else if (dataVar == 21){String mergedString = "Gi"+String(timerCheck1); ws.textAll(mergedString);}        
     else if (dataVar == 9){if (targetTemperature1 > 0){String mergedString = "GM"+String(alarmReachTemp1); ws.textAll(mergedString);} else {ws.textAll("G");};}
     else if (dataVar == 10){if (targetTemperature2 > 0){String mergedString = "GN"+String(alarmReachTemp2); ws.textAll(mergedString);} else {ws.textAll("G");};}  
-    else if (dataVar == 11){ if (offsetTemperature1 > 0) {String mergedString = "GO"+String(offsetTemperature1); ws.textAll(mergedString);} else {ws.textAll("G");};} 
+    else if (dataVar == 11){ if (offsetTemperatureMax > 0) {String mergedString = "GO"+String(offsetTemperatureMax); ws.textAll(mergedString);} else {ws.textAll("G");};} 
+    else if (dataVar == 22){ if (offsetTemperatureMin > 0) {String mergedString = "Go"+String(offsetTemperatureMin); ws.textAll(mergedString);} else {ws.textAll("G");};} 
     else if (dataVar == 12){String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);}  
-    else if (dataVar == 7){String mergedString = "GR"+String(tempOffsetAlarm); ws.textAll(mergedString);}
+    else if (dataVar == 7){String mergedString = "GR"+String(tempOffsetAlarmMax); ws.textAll(mergedString);}
+    else if (dataVar == 21){String mergedString = "Gr"+String(tempOffsetAlarmMin); ws.textAll(mergedString);}
     else if (dataVar == 13){String mergedString = "GS"+String(sensorAmount); ws.textAll(mergedString);}
     else if (dataVar == 14){String mergedString = "GT"+String(sensorType); ws.textAll(mergedString);}
     else if (dataVar == 15){String mergedString = "GU"+String(fanManual); ws.textAll(mergedString);}
@@ -143,16 +147,20 @@ void processWebSocketMessage(String str, int dataVar){
       else if (str == "1B1"){targetTime1 = dataVar*1000; timer = true; startTime1=millis();}
       else if (str == "1C1"){counter1 = dataVar; startCounter1=millis();}
       else if (str == "1C2"){counter2 = dataVar; startCounter2=millis();} 
-      else if (str == "1D1"){presetTimer1 = dataVar; timerCheck1 = true; String mergedString = "GA"+String(presetTimer1); ws.textAll(mergedString);}      
+      else if (str == "1D1"){presetTimer1 = dataVar; timerCheck1 = true; String mergedString = "GA"+String(presetTimer1); ws.textAll(mergedString);}  
+      else if (str == "1D2"){presetTimer2 = dataVar; timerCheck2 = true; String mergedString = "Ga"+String(presetTimer2); ws.textAll(mergedString);}     
       else if (str == "1E1"){timerCheck1 = false; String mergedString = "GI"+String(timerCheck1); ws.textAll(mergedString);}
+      else if (str == "1E2"){timerCheck2 = false; String mergedString = "Gi"+String(timerCheck1); ws.textAll(mergedString);}
       else if (str == "1F1"){alarmTime1 = dataVar; String mergedString = "GE"+String(alarmTime1); ws.textAll(mergedString);}
       else if (str == "1F2"){alarmTime2 = dataVar; String mergedString = "GF"+String(alarmTime2); ws.textAll(mergedString);}
       else if (str == "1G1"){alarmActive1 = dataVar; String mergedString = "GG"+String(alarmActive1); ws.textAll(mergedString);}// blinkON = false; digitalWrite(LED, LOW);}
       else if (str == "1G2"){alarmActive2 = dataVar; String mergedString = "GH"+String(alarmActive2); ws.textAll(mergedString);}// blinkON = false; digitalWrite(LED, LOW);}      
       else if (str == "1J1"){alarmReachTemp1 = dataVar; String mergedString = "GM"+String(alarmReachTemp1); ws.textAll(mergedString);}
       else if (str == "1J2"){alarmReachTemp2 = dataVar; String mergedString = "GN"+String(alarmReachTemp2); ws.textAll(mergedString);}
-      else if (str == "1K1"){offsetTemperature1 = dataVar; (double) dataVar; myPID.setBangBang(dataVar);  String mergedString = "GO"+String(offsetTemperature1); EEPROM.put(offsetof(storeInEEPROM, offsetTemperature1), offsetTemperature1);  EEPROM.commit();  ws.textAll(mergedString);}
-      else if (str == "1M1"){tempOffsetAlarm = dataVar; String mergedString = "GR"+String(tempOffsetAlarm); ws.textAll(mergedString);}
+      else if (str == "1K1"){offsetTemperatureMax = dataVar; String mergedString = "GO"+String(offsetTemperatureMax); EEPROM.put(offsetof(storeInEEPROM, offsetTemperatureMax), offsetTemperatureMax);  EEPROM.commit();  ws.textAll(mergedString);}
+      else if (str == "1K2"){offsetTemperatureMin = dataVar; (double) dataVar; myPID.setBangBang(dataVar);  String mergedString = "Go"+String(offsetTemperatureMin); EEPROM.put(offsetof(storeInEEPROM, offsetTemperatureMin), offsetTemperatureMin);  EEPROM.commit();  ws.textAll(mergedString);}
+      else if (str == "1M1"){tempOffsetAlarmMax = dataVar; String mergedString = "GR"+String(tempOffsetAlarmMax); ws.textAll(mergedString);}
+      else if (str == "1M2"){tempOffsetAlarmMin = dataVar; String mergedString = "Gr"+String(tempOffsetAlarmMin); ws.textAll(mergedString);}
       else if (str == "1L1"){fanON = dataVar; msgFanState = true; String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);}
       else if (str == "1RR"){alarmMessage = dataVar; alarmMessageTimer = millis();}
       else if (str == "1ST"){sensorType = dataVar; EEPROM.put(offsetof(storeInEEPROM, sensorType), sensorType);  EEPROM.commit(); String mergedString = "GT"+String(sensorType); ws.textAll(mergedString); }
