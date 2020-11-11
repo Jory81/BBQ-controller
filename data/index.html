@@ -1100,31 +1100,7 @@ function drawChart1(temp){
 				offsetFromTargetTempMin = targetValue;
             }); 
         });		
-	/*
-       $('input[data-purpose="change-data-param7"], select[data-purpose="change-data-param7"]').each(function(){ // each
-            $(this).unbind("change"); 
-            $(this).click(function() {
-                targetId = $(this).attr('data-target-id');
-                targetParam = $(this).attr('data-target-param7');
-                targetValue = $(this).val();
-                $('#'+targetId).attr(targetParam, targetValue);
-				console.log("wifi ID "); console.log(targetValue);
-				doSend("WID"+targetValue);
-            });
-        });
 
-        $('input[data-purpose="change-data-param8"], select[data-purpose="change-data-param8"]').each(function(){ // each
-            $(this).unbind("change"); 
-            $(this).click(function() {
-                targetId = $(this).attr('data-target-id');
-                targetParam = $(this).attr('data-target-param8');
-                targetValue = $(this).val();
-                $('#'+targetId).attr(targetParam, targetValue);
-				console.log("wifi pass "); console.log(targetValue);
-				doSend("WPW"+targetValue);
-            });
-        });			
-		*/
 		$('input[data-purpose="change-data-param3"], select[data-purpose="change-data-param3"]').each(function(){ // each
             $(this).unbind("change"); 
             $(this).change(function() {
