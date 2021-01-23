@@ -757,7 +757,6 @@ else if (string.charAt(0) == 'T'){
 			pos1 = t+1;		
 		}
 	}
-	updateTime();
 	
 	for (var x = 0; x < numArgs; x ++){
 	residu = temp_values[x]
@@ -827,6 +826,7 @@ else if (string.charAt(0) == 'T'){
 			document.getElementById("temperature5").innerHTML = residu;
 		}	
 	}
+	updateTime();	
 }
 else if (string.charAt(0) == 'S'){	
 	if (string.charAt(1) == 'C'){
@@ -902,7 +902,7 @@ else if (string.charAt(0) == 'R'){
 // Sends a message to the server (and prints it to the console)
 function doSend(message) {
 	String(message);
-    console.log("Sending: " + message);
+    //console.log("Sending: " + message);
     websocket.send(message);
 }
 	
