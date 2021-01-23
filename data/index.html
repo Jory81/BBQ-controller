@@ -902,7 +902,7 @@ else if (string.charAt(0) == 'R'){
 // Sends a message to the server (and prints it to the console)
 function doSend(message) {
 	String(message);
-    //console.log("Sending: " + message);
+    console.log("Sending: " + message);
     websocket.send(message);
 }
 	
@@ -1136,7 +1136,6 @@ function updateTemp(fixedVariable) {
 	}
 	else if (fixedVariable == '1B1'){
 	 doSend('1B1'+B1.value);
-	 console.log(B1.value);
 	}
 	else if (fixedVariable == 'I'){
 	 doSend('I'+ssid.value);
@@ -1288,7 +1287,7 @@ document.getElementById('1Z4').checked = false;
 }
 
 // Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
+//document.getElementById("defaultOpen").click();
 </script>
   
 </body>
