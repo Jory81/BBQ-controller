@@ -94,6 +94,16 @@
 	background:#06b7a0;
 }
 
+.btnx1 {
+	border: none;
+	background:#06b7a0;
+	
+	font-size: 1.0rem;
+	vertical-align:middle;
+	padding-bottom: 0px;
+	color: white;
+}
+
 .red { color: #ff0000; }
 .green { color: #080; }
 
