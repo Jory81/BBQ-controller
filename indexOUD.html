@@ -50,7 +50,7 @@
 <div id="Bbqtemp" class="tabcontent">
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
 
-    <h4>Ground probe</h4>
+    <h4>BBQ probe</h4>
 	<div class="inputcontainer">
 		<span class="inputparam"> <input type="number" placeholder="input Temp 1" class="form-controlx input-sl" id="A1" value=""></span> <span><button onclick="updateTemp('1A1')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
 		<span class="dht-labels"></span> 
@@ -115,7 +115,7 @@
 
 <div id="Foodtemp" class="tabcontent">
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
-<h4>Air probe</h4>
+<h4>FOOD probe</h4>
 	
 	<div class="inputcontainer">
 		<span class="inputparam"> <input type="number" placeholder="input Temp 2" class="form-controlx input-sl" id="A2" value=""></span> <span><button onclick="updateTemp('1A2')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
@@ -211,10 +211,10 @@
 
 <div id="Systemsettings" class="tabcontent">
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
-	<h4>system settings:</h4>	
-	<p>	
+	<h4>system settings:</h4>
+	<p>
 	<span class="inputparam">
-	<select name="selectProbeType" id="probe_id" onchange="selectProbeTType(this)">
+	<select name="selectProbeType" id="probe_id" onchange="selectProbeType(this)">
     <option value="1" >PT100</option>
     <option value="2" >Thermokoppel</option>
 	</select>
@@ -222,7 +222,7 @@
 	<br>
 	<br>
 	<span class="inputparam">
-	<select name="selectProbeAmount" id="probe_number" onchange="selectProbeTAmount(this)">
+	<select name="selectProbeAmount" id="probe_number" onchange="selectProbeAmount(this)">
     <option value="1" >1 probe</option>
     <option value="2" >2 probes</option>
 	<option value="3" >3 probes</option>
@@ -230,50 +230,8 @@
 	<option value="5" >5 probes</option>
 	</select>	
 	</span>
-	<br>
-	<br>
-	<span class="inputparam">
-	<select name="selectProbeType" id="probe_id" onchange="selectProbeHType(this)">
-    <option value="1" >DHT22</option>
-	</select>
-	</span>
-	<br>
-	<br>
-	<span class="inputparam">
-	<select name="selectProbeAmount" id="probe_number" onchange="selectProbeHAmount(this)">
-    <option value="1" >1 probe</option>
-    <option value="2" >2 probes</option>
-	<option value="3" >3 probes</option>
-	</select>	
-	</span>
-	<br>
-	<br>
-	</p>	
-	<h4>graph update:</h4>
-	<p>
-	<span class="inputparam">
-	<select name="selectProbeAmount" id="probe_number" onchange="selectUpdateGraphTime(this)">
-    <option value="1" >every second</option>
-    <option value="2" >every 2 seconds</option>
-	<option value="5" >every 5 seconds</option>
-	<option value="30" >every 30 seconds</option>
-	<option value="60" >every minute</option>
-	<option value="120" >every 2 minutes</option>
-	<option value="300" >every 5 minutes</option>
-	</select>	
-	</span>
-	<br>
-	<br>
 	</p>
-	
-	<h4>Lights:</h4>
-	<p1>
-	
-	Lights on: <input type="time" id="lightsON">
-	Lights off: <input type="time" id="lightsOFF">
 	<br>
-	<br>
-	</p1>
 
 	<div>
 		<span id="checkbox1">PID control (checked) or linear control
@@ -306,7 +264,7 @@
 		<h4>temperature</h4>
 		<p>
 		<i class="fas fa-thermometer-half" style="color:#93dbd1;"></i> 
-		<span class="dht-labels">Ground</span> 
+		<span class="dht-labels">BBQ</span> 
 		<span id="temperature1"></span>
 		<sup class="units">&deg;C</sup>
 		
@@ -320,7 +278,7 @@
 		
 		<p>
 			<i class="fas fa-thermometer-half" style="color:#db7986;"></i> 
-			<span class="dht-labels">Air</span> 
+			<span class="dht-labels">Food</span> 
 			<span id="temperature2"></span>
 			<sup class="units">&deg;C</sup>
 			
@@ -385,36 +343,32 @@
 			</div>
 
 	</div>
-	
 	<div class="inline">
+	<h4>timers</h4>
+	<span class="inputparam"> <input type="number" placeholder="countdown time" class="form-controlx input-sl" id="B1" value="" style="width: 30px"></span> <span><button onclick="updateTemp('1B1')" class="btnx1 btn-primary">counter</button> </span>  
+	<span id="timer"></span>
+	<span class="units">(s)</span>
 	
-	<h4>humidity / light</h4>
 	<div>
-	<span id="checkbox2">
-	<input class="ckeckbox-element" type="checkbox" id="1L2"/>  
-	&nbsp;
-	<i class="glyphicon glyphicon-asterisk"></i>
-	</span> 
-	</div>
-	<div>
-	
-	<span id="checkbox">
-	<input class="ckeckbox-element" type="checkbox" id="1L3" onclick="updateButton('1L3')"/>  
-	&nbsp;
-	<i class="glyphicon glyphicon-leaf"></i>
-	</span> 
-	</div>
-
-	<div>
-	<span class="dht-labels">RH 1: </span> 
+	<span class="dht-labels">BBQ: </span> 
 	<span id="BBQcounter"></span>
-	<span class="units">(%)</span>	
-	</div>
+	<span class="units">(s)</span>	
 	
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1C1" onclick="updateButton('1C1')"/>  
+	<i class="glyphicon glyphicon-time"></i>
+	</span>
+	</div>
 	<div>
-	<span class="dht-labels">RH 2: </span> 
+
+	<span class="dht-labels">Food: </span> 
 	<span id="Foodcounter"></span>
-	<span class="units">(%)</span>	
+	<span class="units">(s)</span>	
+	
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="1C2" onclick="updateButton('1C2')"/>  
+	<i class="glyphicon glyphicon-time"></i>
+	</span>	
 	</div>
 
 	</div>
@@ -450,11 +404,6 @@ var residuFloat = 0;
 
 var timer1failsafe = false;
 var timer2failsafe = false;
-
-var hourStart = 05;
-var minuteStart = 30;
-var hourStop = 20;
-var minuteStop = 30;
 
 var targetCelsius1=0;
 var targetCelsius2=0;
@@ -681,27 +630,6 @@ if (string.charAt(0) == 'G'){
 		document.getElementById("1L1").checked = true;
 		}
 	}
-	
-	else if (string.charAt(1) == 'q'){// sets alarm1 when targetCelsius 1 is reached.
-		var residu = string.slice(2, string.length);	
-		if (residu == '0'){
-		document.getElementById("1L2").checked = false;
-		}
-		else if (residu == '1'){
-		document.getElementById("1L2").checked = true;
-		}
-	}	
-	
-	else if (string.charAt(1) == 'g'){// sets alarm1 when targetCelsius 1 is reached.
-		var residu = string.slice(2, string.length);	
-		if (residu == '0'){
-		document.getElementById("1L3").checked = false;
-		}
-		else if (residu == '1'){
-		document.getElementById("1L3").checked = true;
-		}
-	}	
-	
     else if (string.charAt(1) == 'R'){// sets alarm1 when targetCelsius 1 is reached.
 		var residu = string.slice(2, string.length);	
 		if (residu == '0'){
@@ -1085,46 +1013,19 @@ function drawChart1(temp){
 </script>
 
 <script>
-function selectProbeTType(event) {
+function selectProbeType(event) {
     //var selected_text = event.options[event.selectedIndex].innerHTML;
 	//console.log("text "); console.log(selected_text);
     var selected_value = event.value;
 	//console.log("value "); console.log(selected_value);
 	doSend('1ST'+selected_value);
 }
-function selectProbeHType(event) {
+function selectProbeAmount(event) {
     //var selected_text = event.options[event.selectedIndex].innerHTML;
 	//console.log("text "); console.log(selected_text);
     var selected_value = event.value;
 	//console.log("value "); console.log(selected_value);
-	
-	//doSend('1ST'+selected_value);
-}
-function selectProbeTAmount(event) {
-    //var selected_text = event.options[event.selectedIndex].innerHTML;
-	//console.log("text "); console.log(selected_text);
-    var selected_value = event.value;
-	//console.log("value "); console.log(selected_value);
-	
 	doSend('1SN'+selected_value);
-}
-
-function selectProbeHAmount(event) {
-    //var selected_text = event.options[event.selectedIndex].innerHTML;
-	//console.log("text "); console.log(selected_text);
-    var selected_value = event.value;
-	//console.log("value "); console.log(selected_value);
-	
-	//doSend('1SN'+selected_value);
-}
-
-function selectUpdateGraphTime(event) {
-    //var selected_text = event.options[event.selectedIndex].innerHTML;
-	//console.log("text "); console.log(selected_text);
-    var selected_value = event.value;
-	//console.log("value "); console.log(selected_value);
-	
-	doSend('1Z1'+selected_value);
 }
 
 function updateButton(fixedVariable) { 
@@ -1242,9 +1143,6 @@ function updateTemp(fixedVariable) {
 	else if (fixedVariable == 'P'){
 	 doSend('P'+pass.value);
 	}	
-//	else if (fixedVariable == 'T'){
-//	 doSend('1Z1'+utime.value);
-//	}	
 }
 
 function updateSlider(fixedVariable, slideAmount){
@@ -1333,52 +1231,7 @@ function updateTime(){
                             + momentNow.format('dddd')
                              .substring(0,3).toUpperCase());
         $('#time-part').html(momentNow.format('HH:mm:ss'));
-		
-		var currentD = new Date();
-		var startLights = new Date();
-
-		startLights.setHours(hourStart,minuteStart); // 5.30 pm
-		console.log(startLights);
-		
-		var endLights = new Date();
-		endLights.setHours(hourStop,minuteStop); // 6.30 pm
-		console.log(endLights);
-
-		if(currentD >= startLights && currentD < endLights ){
-		console.log("lights ON");
-			if (document.getElementById("1L2").checked == false){
-				doSend('1L2'+1);
-			}
-		}
-		else{
-			console.log("lights off");
-			if (document.getElementById("1L2").checked == true)
-			doSend('1L2'+0);
-			}	
-		}
-</script>
-
-<script>
-function updateTimeVariables(){
-
-	var timeON = document.getElementById("lightsON").value;
-	var timeOFF = document.getElementById("lightsOFF").value;
-	
-	console.log(timeON);
-	var hourStart = timeON.slice(0, 2);
-	console.log(hourStart);
-	
-	var minuteStart = timeON.slice(3, 5);
-	console.log(minuteStart);  
-	
-	console.log(timeOFF);
-	var hourStop = timeOFF.slice(0, 2);
-	console.log(hourStop);
-	var minuteStop = timeOFF.slice(3, 5);
-	console.log(minuteStop); 
-
 }
-
 </script>
 
 <script>

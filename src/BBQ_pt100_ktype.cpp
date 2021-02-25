@@ -74,7 +74,6 @@ Thermocouple* thermocouple[5];
 
 #define LED 2
 #define updateTimeTemp 1000
-#define updateTimeGraph 5000
 
 Adafruit_MAX31865 maxthermo[5] = {Adafruit_MAX31865(5), Adafruit_MAX31865(26), Adafruit_MAX31865(27), Adafruit_MAX31865(32), Adafruit_MAX31865(33)} ; // 5, 26, 27, 32, 12
 
