@@ -7,8 +7,6 @@ String wifiPASS;
 //const char *WIFI_SSID = "Su***s**l";
 //const char *WIFI_PASS = "se*******at13";
 
-double updateTimeGraph = 5000;
-
 const char *WIFI_SSID_AP = "ESP32-AP";
 const char *WIFI_PASS_AP =  "";
 
@@ -70,8 +68,6 @@ boolean counter2 = false;
 boolean alarmActive2 = false;
 boolean alarmActiveT2 = false;
 boolean alarmReachTemp2 = false; 
-boolean lightsON = true;
-boolean humidifierON = false;
 boolean fanON = false;
 boolean msgFanState= true;
 boolean tempOffsetAlarmMin=false;

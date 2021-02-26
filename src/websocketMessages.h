@@ -129,9 +129,7 @@ void processWebSocketMessage(String str, int dataVar){
     else if (dataVar == 11){ if (offsetTemperatureMax > 0) {String mergedString = "GO"+String(offsetTemperatureMax); ws.textAll(mergedString);} else {ws.textAll("G");};} 
     else if (dataVar == 22){ if (offsetTemperatureMin > 0) {String mergedString = "Go"+String(offsetTemperatureMin); ws.textAll(mergedString);} else {ws.textAll("G");};} 
     else if (dataVar == 12){String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);}  
-
     else if (dataVar == 7){String mergedString = "GR"+String(tempOffsetAlarmMax); ws.textAll(mergedString);}
-
     else if (dataVar == 21){String mergedString = "Gr"+String(tempOffsetAlarmMin); ws.textAll(mergedString);}
     else if (dataVar == 13){String mergedString = "GS"+String(sensorAmount); ws.textAll(mergedString);}
     else if (dataVar == 14){String mergedString = "GT"+String(sensorType); ws.textAll(mergedString);}
@@ -147,10 +145,6 @@ void processWebSocketMessage(String str, int dataVar){
       if (str == "1A1"){targetTemperature1 = dataVar; setPoint = dataVar; msgFanState = true; String mergedString = "GC"+String(targetTemperature1); EEPROM.put(offsetof(storeInEEPROM, targetTemperature1), targetTemperature1);  EEPROM.commit(); ws.textAll(mergedString); } // alarmActiveT1 = true;}
       else if (str == "1A2"){targetTemperature2 = dataVar; String mergedString = "GD"+String(targetTemperature2); ws.textAll(mergedString); } // alarmActiveT2 = true;}   
       else if (str == "1B1"){targetTime1 = dataVar*1000; timer = true; startTime1=millis();}
-
-      else if (str == "1L2"){lightsON = dataVar; String mergedString = "Gq"+String(lightsON); ws.textAll(mergedString);}
-      else if (str == "1L3"){humidifierON = dataVar; String mergedString = "Gg"+String(humidifierON); ws.textAll(mergedString);}
-
       else if (str == "1C1"){counter1 = dataVar; startCounter1=millis();}
       else if (str == "1C2"){counter2 = dataVar; startCounter2=millis();} 
       else if (str == "1D1"){presetTimer1 = dataVar; timerCheck1 = true; String mergedString = "GA"+String(presetTimer1); ws.textAll(mergedString);}  
@@ -175,7 +169,6 @@ void processWebSocketMessage(String str, int dataVar){
       else if (str == "1X1"){tempControlPID = dataVar; EEPROM.put(offsetof(storeInEEPROM, tempControlPID), tempControlPID);  EEPROM.commit(); sendAllPIDValues();}
       else if (str == "1U1"){ESP.restart();}
       else if (str == "1Y1"){fanManualAmount = dataVar; msgFanState = true;}
-      else if (str == "1Z1"){updateTimeGraph = dataVar*1000;}
   }    
   else {
       return;
