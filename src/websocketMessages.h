@@ -61,10 +61,6 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         dataVarDouble = (double) strtof((const char *) &data[3], NULL); 
         processWebSocketMessageDouble(str, dataVarDouble);
         //Serial.print(str); Serial.println(dataVarFloat);
-        }
-        else if (str == "1A1" || str == "1k1" || str == "1K2"){
-        dataVarFloat = (float) strtof((const char *) &data[3], NULL); 
-        processWebSocketMessageFloat2(str, dataVarFloat);          
         }  
         else{
         dataVar = (uint16_t) strtol((const char *) &data[3], NULL, 10);  
@@ -113,44 +109,30 @@ void processWebSocketMessageS(String str, int stringLength, String dataString){
       String mergedString = "RP"+String(dataString); 
       //Serial.print("PASS "); Serial.println(mergedString);
       ws.textAll(mergedString);
-    }
-    else if (str == "L"){
-
-      uint8_t arrayPos =0;
-      EEPROMposition = offsetof(storeInEEPROM, lightSchedule[0]);
-        for(int n= EEPROMposition; n < stringLength+EEPROMposition ; n++){
-          EEPROM.write(n,stringStorage[arrayPos]);
-          arrayPos++;
-        } 
-      EEPROM.write((stringLength+EEPROMposition),NULL);    
-      EEPROM.commit();
-      String mergedString = "Gl"+String(dataString); 
-      Serial.println(mergedString);
-      ws.textAll(mergedString);
-
-    // lightSchedule = dataString.toInt();
-    // Serial.println(lightSchedule); 
-    // EEPROM.put(offsetof(storeInEEPROM, lightSchedule), lightSchedule);  
-    // EEPROM.commit();
-    // String mergedString = "Gl"+String(lightSchedule); ws.textAll(mergedString);
     }   
 }
 
 void processWebSocketMessage(String str, int dataVar){
   if (firstChar == "G"){
-    if (dataVar == 0){String mergedString = "Ge"+String(updateTimeGraph/1000); ws.textAll(mergedString);}
+    if (dataVar == 0){String mergedString = "GA"+String(presetTimer1); ws.textAll(mergedString);}
+    else if (dataVar == 20){String mergedString = "Ga"+String(presetTimer2); ws.textAll(mergedString);}
     else if (dataVar == 1){if (targetTemperature1 > 0){String mergedString = "GC"+String(targetTemperature1); ws.textAll(mergedString);} else {ws.textAll("G");};}
     else if (dataVar == 2){if (targetTemperature2 > 0){String mergedString = "GD"+String(targetTemperature2); ws.textAll(mergedString);} else {ws.textAll("G");};}    
-    else if (dataVar == 3){String mergedString = "Gh"+String(humidmin); ws.textAll(mergedString);}
-    else if (dataVar == 4){String mergedString = "GH"+String(humidmax); ws.textAll(mergedString);}
-    else if (dataVar == 5){ if (offsetTemperatureMin > 0) {String mergedString = "Go"+String(offsetTemperatureMin); ws.textAll(mergedString);} else {ws.textAll("G");};}
-    else if (dataVar == 6){String mergedString = "Gl"+String(lightSchedule); ws.textAll(mergedString);}
-    else if (dataVar == 7){String mergedString = "GR"+String(tempOffsetAlarmMax); ws.textAll(mergedString);}
-    else if (dataVar == 8){String mergedString = "Gr"+String(humidAlarmActiveHI); ws.textAll(mergedString);}
-    else if (dataVar == 9){String mergedString = "GG"+String(humidAlarmActiveLO); ws.textAll(mergedString);}
+    else if (dataVar == 3){if (alarmTime1 > 0){String mergedString = "GE"+String(alarmTime1); ws.textAll(mergedString);} else {ws.textAll("G");};}
+    else if (dataVar == 8){if (alarmTime2 > 0){String mergedString = "GF"+String(alarmTime2); ws.textAll(mergedString);} else {ws.textAll("G");};}
+    else if (dataVar == 4){String mergedString = "GG"+String(alarmActive1); ws.textAll(mergedString);}
+    else if (dataVar == 5){String mergedString = "GH"+String(alarmActive2); ws.textAll(mergedString);} 
+    else if (dataVar == 6){String mergedString = "GI"+String(timerCheck1); ws.textAll(mergedString);} 
+    else if (dataVar == 21){String mergedString = "Gi"+String(timerCheck1); ws.textAll(mergedString);}        
+    else if (dataVar == 9){if (targetTemperature1 > 0){String mergedString = "GM"+String(alarmReachTemp1); ws.textAll(mergedString);} else {ws.textAll("G");};}
     else if (dataVar == 10){if (targetTemperature2 > 0){String mergedString = "GN"+String(alarmReachTemp2); ws.textAll(mergedString);} else {ws.textAll("G");};}  
-    else if (dataVar == 11){if (offsetTemperatureMax > 0) {String mergedString = "GO"+String(offsetTemperatureMax); ws.textAll(mergedString);} else {ws.textAll("G");};} 
+    else if (dataVar == 11){ if (offsetTemperatureMax > 0) {String mergedString = "GO"+String(offsetTemperatureMax); ws.textAll(mergedString);} else {ws.textAll("G");};} 
+    else if (dataVar == 22){ if (offsetTemperatureMin > 0) {String mergedString = "Go"+String(offsetTemperatureMin); ws.textAll(mergedString);} else {ws.textAll("G");};} 
     else if (dataVar == 12){String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);}  
+
+    else if (dataVar == 7){String mergedString = "GR"+String(tempOffsetAlarmMax); ws.textAll(mergedString);}
+
+    else if (dataVar == 21){String mergedString = "Gr"+String(tempOffsetAlarmMin); ws.textAll(mergedString);}
     else if (dataVar == 13){String mergedString = "GS"+String(sensorAmount); ws.textAll(mergedString);}
     else if (dataVar == 14){String mergedString = "GT"+String(sensorType); ws.textAll(mergedString);}
     else if (dataVar == 15){String mergedString = "GU"+String(fanManual); ws.textAll(mergedString);}
@@ -158,23 +140,37 @@ void processWebSocketMessage(String str, int dataVar){
     else if (dataVar == 17){sendAllPIDValues();}
     else if (dataVar == 18){String mergedString = "GX"+String(tempControlPID); ws.textAll(mergedString);}
     else if (dataVar == 19){String mergedString = "GY"+String(fanManualAmount); ws.textAll(mergedString);}
-    else if (dataVar == 20){String mergedString = "GE"+String(humiditySensorAmount); ws.textAll(mergedString);}
+
   }
   
   else if (firstChar == "1"){  
-      if (str == "1A2"){targetTemperature2 = dataVar; String mergedString = "GD"+String(targetTemperature2); ws.textAll(mergedString); } // alarmActiveT2 = true;}  
-      else if (str == "1L2"){lightsON = dataVar;}
-      else if (str == "1C1"){humidmin = dataVar; humidifierState = !humidifierON; EEPROM.put(offsetof(storeInEEPROM, humidmin), humidmin);  EEPROM.commit(); String mergedString = "Gh"+String(humidmin); ws.textAll(mergedString);}
-      else if (str == "1C2"){humidmax = dataVar; humidifierState = !humidifierON; EEPROM.put(offsetof(storeInEEPROM, humidmax), humidmax);  EEPROM.commit(); String mergedString = "GH"+String(humidmax); ws.textAll(mergedString);} 
-      else if (str == "1G1"){humidAlarmActiveLO = dataVar; String mergedString = "GG"+String(humidAlarmActiveLO); ws.textAll(mergedString);}
-      else if (str == "1G2"){humidAlarmActiveHI = dataVar; String mergedString = "Gr"+String(humidAlarmActiveHI); ws.textAll(mergedString);}
+      if (str == "1A1"){targetTemperature1 = dataVar; setPoint = dataVar; msgFanState = true; String mergedString = "GC"+String(targetTemperature1); EEPROM.put(offsetof(storeInEEPROM, targetTemperature1), targetTemperature1);  EEPROM.commit(); ws.textAll(mergedString); } // alarmActiveT1 = true;}
+      else if (str == "1A2"){targetTemperature2 = dataVar; String mergedString = "GD"+String(targetTemperature2); ws.textAll(mergedString); } // alarmActiveT2 = true;}   
+      else if (str == "1B1"){targetTime1 = dataVar*1000; timer = true; startTime1=millis();}
+
+      else if (str == "1L2"){lightsON = dataVar; String mergedString = "Gq"+String(lightsON); ws.textAll(mergedString);}
+      else if (str == "1L3"){humidifierON = dataVar; String mergedString = "Gg"+String(humidifierON); ws.textAll(mergedString);}
+
+      else if (str == "1C1"){counter1 = dataVar; startCounter1=millis();}
+      else if (str == "1C2"){counter2 = dataVar; startCounter2=millis();} 
+      else if (str == "1D1"){presetTimer1 = dataVar; timerCheck1 = true; String mergedString = "GA"+String(presetTimer1); ws.textAll(mergedString);}  
+      else if (str == "1D2"){presetTimer2 = dataVar; timerCheck2 = true; String mergedString = "Ga"+String(presetTimer2); ws.textAll(mergedString);}     
+      else if (str == "1E1"){timerCheck1 = false; String mergedString = "GI"+String(timerCheck1); ws.textAll(mergedString);}
+      else if (str == "1E2"){timerCheck2 = false; String mergedString = "Gi"+String(timerCheck1); ws.textAll(mergedString);}
+      else if (str == "1F1"){alarmTime1 = dataVar; String mergedString = "GE"+String(alarmTime1); ws.textAll(mergedString);}
+      else if (str == "1F2"){alarmTime2 = dataVar; String mergedString = "GF"+String(alarmTime2); ws.textAll(mergedString);}
+      else if (str == "1G1"){alarmActive1 = dataVar; String mergedString = "GG"+String(alarmActive1); ws.textAll(mergedString);}// blinkON = false; digitalWrite(LED, LOW);}
+      else if (str == "1G2"){alarmActive2 = dataVar; String mergedString = "GH"+String(alarmActive2); ws.textAll(mergedString);}// blinkON = false; digitalWrite(LED, LOW);}      
+      else if (str == "1J1"){alarmReachTemp1 = dataVar; String mergedString = "GM"+String(alarmReachTemp1); ws.textAll(mergedString);}
       else if (str == "1J2"){alarmReachTemp2 = dataVar; String mergedString = "GN"+String(alarmReachTemp2); ws.textAll(mergedString);}
+      else if (str == "1K1"){offsetTemperatureMax = dataVar; String mergedString = "GO"+String(offsetTemperatureMax); EEPROM.put(offsetof(storeInEEPROM, offsetTemperatureMax), offsetTemperatureMax);  EEPROM.commit();  ws.textAll(mergedString);}
+      else if (str == "1K2"){offsetTemperatureMin = dataVar; (double) dataVar; myPID.setBangBang(dataVar);  String mergedString = "Go"+String(offsetTemperatureMin); EEPROM.put(offsetof(storeInEEPROM, offsetTemperatureMin), offsetTemperatureMin);  EEPROM.commit();  ws.textAll(mergedString);}
       else if (str == "1M1"){tempOffsetAlarmMax = dataVar; String mergedString = "GR"+String(tempOffsetAlarmMax); ws.textAll(mergedString);}
+      else if (str == "1M2"){tempOffsetAlarmMin = dataVar; String mergedString = "Gr"+String(tempOffsetAlarmMin); ws.textAll(mergedString);}
       else if (str == "1L1"){fanON = dataVar; msgFanState = true; String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);}
       else if (str == "1RR"){alarmMessage = dataVar; alarmMessageTimer = millis();}
       else if (str == "1ST"){sensorType = dataVar; EEPROM.put(offsetof(storeInEEPROM, sensorType), sensorType);  EEPROM.commit(); String mergedString = "GT"+String(sensorType); ws.textAll(mergedString); }
       else if (str == "1SN"){sensorAmount = dataVar; EEPROM.put(offsetof(storeInEEPROM, sensorAmount), sensorAmount);  EEPROM.commit(); ESP.restart(); }
-      else if (str == "1HN"){humiditySensorAmount = dataVar; EEPROM.put(offsetof(storeInEEPROM, humiditySensorAmount), humiditySensorAmount);  EEPROM.commit(); ESP.restart(); }
       else if (str == "1T1"){fanManual = dataVar; msgFanState = true; String mergedString = "GU"+String(fanManual); ws.textAll(mergedString);}
       else if (str == "1X1"){tempControlPID = dataVar; EEPROM.put(offsetof(storeInEEPROM, tempControlPID), tempControlPID);  EEPROM.commit(); sendAllPIDValues();}
       else if (str == "1U1"){ESP.restart();}
@@ -195,12 +191,6 @@ void processWebSocketMessageFloat(String str, float dataVar){
       else if (str == "1V5"){calibrationValue[4] = dataVar; EEPROM.put(offsetof(storeInEEPROM, calibrationValue[4]), calibrationValue[4]);  EEPROM.commit(); }  
   }
   sendAllCalibrationValues(); 
-}
-
-void processWebSocketMessageFloat2(String str, float dataVar){
-      if (str == "1A1"){targetTemperature1 = dataVar; setPoint = dataVar; msgFanState = true; String mergedString = "GC"+String(targetTemperature1); EEPROM.put(offsetof(storeInEEPROM, targetTemperature1), targetTemperature1);  EEPROM.commit(); ws.textAll(mergedString); }
-      else if (str == "1K1"){offsetTemperatureMax = dataVar; String mergedString = "GO"+String(offsetTemperatureMax); EEPROM.put(offsetof(storeInEEPROM, offsetTemperatureMax), offsetTemperatureMax);  EEPROM.commit();  ws.textAll(mergedString);}
-      else if (str == "1K2"){offsetTemperatureMin = dataVar; (double) dataVar; myPID.setBangBang(dataVar);  String mergedString = "Go"+String(offsetTemperatureMin); EEPROM.put(offsetof(storeInEEPROM, offsetTemperatureMin), offsetTemperatureMin);  EEPROM.commit();  ws.textAll(mergedString);}
 }
 
 void processWebSocketMessageDouble(String str, double dataVar){
@@ -243,11 +233,6 @@ void sendAllTempToClient (){
   
 }
 
-void sendAllHumidityToClient(){
-             String mergedString = "H" + String(humidity[0]) + "+" + String(humidity[1]) + "+" + String(humidity[2]) + "+";
-            ws.textAll(mergedString);  
-}
-
 void sendAllCalibrationValues(){
             String mergedString = "GV" + String(calibrationValue[0], 1) + "+" + String(calibrationValue[1], 1) + "+" + String(calibrationValue[2], 1) + "+" + String(calibrationValue[3], 1)+ "+" + String(calibrationValue[4], 1) + "+"; 
             ws.textAll(mergedString);
@@ -282,16 +267,17 @@ void updateGraph2 (float temp){
             ws.textAll(mergedString);                
 }
 
-void sendHumidityToClient (float humidity){
-            String mergedString = "SH"+String(humidity);
+void sendTimeToClient1 (uint16_t Time){
+            String mergedString = "SE"+String(Time);
             ws.textAll(mergedString);                
 }
 
-// void sendTimeToClient1 (uint16_t Time){             
-// }
+void sendCounterToClient1 (uint16_t Time){
+            String mergedString = "SG"+String(Time);
+            ws.textAll(mergedString);                
+}
 
-// void sendCounterToClient1 (uint16_t Time){           
-// }
-
-// void sendCounterToClient2 (uint16_t Time){              
-// }
+void sendCounterToClient2 (uint16_t Time){
+            String mergedString = "SH"+String(Time);
+            ws.textAll(mergedString);                
+}

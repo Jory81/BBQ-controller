@@ -16,10 +16,15 @@
     <span> &nbsp  / &nbsp  </span>
     <span id='time-part'></span>
 	
-	<span id="checkbox4">
+	<span id="checkbox1">
 	<input class="ckeckbox-element" type="checkbox" id="1I1" onclick="updateButton('1I1')"/>  
 	<i class="glyphicon glyphicon-volume-off"></i>
 	</span>  
+
+	<span id="checkbox4">
+	<input class="ckeckbox-element" type="checkbox" id="1I2" onclick="updateButton('1I2')"/>  
+	<i class="glyphicon glyphicon-volume-off"></i>
+	</span> 
 	
 	</div>
 	
@@ -42,7 +47,7 @@
 	</div>
 </div>
 <hr>
-<div id="tempcontrol" class="tabcontent">
+<div id="Bbqtemp" class="tabcontent">
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
 
     <h4>Ground probe</h4>
@@ -52,18 +57,31 @@
 		<span id="targetTemperature1"></span>
 		<sup class="units">&deg;C</sup>
 		
+		<span id="checkbox1">
+		<input class="ckeckbox-element" type="checkbox" id="1J1" onclick="updateButton('1J1')"/>  
+		<i class="glyphicon glyphicon-bell"></i>
+		</span> 
+		
+		<span id="checkbox1">
+		<input class="ckeckbox-element" type="checkbox" id="1D1" onclick="updateButton('1D1')"/>  
+		<i class="glyphicon glyphicon-time"></i>
+		</span>
 	</div>	
 
 	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="temp range" class="form-controlx input-sl" id="K2" value=""></span> <span><button onclick="updateTemp('1K2')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
+		<span class="inputparam"> <input type="number" placeholder="offset min" class="form-controlx input-sl" id="K2" value=""></span> <span><button onclick="updateTemp('1K2')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
 		<span class="dht-labels"></span> 
 		<span id="offsetFromTargetTempMin"></span>
 		<sup class="units">&deg;C</sup>
 		
+		<span id="checkbox1">
+		<input class="ckeckbox-element" type="checkbox" id="1M2" onclick="updateButton('1M2')"/>  
+		<i class="glyphicon glyphicon-bell"></i>
+		</span>
 	</div>
 	
 	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="alarm range" class="form-controlx input-sl" id="K1" value=""></span> <span><button onclick="updateTemp('1K1')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;    
+		<span class="inputparam"> <input type="number" placeholder="offset max" class="form-controlx input-sl" id="K1" value=""></span> <span><button onclick="updateTemp('1K1')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;    
 		<span class="dht-labels"></span> 
         <span id="offsetFromTargetTempMax"></span>
         <sup class="units">&deg;C</sup>
@@ -73,13 +91,29 @@
 		<i class="glyphicon glyphicon-bell"></i>
 		</span>
 	
-	</div>	
+	</div>
+	
+
+	<div class="inputcontainer">
+		<span class="inputparam"> <input type="number" placeholder="alamTime 1" class="form-controlx input-sl" id="F1" value=""></span> <span><button onclick="updateTemp('1F1')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
+		<span class="dht-labels"></span> 
+		<span id="alarm1"></span>
+		<span class="units">(s)</span>
+		
+		<span id="checkbox1">
+		<input class="ckeckbox-element" type="checkbox" id="1G1" onclick="updateButton('1G1')"/>  
+		<i class="glyphicon glyphicon-bell"></i>
+		</span>
+		
+	</div>
+	
+	
 	
 	
 	<hr>
 </div>
 
-<div id="tempcontrol2" class="tabcontent">
+<div id="Foodtemp" class="tabcontent">
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
 <h4>Air probe</h4>
 	
@@ -94,47 +128,17 @@
 		<i class="glyphicon glyphicon-bell"></i>
 		</span> 
 		
-	</div>
-	
-	<hr>
-</div>
-
-<div id="humidcontrol" class="tabcontent">
-  <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
-
-	<h4>Lights:</h4>
-	
-	<p>
-	Lights on: <input class="timeMakeup" type="time" id="lightsON">
-	Lights off: <input class="timeMakeup" type="time" id="lightsOFF">
-	<br>
-	<br>
-	<button onclick="updateTemp('L')" class="btnx btn-primary">_submit light schedule</button> </span>
-	<br>
-	<br>
-	<br>
-	</p>
-
-<h4>humid probes</h4>
-	
-	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="input humidity min." class="form-controlx input-sl" id="C1" value=""></span> <span><button onclick="updateTemp('1C1')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-		<span class="dht-labels"></span> 
-		<span id="targetHumidMin"></span>
-		<sup class="units">%</sup>
-		
 		<span id="checkbox1">
-		<input class="ckeckbox-element" type="checkbox" id="1G1" onclick="updateButton('1G1')"/>  
-		<i class="glyphicon glyphicon-bell"></i>
-		</span> 
-		
+		<input class="ckeckbox-element" type="checkbox" id="1D2" onclick="updateButton('1D2')"/>  
+		<i class="glyphicon glyphicon-time"></i>
+		</span>	
 	</div>
 	
 	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="input humidity max." class="form-controlx input-sl" id="C2" value=""></span> <span><button onclick="updateTemp('1C2')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
+		<span class="inputparam"> <input type="number" placeholder="alarmTime 2" class="form-controlx input-sl" id="F2" value=""></span> <span><button onclick="updateTemp('1F2')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
 		<span class="dht-labels"></span> 
-		<span id="targetHumidMax"></span>
-		<span class="units">%</span>
+		<span id="alarm2"></span>
+		<span class="units">(s)</span>
 		
 		<span id="checkbox1">
 		<input class="ckeckbox-element" type="checkbox" id="1G2" onclick="updateButton('1G2')"/>  
@@ -230,15 +234,14 @@
 	<br>
 	<span class="inputparam">
 	<select name="selectProbeType" id="probe_id" onchange="selectProbeHType(this)">
-    <option value="0" >DHT22</option>
+    <option value="1" >DHT22</option>
 	</select>
 	</span>
 	<br>
 	<br>
 	<span class="inputparam">
-	<select name="selectProbeAmount" id="probe_numberH" onchange="selectProbeHAmount(this)">
-    <option value="0" >no probes</option>
-	<option value="1" >1 probe</option>
+	<select name="selectProbeAmount" id="probe_number" onchange="selectProbeHAmount(this)">
+    <option value="1" >1 probe</option>
     <option value="2" >2 probes</option>
 	<option value="3" >3 probes</option>
 	</select>	
@@ -249,7 +252,7 @@
 	<h4>graph update:</h4>
 	<p>
 	<span class="inputparam">
-	<select name="selectProbeAmount" id="graph_time" onchange="selectUpdateGraphTime(this)">
+	<select name="selectProbeAmount" id="probe_number" onchange="selectUpdateGraphTime(this)">
     <option value="1" >every second</option>
     <option value="2" >every 2 seconds</option>
 	<option value="5" >every 5 seconds</option>
@@ -262,6 +265,15 @@
 	<br>
 	<br>
 	</p>
+	
+	<h4>Lights:</h4>
+	<p1>
+	
+	Lights on: <input type="time" id="lightsON">
+	Lights off: <input type="time" id="lightsOFF">
+	<br>
+	<br>
+	</p1>
 
 	<div>
 		<span id="checkbox1">PID control (checked) or linear control
@@ -293,34 +305,28 @@
 
 		<h4>temperature</h4>
 		<p>
-		<i class="fas fa-thermometer-half" style="color:#62BD69;"></i> 
+		<i class="fas fa-thermometer-half" style="color:#93dbd1;"></i> 
 		<span class="dht-labels">Ground</span> 
 		<span id="temperature1"></span>
 		<sup class="units">&deg;C</sup>
 		
-		<span id="checkbox4">
-		<input class="ckeckbox-element" type="checkbox" id="1L4" />  
-		&nbsp;
-		<i class="glyphicon glyphicon-fire"></i>
-		</span> 
-		
 		<span class="tab">
 		<span id="checkbox3">
-		<input class="ckeckbox-element" id="1Z1" type="checkbox" onclick="openTab('1Z1', event, 'tempcontrol')"/>  
+		<input class="ckeckbox-element" id="1Z1" type="checkbox" onclick="openTab('1Z1', event, 'Bbqtemp')"/>  
 		<i class="glyphicon glyphicon-pencil"></i>
 		</span> 
 		
 		</p>	
 		
 		<p>
-			<i class="fas fa-thermometer-half" style="color:#a6e7ff;"></i> 
+			<i class="fas fa-thermometer-half" style="color:#db7986;"></i> 
 			<span class="dht-labels">Air</span> 
 			<span id="temperature2"></span>
 			<sup class="units">&deg;C</sup>
 			
 			<span class="tab">
 			<span id="checkbox3">
-			<input class="ckeckbox-element" id="1Z2" type="checkbox" onclick="openTab('1Z2', event, 'tempcontrol2')"/>  
+			<input class="ckeckbox-element" id="1Z2" type="checkbox" onclick="openTab('1Z2', event, 'Foodtemp')"/>  
 			<i class="glyphicon glyphicon-pencil"></i>
 			</span> 
 			
@@ -357,7 +363,7 @@
 			<span id="checkbox2">
 			<input class="ckeckbox-element" type="checkbox" id="1L1" onclick="updateButton('1L1')"/>  
 			&nbsp;
-			<i class="glyphicon glyphicon-refresh"></i>
+			<i class="glyphicon glyphicon-fire"></i>
 			</span> 
 		
 			<span>
@@ -382,47 +388,34 @@
 	
 	<div class="inline">
 	
-	<h4>humidity / light
-	
-	&nbsp
-	<span class="tab">
-	<span id="checkbox3">
-	<input class="ckeckbox-element" id="1Z5" type="checkbox" onclick="openTab('1Z5', event, 'humidcontrol')"/>  
-	<i class="glyphicon glyphicon-pencil"></i>
-	</span> 
-	
-	</h4>
-	
-	<span id="checkbox5">
+	<h4>humidity / light</h4>
+	<div>
+	<span id="checkbox2">
 	<input class="ckeckbox-element" type="checkbox" id="1L2"/>  
 	&nbsp;
 	<i class="glyphicon glyphicon-asterisk"></i>
 	</span> 
+	</div>
+	<div>
 	
-	&nbsp;
-	<span id="checkbox1">
-	<input class="ckeckbox-element" type="checkbox" id="1L3"/>  
+	<span id="checkbox">
+	<input class="ckeckbox-element" type="checkbox" id="1L3" onclick="updateButton('1L3')"/>  
 	&nbsp;
 	<i class="glyphicon glyphicon-leaf"></i>
-	</span> 	
-	
+	</span> 
+	</div>
+
 	<div>
 	<span class="dht-labels">RH 1: </span> 
-	<span id="humid1"></span>
+	<span id="BBQcounter"></span>
 	<span class="units">(%)</span>	
 	</div>
 	
 	<div>
 	<span class="dht-labels">RH 2: </span> 
-	<span id="humid2"></span>
+	<span id="Foodcounter"></span>
 	<span class="units">(%)</span>	
 	</div>
-
-	<div>
-	<span class="dht-labels">RH 3: </span> 
-	<span id="humid3"></span>
-	<span class="units">(%)</span>	
-	</div>		
 
 	</div>
 
@@ -455,8 +448,8 @@ console.log(gateway);
 var k = 10;
 var residuFloat = 0; 
 
-var humidmin = 30;
-var humidmax = 80;
+var timer1failsafe = false;
+var timer2failsafe = false;
 
 var hourStart = 05;
 var minuteStart = 30;
@@ -469,8 +462,9 @@ var offsetFromTargetTempMax=0;
 var offsetFromTargetTempMin=0;
 //var tempOffsetAlarm=false;
 
+var alarmTime1=0;
+var alarmTime2=0;
 var fanSpeed=0;
-var humidity=0;
 //var alarmActiveTimer1=false;
 //var alarmActiveTimer2=false;
 
@@ -539,8 +533,26 @@ function onMessage(event) {
 	
 //  console.log(k);
 if (string.charAt(0) == 'G'){
+	if (string.charAt(1) == 'A'){ // checkBox - Activates Timer1 at targetCelsius1
+		var residu = string.slice(2, string.length);
+	    if (residu == '1'){
+		document.getElementById("1D1").checked = true;
+		}
+		else if (residu == '0'){
+		document.getElementById("1D1").checked = false;
+		}
+	}
+	else if (string.charAt(1) == 'a'){ // checkBox - Activates Timer1 at targetCelsius1
+		var residu = string.slice(2, string.length);
+	    if (residu == '1'){
+		document.getElementById("1D2").checked = true;
+		}
+		else if (residu == '0'){
+		document.getElementById("1D2").checked = false;
+		}
+	}
 	
-	if (string.charAt(1) == 'C'){// receive targetCelsius1 parameter
+	else if (string.charAt(1) == 'C'){// receive targetCelsius1 parameter
 		var residu = string.slice(2, string.length);
 		document.getElementById("targetTemperature1").innerHTML = residu;		
 		targetCelsius1 = parseInt(residu);
@@ -550,31 +562,92 @@ if (string.charAt(0) == 'G'){
 		document.getElementById("targetTemperature2").innerHTML = residu;
 		targetCelsius2 = parseInt(residu);
 	}	
-
-	else if (string.charAt(1) == 'H'){
-		var residu = string.slice(2, string.length);	
-		document.getElementById("targetHumidMax").innerHTML = residu;
-		humidmax = parseInt(residu);
-	}
-
-	else if (string.charAt(1) == 'h'){
-		var residu = string.slice(2, string.length);	
-		document.getElementById("targetHumidMin").innerHTML = residu;
-		humidmin = parseInt(residu);
+    else if (string.charAt(1) == 'E'){// receive alarmTime1 parameter
+		var residu = string.slice(2, string.length);
+		document.getElementById("alarm1").innerHTML = residu;
+		alarmTime1 = parseInt(residu);
 	}	
-	
-	else if (string.charAt(1) == 'l'){// failsafe to preven ongoing alarm1 firing when conditions are met
-		var residu = string.slice(2, string.length);	
-		console.log(residu);
-		hourStart = residu.slice(0, 2);	
-		minuteStart = residu.slice(2, 4);
-		hourStop = residu.slice(4, 6);
-		minuteStop = residu.slice(6, 8);
-
-		document.getElementById("lightsON").value = hourStart +':' + minuteStart;
-		document.getElementById("lightsOFF").value = hourStop +':' + minuteStop;
+    else if (string.charAt(1) == 'F'){// receive alarmTime1 parameter
+		var residu = string.slice(2, string.length);
+		document.getElementById("alarm2").innerHTML = residu;
+		alarmTime2 = parseInt(residu);
 	}
-	
+    else if (string.charAt(1) == 'G'){// checkBox - activates alarm1 Timer checkbox (alarmTime1)
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		document.getElementById("1G1").checked = false;
+		//alarmActiveTimer1 = false;
+		}
+		else if (residu == '1'){
+		document.getElementById("1G1").checked = true;
+		//alarmActiveTimer1 = true;
+		}
+	}
+    
+	else if (string.charAt(1) == 'H'){// checkBox - activates alarm1 Timer checkbox (alarmTime1)
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		document.getElementById("1G2").checked = false;
+		//alarmActiveTimer2 = false;
+		}
+		else if (residu == '1'){
+		document.getElementById("1G2").checked = true;
+		//alarmActiveTimer2 = true;
+		}
+	}
+
+	else if (string.charAt(1) == 'I'){// failsafe to preven ongoing alarm1 firing when conditions are met
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		timer1failsafe = false;
+		}
+		else if (residu == '1'){
+		timer1failsafe = true;
+		}
+	}
+	else if (string.charAt(1) == 'i'){// failsafe to preven ongoing alarm1 firing when conditions are met
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		timer2failsafe = false;
+		}
+		else if (residu == '1'){
+		timer2failsafe = true;
+		}
+	}	
+	/*
+	else if (string.charAt(1) == 'K'){// alarm1 is activated when targetCelsius is set - give this it's own form to input deviation 
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		alarmActiveTemp1 = false;
+		}
+		else if (residu == '1'){
+		alarmActiveTemp1 = true;
+		}
+	}
+
+	else if (string.charAt(1) == 'L'){// alarm1 is activated when targetCelsius is set - give this it's own form to input deviation 
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		alarmActiveTemp2 = false;
+		}
+		else if (residu == '1'){
+		alarmActiveTemp2 = true;
+		}
+	}	
+	*/
+
+    else if (string.charAt(1) == 'M'){// sets alarm1 when targetCelsius 1 is reached.
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		document.getElementById("1J1").checked = false;
+		//alarmReachTemp1 = false;
+		}
+		else if (residu == '1'){
+		document.getElementById("1J1").checked = true;
+		//alarmReachTemp1 = true;
+		}
+	}
+
     else if (string.charAt(1) == 'N'){// sets alarm1 when targetCelsius 1 is reached.
 		var residu = string.slice(2, string.length);	
 		if (residu == '0'){
@@ -583,30 +656,6 @@ if (string.charAt(0) == 'G'){
 		}
 		else if (residu == '1'){
 		document.getElementById("1J2").checked = true;
-		//alarmReachTemp2 = true;
-		}
-	}	
-	
-    else if (string.charAt(1) == 'G'){// sets alarm1 when targetCelsius 1 is reached.
-		var residu = string.slice(2, string.length);	
-		if (residu == '0'){
-		document.getElementById("1G1").checked = false;
-		//alarmReachTemp2 = false;
-		}
-		else if (residu == '1'){
-		document.getElementById("1G1").checked = true;
-		//alarmReachTemp2 = true;
-		}
-	}
-
-    else if (string.charAt(1) == 'r'){// sets alarm1 when targetCelsius 1 is reached.
-		var residu = string.slice(2, string.length);	
-		if (residu == '0'){
-		document.getElementById("1G2").checked = false;
-		//alarmReachTemp2 = false;
-		}
-		else if (residu == '1'){
-		document.getElementById("1G2").checked = true;
 		//alarmReachTemp2 = true;
 		}
 	}	
@@ -651,16 +700,6 @@ if (string.charAt(0) == 'G'){
 		else if (residu == '1'){
 		document.getElementById("1L3").checked = true;
 		}
-	}
-
-	else if (string.charAt(1) == 's'){// sets alarm1 when targetCelsius 1 is reached.
-		var residu = string.slice(2, string.length);	
-		if (residu == '0'){
-		document.getElementById("1L4").checked = false;
-		}
-		else if (residu == '1'){
-		document.getElementById("1L4").checked = true;
-		}
 	}	
 	
     else if (string.charAt(1) == 'R'){// sets alarm1 when targetCelsius 1 is reached.
@@ -672,21 +711,21 @@ if (string.charAt(0) == 'G'){
 		document.getElementById("1M1").checked = true;
 		}
 	}	
+    else if (string.charAt(1) == 'r'){// sets alarm1 when targetCelsius 1 is reached.
+		var residu = string.slice(2, string.length);	
+		if (residu == '0'){
+		document.getElementById("1M2").checked = false;
+		}
+		else if (residu == '1'){
+		document.getElementById("1M2").checked = true;
+		}
+	}	
+	
 	
     else if (string.charAt(1) == 'S'){// sets alarm1 when targetCelsius 1 is reached.
 		var residu = string.slice(2, string.length);	
 		document.getElementById("probe_number").value = residu;
-	}
-    else if (string.charAt(1) == 'E'){// sets alarm1 when targetCelsius 1 is reached.
-		var residu = string.slice(2, string.length);	
-		document.getElementById("probe_numberH").value = residu;
 	}	
-	
-	else if (string.charAt(1) == 'e'){// sets alarm1 when targetCelsius 1 is reached.
-		var residu = string.slice(2, string.length);	
-		document.getElementById("graph_time").value = residu;
-	}	
-	
     else if (string.charAt(1) == 'T'){// sets alarm1 when targetCelsius 1 is reached.
 		var residu = string.slice(2, string.length);	
 		document.getElementById("probe_id").value = residu;
@@ -769,52 +808,11 @@ if (string.charAt(0) == 'G'){
 	else {
 	};
 	
-	if (k < 21){
+	if (k < 23){
 	//console.log("k "); console.log(k);
     doSend("GGG"+k);
 	k = k + 1;
     }
-}
-else if (string.charAt(0) == 'H'){
-	var numArgs = 0;
-	var pos1 = 1;
-	var pos2 = 0;
-	var humid_values = new Array(3)
-	var fullString = string.slice(1, string.length);
-	for( var t = 0; t < string.length; t++ ){
-		if (string[t] == '+'){
-			pos2 = t;
-			var temp = string.substring(pos1, pos2);
-			humid_values[numArgs] = temp;		
-			numArgs = numArgs+1;
-			pos1 = t+1;		
-		}
-	}
-	
-	for (var x = 0; x < numArgs; x ++){
-	residu = humid_values[x]
-		if (x == 0){
-		document.getElementById("humid1").innerHTML = residu;	
-		
-			if ((residu < humidmin-10 && document.getElementById("1G1").checked == true) || (residu > humidmax+10 && document.getElementById("1G1").checked == true)){ //;tempOffsetAlarm == true){  // alarmActiveTemp1
-			//tempOffsetAlarm = false; // alarmActiveTemp1
-			document.getElementById("1G1").checked = false;
-			document.getElementById("1G2").checked = false;
-			document.getElementById("1I1").checked = true;
-			doSend("1G1"+0);
-			doSend("1G2"+0);
-			doSend('1RR'+2);
-			playSound1(100);	
-			}
-		
-		}
-		else if (x == 1){
-		document.getElementById("humid2").innerHTML = residu;	
-		}
-		else if (x == 2){
-		document.getElementById("humid3").innerHTML = residu;
-		}		
-	}	
 }
 else if (string.charAt(0) == 'T'){
 	var numArgs = 0;
@@ -837,28 +835,56 @@ else if (string.charAt(0) == 'T'){
 		if (x == 0){
 		document.getElementById("temperature1").innerHTML = residu;
 			if (targetCelsius1 > 0){
+				if (document.getElementById("1D1").checked == true && residu >= targetCelsius1 && timer1failsafe == true){  // (residu >= parseFloat($('#confirm-celsius-input').attr('data-action-1-param-1-value')) || residu >= targetCCelsius)
+				doSend('1C1'+1);
+				timer1failsafe = false;
+				doSend('1E1'+0);
+				}
 				if (offsetFromTargetTempMax > 1){
-					if ((residu > targetCelsius1 + offsetFromTargetTempMax || residu < targetCelsius1 - offsetFromTargetTempMax) && document.getElementById("1M1").checked == true){ //;tempOffsetAlarm == true){  // alarmActiveTemp1
+					if ((residu > targetCelsius1 + offsetFromTargetTempMax) && document.getElementById("1M1").checked == true){ //;tempOffsetAlarm == true){  // alarmActiveTemp1
 					//tempOffsetAlarm = false; // alarmActiveTemp1
 					document.getElementById("1M1").checked = false;
 					document.getElementById("1I1").checked = true;
 					doSend("1M1"+0);
 					doSend('1RR'+2);
-					playSound1(100);	
+					playSound1(10);	
 					}
+				}
+				if (offsetFromTargetTempMin > 1){
+					if ((residu < targetCelsius1 - offsetFromTargetTempMin) && document.getElementById("1M2").checked == true){
+					document.getElementById("1M2").checked = false;
+					document.getElementById("1I1").checked = true;
+					doSend("1M2"+0);
+					doSend('1RR'+2);
+					playSound1(10);	
+					}
+				}
+				if (residu >= targetCelsius1 && document.getElementById("1J1").checked == true){// alarmReachTemp1 == true
+				//alarmReachTemp1 = false;		
+				document.getElementById("1J1").checked = false;	
+				document.getElementById("1I1").checked = true;				
+				doSend("1J1"+0);
+				doSend('1RR'+1);
+				playSound1(10);	
 				}
 			}	
 		}
 		else if (x == 1){
 		document.getElementById("temperature2").innerHTML = residu;
 			if (targetCelsius2 > 0){
+				if (document.getElementById("1D2").checked == true && residu >= targetCelsius2 && timer2failsafe == true){  // (residu >= parseFloat($('#confirm-celsius-input').attr('data-action-1-param-1-value')) || residu >= targetCCelsius)
+				doSend('1C2'+1);
+				timer2failsafe = false;
+				doSend('1E2'+0);
+				}
+			
 				if (residu >= targetCelsius2 && document.getElementById("1J2").checked == true){ // alarmReachTemp2 == true
 				//alarmReachTemp2 = false;	
 				document.getElementById("1J2").checked = false;	
-				document.getElementById("1I1").checked = true;					
+				document.getElementById("1I2").checked = true;					
 				doSend("1J2"+0);
 				doSend('1RR'+1);
-				playSound1(100);				
+				playSound2(10);				
 				}
 			}	
 		}
@@ -885,7 +911,45 @@ else if (string.charAt(0) == 'S'){
 		var residuFloat = parseFloat(residu).toFixed(2);
 		drawChart1(residuFloat);
 	}	
-
+    else if (string.charAt(1) == 'E'){
+		var residu = string.slice(2, string.length);
+		document.getElementById("timer").innerHTML = residu;
+		var checkValue = parseInt(residu);
+	    if (checkValue <= 1){
+			playSound1(1);
+		}	
+	}
+    else if (string.charAt(1) == 'G'){
+		var residu = string.slice(2, string.length);
+		document.getElementById("BBQcounter").innerHTML = residu;	
+		var checkValue = parseInt(residu);
+			if (alarmTime1 > 1){
+				if (document.getElementById("1G1").checked == true && checkValue >= alarmTime1){  //&& alarmActiveTimer1 == true
+				//doSend('1H1');
+				//alarmActiveTimer1 = false;
+				document.getElementById("1G1").checked = false;
+				document.getElementById("1I1").checked = true;
+				doSend("1G1"+0);
+				doSend('1RR'+3);
+				playSound1(5);
+				}
+			}	
+	}
+    else if (string.charAt(1) == 'H'){
+		var residu = string.slice(2, string.length);
+		document.getElementById("Foodcounter").innerHTML = residu;	
+		var checkValue = parseInt(residu);
+			if (alarmTime2 > 1){
+				if (document.getElementById("1G2").checked == true && checkValue >= alarmTime2){ // && alarmActiveTimer2 == true
+				//doSend('1H1');
+				//alarmActiveTimer2 = false;
+				document.getElementById("1G2").checked = false;
+				document.getElementById("1I2").checked = true;
+				doSend("1G2"+0); 				
+				playSound2(5);
+				}		
+			}	
+	}
     else if (string.charAt(1) == 'I'){
 		var residu = string.slice(2, string.length);
 		document.getElementById("fanSpeed").innerHTML = residu;	
@@ -930,27 +994,21 @@ function doSend(message) {
             series: [
                 {
                     showInLegend: true,
-                    name: 'Ground temp',
+                    name: 'BBQ probe',
                     data: [],
                     color: '#ff0000'
                 }, 
                 {
                     showInLegend: true,
-                    name: 'target Temp',
+                    name: 'BBQ target',
                     data: [], 
                     color: '#0000ff'
                 },
 				{
                     showInLegend: true,
-                    name: 'Air temp',
+                    name: 'Food probe',
                     data: [],
                     color: '#ffff00'
-                },
-								{
-                    showInLegend: true,
-                    name: 'humidity %',
-                    data: [], 
-                    color: '#00ffff'
                 },
 				{
                     showInLegend: true,
@@ -1000,15 +1058,12 @@ function drawChart(temp){
             var x = (new Date()).getTime();
 			var currentCelsius = parseFloat(temp);
 			var currentFanSpeed = parseFloat(fanSpeed);
-			var currentHumidity = parseFloat(humidity);
 			if(chartT.series[0].data.length > 1440) {
 				chartT.series[0].addPoint([x, currentCelsius], true, true, true);
 				chartT.series[3].addPoint([x, currentFanSpeed], true, true, true);
-				chartT.series[4].addPoint([x, currentHumidity], true, true, true);
 			} else {
 				chartT.series[0].addPoint([x, currentCelsius], true, false, true);
 				chartT.series[3].addPoint([x, currentFanSpeed], true, false, true);
-				chartT.series[4].addPoint([x, currentHumidity], true, false, true);
 			}
             if (targetCelsius1 > 0) {
                 if(chartT.series[1].data.length > 1440) {
@@ -1037,7 +1092,14 @@ function selectProbeTType(event) {
 	//console.log("value "); console.log(selected_value);
 	doSend('1ST'+selected_value);
 }
-
+function selectProbeHType(event) {
+    //var selected_text = event.options[event.selectedIndex].innerHTML;
+	//console.log("text "); console.log(selected_text);
+    var selected_value = event.value;
+	//console.log("value "); console.log(selected_value);
+	
+	//doSend('1ST'+selected_value);
+}
 function selectProbeTAmount(event) {
     //var selected_text = event.options[event.selectedIndex].innerHTML;
 	//console.log("text "); console.log(selected_text);
@@ -1047,20 +1109,13 @@ function selectProbeTAmount(event) {
 	doSend('1SN'+selected_value);
 }
 
-function selectProbeHType(event) {
+function selectProbeHAmount(event) {
     //var selected_text = event.options[event.selectedIndex].innerHTML;
 	//console.log("text "); console.log(selected_text);
     var selected_value = event.value;
 	//console.log("value "); console.log(selected_value);
 	
-	//doSend('1ST'+selected_value);
-}
-
-function selectProbeHAmount(event) {
-    var selected_value = event.value;
-	//console.log("value "); console.log(selected_value);
-	
-	doSend('1HN'+selected_value);
+	//doSend('1SN'+selected_value);
 }
 
 function selectUpdateGraphTime(event) {
@@ -1073,12 +1128,34 @@ function selectUpdateGraphTime(event) {
 }
 
 function updateButton(fixedVariable) { 
-	if (document.getElementById(fixedVariable).checked == true){			
+	if (document.getElementById(fixedVariable).checked == true){
+		timer1Counter = 0;
+		if (fixedVariable == '1D1'){
+		doSend(fixedVariable+1);
+		timer1failsafe = true;
+		}
+		else if (fixedVariable == '1D2'){
+		doSend(fixedVariable+1);
+		timer2failsafe = true;
+		}
+		else if (fixedVariable == '1G1'){
+		doSend(fixedVariable+1);
+		doSend('1C1'+1);
+		}
+		else if (fixedVariable == '1G2'){
+		doSend(fixedVariable+1);
+		doSend('1C2'+1);
+		}			
 		else if (fixedVariable == '1I1'){
 		clearInterval(refreshIntervalId1); 
 		document.getElementById("1I1").checked = false;
 		//doSend('1I1'+0);
 		}
+		else if (fixedVariable == '1I2'){
+		clearInterval(refreshIntervalId2);
+		document.getElementById("1I2").checked = false;
+		//doSend('1I2'+0);
+		}	
 		else if (fixedVariable == '1U1'){
 //		document.getElementById("1U1").checked = true;
 		doSend('1U1');
@@ -1092,6 +1169,11 @@ function updateButton(fixedVariable) {
 		clearInterval(refreshIntervalId1);
 		document.getElementById("1I1").checked = false;
 		//doSend('1I1'+0);
+		}
+		else if (fixedVariable == '1I2'){
+		clearInterval(refreshIntervalId2);
+		document.getElementById("1I2").checked = false;
+		//doSend('1I2'+0);
 		}					
 		else {
 		doSend(fixedVariable+0);
@@ -1135,14 +1217,14 @@ function updateTemp(fixedVariable) {
 	else if (fixedVariable == '1A2'){
 	 doSend('1A2'+A2.value);
 	}
-	
-	else if (fixedVariable == '1C1'){
-	 doSend('1C1'+C1.value);
+	else if (fixedVariable == '1F1'){
+	 doSend('1F1'+F1.value);
+	 alarmTime1 = targetValue;
 	}
-	else if (fixedVariable == '1C2'){
-	 doSend('1C2'+C2.value);
+	else if (fixedVariable == '1F2'){
+	 doSend('1F2'+F2.value);
+	 alarmTime2 = targetValue;
 	}
-	
 	else if (fixedVariable == '1K1'){
 	 doSend('1K1'+K1.value);
 	 offsetFromTargetTempMax = targetValue;
@@ -1151,25 +1233,15 @@ function updateTemp(fixedVariable) {
 	 doSend('1K2'+K2.value);
 	 offsetFromTargetTempMin = targetValue;
 	}
-
+	else if (fixedVariable == '1B1'){
+	 doSend('1B1'+B1.value);
+	}
 	else if (fixedVariable == 'I'){
 	 doSend('I'+ssid.value);
 	}
 	else if (fixedVariable == 'P'){
 	 doSend('P'+pass.value);
-	}
-	else if (fixedVariable == 'L'){
-	
-		var timeON = document.getElementById("lightsON").value;
-		var timeOFF = document.getElementById("lightsOFF").value;
-		hourStart = timeON.slice(0, 2);	
-		minuteStart = timeON.slice(3, 5);
-		hourStop = timeOFF.slice(0, 2);
-		minuteStop = timeOFF.slice(3, 5);
-		console.log("L"+hourStart+minuteStart+hourStop+minuteStop);
-		doSend("L"+hourStart+minuteStart+hourStop+minuteStop);
-	}		
-	
+	}	
 //	else if (fixedVariable == 'T'){
 //	 doSend('1Z1'+utime.value);
 //	}	
@@ -1195,7 +1267,21 @@ function playSound1(repeats){
 			blockSound1(numberofRingsAlarm1, timer1Counter);
 			}, 2900);
 			}
-	}			
+	}	
+function playSound2(repeats){
+		//console.log("enter playsound2");
+		numberofRingsAlarm2=repeats;
+		var sound = new Audio('/alarm.mp3');
+		sound.play();
+			if (numberofRingsAlarm2 > 1){
+			refreshIntervalId2 = setInterval(function(){
+			var sound = new Audio('/alarm.mp3');
+			sound.play(); 
+			timer2Counter = timer2Counter + 1;
+			blockSound2(numberofRingsAlarm2, timer2Counter);
+			}, 2900);
+			}
+	}		
 	
 </script>
 <script>
@@ -1203,6 +1289,14 @@ function playSound1(repeats){
 		if (timerCounter >= numberofRings){
 		clearInterval(refreshIntervalId1);
 		document.getElementById("1I1").checked = false;
+		//console.log("switches alarm sign off");
+		}
+	}
+	
+	function blockSound2(numberofRings, timerCounter){
+		if (timerCounter >= numberofRings){
+		clearInterval(refreshIntervalId2);
+		document.getElementById("1I2").checked = false;
 		//console.log("switches alarm sign off");
 		}
 	}
@@ -1244,11 +1338,11 @@ function updateTime(){
 		var startLights = new Date();
 
 		startLights.setHours(hourStart,minuteStart); // 5.30 pm
-		//console.log(startLights);
+		console.log(startLights);
 		
 		var endLights = new Date();
 		endLights.setHours(hourStop,minuteStop); // 6.30 pm
-		//console.log(endLights);
+		console.log(endLights);
 
 		if(currentD >= startLights && currentD < endLights ){
 		console.log("lights ON");
@@ -1265,36 +1359,49 @@ function updateTime(){
 </script>
 
 <script>
+function updateTimeVariables(){
+
+	var timeON = document.getElementById("lightsON").value;
+	var timeOFF = document.getElementById("lightsOFF").value;
+	
+	console.log(timeON);
+	var hourStart = timeON.slice(0, 2);
+	console.log(hourStart);
+	
+	var minuteStart = timeON.slice(3, 5);
+	console.log(minuteStart);  
+	
+	console.log(timeOFF);
+	var hourStop = timeOFF.slice(0, 2);
+	console.log(hourStop);
+	var minuteStop = timeOFF.slice(3, 5);
+	console.log(minuteStop); 
+
+}
+
+</script>
+
+<script>
 function openTab(fixedVariable, evt, cityName) {
 if (fixedVariable == '1Z1'){
 document.getElementById('1Z2').checked = false;
 document.getElementById('1Z3').checked = false;
 document.getElementById('1Z4').checked = false;
-document.getElementById('1Z5').checked = false;
 }
 else if (fixedVariable == '1Z2'){
 document.getElementById('1Z1').checked = false;
 document.getElementById('1Z3').checked = false;
 document.getElementById('1Z4').checked = false;
-document.getElementById('1Z5').checked = false;
 }
 else if (fixedVariable == '1Z3'){
 document.getElementById('1Z2').checked = false;
 document.getElementById('1Z1').checked = false;
 document.getElementById('1Z4').checked = false;
-document.getElementById('1Z5').checked = false;
 }
 else if (fixedVariable == '1Z4'){
 document.getElementById('1Z2').checked = false;
 document.getElementById('1Z3').checked = false;
 document.getElementById('1Z1').checked = false;
-document.getElementById('1Z5').checked = false;
-}
-else if (fixedVariable == '1Z5'){
-document.getElementById('1Z2').checked = false;
-document.getElementById('1Z3').checked = false;
-document.getElementById('1Z1').checked = false;
-document.getElementById('1Z4').checked = false;
 }
 
 if (document.getElementById(fixedVariable).checked == true){
@@ -1323,7 +1430,6 @@ document.getElementById('1Z1').checked = false;
 document.getElementById('1Z2').checked = false;
 document.getElementById('1Z3').checked = false;
 document.getElementById('1Z4').checked = false;
-document.getElementById('1Z5').checked = false;
 
 }
 
