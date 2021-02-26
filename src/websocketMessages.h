@@ -159,10 +159,6 @@ void processWebSocketMessage(String str, int dataVar){
     else if (dataVar == 18){String mergedString = "GX"+String(tempControlPID); ws.textAll(mergedString);}
     else if (dataVar == 19){String mergedString = "GY"+String(fanManualAmount); ws.textAll(mergedString);}
     else if (dataVar == 20){String mergedString = "GE"+String(humiditySensorAmount); ws.textAll(mergedString);}
-    else if (dataVar == 21){String mergedString = "Gs"+String(heaterON); ws.textAll(mergedString);}
-    else if (dataVar == 22){String mergedString = "Gg"+String(humidifierON); ws.textAll(mergedString);}
-    else if (dataVar == 23){String mergedString = "Gq"+String(lightsON); ws.textAll(mergedString);}
-    
   }
   
   else if (firstChar == "1"){  

@@ -565,7 +565,7 @@ if (string.charAt(0) == 'G'){
 	
 	else if (string.charAt(1) == 'l'){// failsafe to preven ongoing alarm1 firing when conditions are met
 		var residu = string.slice(2, string.length);	
-		//console.log(residu);
+		console.log(residu);
 		hourStart = residu.slice(0, 2);	
 		minuteStart = residu.slice(2, 4);
 		hourStop = residu.slice(4, 6);
@@ -769,7 +769,7 @@ if (string.charAt(0) == 'G'){
 	else {
 	};
 	
-	if (k < 24){
+	if (k < 21){
 	//console.log("k "); console.log(k);
     doSend("GGG"+k);
 	k = k + 1;
@@ -804,7 +804,7 @@ else if (string.charAt(0) == 'H'){
 			doSend("1G1"+0);
 			doSend("1G2"+0);
 			doSend('1RR'+2);
-			//playSound1(100);	
+			playSound1(100);	
 			}
 		
 		}
@@ -844,7 +844,7 @@ else if (string.charAt(0) == 'T'){
 					document.getElementById("1I1").checked = true;
 					doSend("1M1"+0);
 					doSend('1RR'+2);
-					//playSound1(100);	
+					playSound1(100);	
 					}
 				}
 			}	
@@ -858,7 +858,7 @@ else if (string.charAt(0) == 'T'){
 				document.getElementById("1I1").checked = true;					
 				doSend("1J2"+0);
 				doSend('1RR'+1);
-				//playSound1(100);				
+				playSound1(100);				
 				}
 			}	
 		}
@@ -946,17 +946,17 @@ function doSend(message) {
                     data: [],
                     color: '#ffff00'
                 },
+								{
+                    showInLegend: true,
+                    name: 'humidity %',
+                    data: [], 
+                    color: '#00ffff'
+                },
 				{
                     showInLegend: true,
                     name: 'fanSpeed %',
                     data: [], 
                     color: '#00ff00'
-                },
-				{
-                    showInLegend: true,
-                    name: 'humidity %',
-                    data: [], 
-                    color: '#00ffff'
                 }
 
             ],
@@ -1039,29 +1039,42 @@ function selectProbeTType(event) {
 }
 
 function selectProbeTAmount(event) {
+    //var selected_text = event.options[event.selectedIndex].innerHTML;
+	//console.log("text "); console.log(selected_text);
     var selected_value = event.value;
+	//console.log("value "); console.log(selected_value);
+	
 	doSend('1SN'+selected_value);
 }
 
 function selectProbeHType(event) {
+    //var selected_text = event.options[event.selectedIndex].innerHTML;
+	//console.log("text "); console.log(selected_text);
     var selected_value = event.value;
+	//console.log("value "); console.log(selected_value);
 	
 	//doSend('1ST'+selected_value);
 }
 
 function selectProbeHAmount(event) {
     var selected_value = event.value;
+	//console.log("value "); console.log(selected_value);
+	
 	doSend('1HN'+selected_value);
 }
 
 function selectUpdateGraphTime(event) {
+    //var selected_text = event.options[event.selectedIndex].innerHTML;
+	//console.log("text "); console.log(selected_text);
     var selected_value = event.value;
+	//console.log("value "); console.log(selected_value);
+	
 	doSend('1Z1'+selected_value);
 }
 
 function updateButton(fixedVariable) { 
 	if (document.getElementById(fixedVariable).checked == true){			
-		if (fixedVariable == '1I1'){
+		else if (fixedVariable == '1I1'){
 		clearInterval(refreshIntervalId1); 
 		document.getElementById("1I1").checked = false;
 		//doSend('1I1'+0);
@@ -1100,6 +1113,7 @@ function updateText(fixedVariable) {
 	doSend('1V4'+cv4.value);
 	}
 	else if (fixedVariable == 'cv5'){
+	//console.log(cv5.value);
 	doSend('1V5'+cv5.value);
 	}
 	else if (fixedVariable == 'pv1'){
@@ -1109,6 +1123,7 @@ function updateText(fixedVariable) {
 	doSend('1W2'+pv2.value);
 	}
 	else if (fixedVariable == 'pv3'){
+	//console.log(cv5.value);
 	doSend('1W3'+pv3.value);
 	}	
 }
@@ -1151,9 +1166,13 @@ function updateTemp(fixedVariable) {
 		minuteStart = timeON.slice(3, 5);
 		hourStop = timeOFF.slice(0, 2);
 		minuteStop = timeOFF.slice(3, 5);
-		//console.log("L"+hourStart+minuteStart+hourStop+minuteStop);
+		console.log("L"+hourStart+minuteStart+hourStop+minuteStop);
 		doSend("L"+hourStart+minuteStart+hourStop+minuteStop);
-	}			
+	}		
+	
+//	else if (fixedVariable == 'T'){
+//	 doSend('1Z1'+utime.value);
+//	}	
 }
 
 function updateSlider(fixedVariable, slideAmount){
@@ -1162,7 +1181,9 @@ function updateSlider(fixedVariable, slideAmount){
 	}
 
 function playSound1(repeats){
+		//console.log("enter playsound1");
 		numberofRingsAlarm1=repeats;
+		//console.log("numberofRingsAlarm1"); console.log(numberofRingsAlarm1);
 		var sound = new Audio('/alarm.mp3');
 		sound.play();
 			if (numberofRingsAlarm1 > 1){
@@ -1170,6 +1191,7 @@ function playSound1(repeats){
 			var sound = new Audio('/alarm.mp3');
 			sound.play(); 
 			timer1Counter = timer1Counter + 1;
+			//console.log("timer1counter"); console.log(timer1Counter);
 			blockSound1(numberofRingsAlarm1, timer1Counter);
 			}, 2900);
 			}
@@ -1229,13 +1251,13 @@ function updateTime(){
 		//console.log(endLights);
 
 		if(currentD >= startLights && currentD < endLights ){
-		//console.log("lights ON");
+		console.log("lights ON");
 			if (document.getElementById("1L2").checked == false){
 				doSend('1L2'+1);
 			}
 		}
 		else{
-		//	console.log("lights off");
+			console.log("lights off");
 			if (document.getElementById("1L2").checked == true)
 			doSend('1L2'+0);
 			}	

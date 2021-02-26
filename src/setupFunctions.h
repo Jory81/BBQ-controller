@@ -2,6 +2,7 @@ void setupESP32(){
   Serial.begin(115200);   
   pinMode(LED,OUTPUT);
   digitalWrite(LED, LOW);
+  pinMode(RELAY,OUTPUT);
 }
 void setupOledScreen(){
   if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3D for 128x64
@@ -29,7 +30,7 @@ void setupEEPROM(){
   int check  = EEPROM.readInt(0);
   #endif
   
-  if (check == 11234){
+  if (check == 11222){
   display.print(F("code: ")); display.println(check);
   display.println(F("EEPROM SET"));
   display.display();
@@ -37,7 +38,7 @@ void setupEEPROM(){
   delay(1000);
   }
   
-  else if (check != 11234){
+  else if (check != 11222){
   display.println(F("EEPROM not initialized"));
   display.println(F("Write to EEPROM"));
   display.display();
@@ -128,11 +129,20 @@ void setupTempSensors(){
 }
 }
 
-void setupDHTSensors(){
+void setupDHTsensors(){
   if (humiditySensorAmount > 0){
-    for (int sensor = 0; sensor < humiditySensorAmount; sensor++){
-      dht[sensor].begin();
+    if (humiditySensorAmount == 1){
+       dht1.begin();
     }
+    if (humiditySensorAmount == 2){
+       dht1.begin();
+       dht2.begin();
+    }
+    if (humiditySensorAmount == 3){
+      dht1.begin();
+      dht2.begin();
+      dht3.begin(); 
+    }        
   }
   else {
   return;
@@ -170,9 +180,9 @@ EEPROM.get(offsetPosition+m, lightSchedule[m]);
 }
 
 #else
-targetTemperature1 = EEPROM.readFloat(offsetof(storeInEEPROM, targetTemperature1));
-offsetTemperatureMax = EEPROM.readFloat(offsetof(storeInEEPROM, offsetTemperatureMax));
-offsetTemperatureMin = EEPROM.readFloat(offsetof(storeInEEPROM, offsetTemperatureMin));
+targetTemperature1 = EEPROM.readInt(offsetof(storeInEEPROM, targetTemperature1));
+offsetTemperatureMax = EEPROM.readInt(offsetof(storeInEEPROM, offsetTemperatureMax));
+offsetTemperatureMin = EEPROM.readInt(offsetof(storeInEEPROM, offsetTemperatureMin));
 KP = EEPROM.readDouble(offsetof(storeInEEPROM, KP));
 KI = EEPROM.readDouble(offsetof(storeInEEPROM, KI));
 KD = EEPROM.readDouble(offsetof(storeInEEPROM, KD));
@@ -187,7 +197,7 @@ calibrationValue[m]  = EEPROM.readFloat(offsetPosition+4*m);
 for (int m = 0; m < 8; m++){
 int offsetPosition = offsetof(storeInEEPROM, lightSchedule[0]);
 lightSchedule[m]  = EEPROM.readChar(offsetPosition+m);
-// Serial.println(lightSchedule[m]);
+Serial.println(lightSchedule[m]);
 }
 
 //Serial.print("position: "); Serial.print(offsetPosition+4*m); Serial.print(" cal. value: "); Serial.println(calibrationValue[m]);

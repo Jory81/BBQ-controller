@@ -16,6 +16,8 @@ float processRTD(uint16_t rtd){
   return Tlut;
 }
 
+
+
 double modifiedMap(double x, double in_min, double in_max, double out_min, double out_max)
 {
  double temp = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
@@ -31,7 +33,27 @@ void updateTimeAndGraph ()
         updateGraph2 (oldtemp[1]);
         }
         previousMillis = millis();
-    }  
+    }
+        
+      if (timer){
+      Time1 = (targetTime1-(millis()-startTime1))/1000;
+        if (Time1 < targetTime1/1000){   
+        sendTimeToClient1 (Time1); 
+        }    
+        if (millis()-startTime1 >= targetTime1){
+        timer = false;
+        }
+      }
+      
+      if (counter1){
+      cTime1 = (millis()-startCounter1)/1000;
+      sendCounterToClient1 (cTime1);     
+      }
+      
+      if (counter2){
+      cTime2 = (millis()-startCounter2)/1000;
+      sendCounterToClient2 (cTime2);     
+      }  
       
       if (millis() - alarmMessageTimer >= 15000){
       alarmMessage = 0;

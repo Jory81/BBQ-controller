@@ -71,19 +71,12 @@ AsyncWebSocket ws("/ws");
 // NOT FULLY TESTED AND OPERATIONAL FOR MULTIPLE SENSORS - FYI
 
 
-const int relayLight1 = 16;
-const int relayLight2 = 16;
-const int relayHeat1 = 16;
-const int relayHeat2 = 16;
-const int relayHumidifier = 16;
-const int relay = 16;
-
-// const int relayLight1 = 16;
-// const int relayLight2 = 17;
-// const int relayHeat1 = 12;
-// const int relayHeat2 = 13;
-// const int relayHumidifier = 14;
-// const int relay = 15;
+const int relayLight1 = 17;
+const int relayLight2 = 17;
+const int relayHeat1 = 17;
+const int relayHeat2 = 17;
+const int relayHumidifier = 17;
+const int relay = 17;
 
 
 Thermocouple* thermocouple[5];
@@ -93,20 +86,24 @@ Thermocouple* thermocouple[5];
 #define updateTimeTemp 1000
 #define updateTimeHumidity 2500
 
-// #define DHTPIN1 34
-// #define DHTPIN2 35
-// #define DHTPIN3 36
 
-#define DHTPIN1 17
-#define DHTPIN2 17
-#define DHTPIN3 17
-
+#define DHTPIN1 2
+#define DHTPIN2 3
+#define DHTPIN3 4
 DHT dht[] = {
   {DHTPIN1, DHT22},
   {DHTPIN2, DHT22},
   {DHTPIN3, DHT22},
 };
 
+// #define DHTPIN1    27
+// DHT dht1(DHTPin1,DHT22);
+
+// #define DHTPin2    27
+// DHT dht2(DHTPin2,DHT22);
+
+// #define DHTPin3    27
+// DHT dht3(DHTPin3,DHT22);
 
 Adafruit_MAX31865 maxthermo[5] = {Adafruit_MAX31865(5), Adafruit_MAX31865(26), Adafruit_MAX31865(27), Adafruit_MAX31865(32), Adafruit_MAX31865(33)} ; // 5, 26, 27, 32, 12
 
@@ -152,7 +149,6 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len);
 void processWebSocketMessageS(String str, int stringLength, String dataString);
 void processWebSocketMessage(String str, int dataVar);
 void processWebSocketMessageFloat(String str, float dataVar);
-void processWebSocketMessageFloat2(String str, float dataVar);
 void processWebSocketMessageDouble(String str, double dataVar);
 double modifiedMap(double x, double in_min, double in_max, double out_min, double out_max);
 
@@ -253,14 +249,12 @@ void samplingHumidity(){
     if (humiditySensorAmount > 0){
       if (millis() - previousMillis2 >= updateTimeHumidity){
       for (int sensor = 0; sensor <humiditySensorAmount; sensor++){
-        preHumidity[sensor] = dht[sensor].readHumidity();
-        predhtTemp[sensor] = dht[sensor].readTemperature();
-
-        if(!isnan(predhtTemp[sensor]) && !isnan(preHumidity[sensor]))        {
-          humidity[sensor] = preHumidity[sensor];
-          dhtTemp[sensor] = predhtTemp[sensor];
-        }
-
+        humidity[sensor] = 0;
+        dhtTemp[sensor] = 0;
+        oldHumidity[sensor] = humidity[sensor];
+            // if ((temp[sensor] < 300 && temp[sensor] > oldtemp[sensor]-50 && temp[sensor] < oldtemp[sensor]+50 ) || oldtemp[sensor] == 0){
+            // oldtemp[sensor] = temp[sensor];             
+            // }
       }
       sendAllHumidityToClient();
       previousMillis2 = millis();

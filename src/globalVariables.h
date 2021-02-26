@@ -40,9 +40,7 @@ float temp[5] = {0,0,0,0,0};
 float oldtemp[5] = {0,0,0,0,0};
 
 float humidity[3] = {0,0,0};
-float predhtTemp[3] = {0,0,0};
-float dhtTemp[3] = {0,0,0};
-float preHumidity[3] = {0,0,0};
+float oldHumidity[3] = {0,0,0};
 
 float calibrationValue[5] = {-0.0, -0.0, -0.0, -0.0, -0.0};
 
@@ -50,7 +48,7 @@ uint32_t Time1=0;
 uint32_t cTime1=0;
 uint32_t cTime2=0;
 //uint16_t targetTemperature1=0;
-float targetTemperature1=25.0f;
+float targetTemperature1=15.0f;
 unsigned long startTime1=0;
 
 boolean humidAlarmActiveLO=true;
@@ -126,7 +124,7 @@ float offsetTemperatureMin;
 };
 
 storeInEEPROM customVar = {
-      11234, // code to check
+      11222, // code to check
       1, // sensorType ; 1 is PT100 2 is thermokoppel
       1, // sensorAmount 
       0, // humidsensoramount
