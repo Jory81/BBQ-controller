@@ -11,6 +11,15 @@
   cursor:pointer;
 }
 
+#checkbox5{
+  background:#grey;
+  display:inline-block;
+  padding:2px 2px;
+  border-radius:2px;
+  position:relative;
+  cursor:pointer;
+}
+
 #checkbox2{
   background:#grey;
   display:inline-block;
@@ -63,7 +72,7 @@
 }
 
 #checkbox2>input[type='checkbox']:checked+i{
-  color:#e09880;
+  color:#a6e7ff;
 }
 
 #checkbox3>input[type='checkbox']+i{
@@ -80,6 +89,14 @@
 
 #checkbox4>input[type='checkbox']:checked+i{
   color:#db7986
+}
+
+#checkbox5>input[type='checkbox']+i{
+  color:#999999;
+}
+
+#checkbox5>input[type='checkbox']:checked+i{
+  color:#fdfbd3;
 }
 
 .form-controlx{
@@ -156,6 +173,11 @@ body {
   margin: 0 auto;
   background-color: grey;
   color: white;
+}
+
+.timeMakeup{
+font-size: 1.0rem; 
+color: black;	
 }
 
 .switch {

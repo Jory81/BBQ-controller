@@ -49,6 +49,9 @@ HALLO LEON
 #include <pt100rtd.h>
 #include <AutoPID.h>
 
+#include <DHT.h>
+
+
 // OLED SD1306 properties
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
@@ -67,13 +70,40 @@ AsyncWebSocket ws("/ws");
 #define CS2_PIN 26
 // NOT FULLY TESTED AND OPERATIONAL FOR MULTIPLE SENSORS - FYI
 
-#define RELAY 4  
+
+const int relayLight1 = 17;
+const int relayLight2 = 17;
+const int relayHeat1 = 17;
+const int relayHeat2 = 17;
+const int relayHumidifier = 17;
+const int relay = 17;
+
 
 Thermocouple* thermocouple[5];
 //Thermocouple* thermocouple2;
 
 #define LED 2
 #define updateTimeTemp 1000
+#define updateTimeHumidity 2500
+
+
+#define DHTPIN1 2
+#define DHTPIN2 3
+#define DHTPIN3 4
+DHT dht[] = {
+  {DHTPIN1, DHT22},
+  {DHTPIN2, DHT22},
+  {DHTPIN3, DHT22},
+};
+
+// #define DHTPIN1    27
+// DHT dht1(DHTPin1,DHT22);
+
+// #define DHTPin2    27
+// DHT dht2(DHTPin2,DHT22);
+
+// #define DHTPin3    27
+// DHT dht3(DHTPin3,DHT22);
 
 Adafruit_MAX31865 maxthermo[5] = {Adafruit_MAX31865(5), Adafruit_MAX31865(26), Adafruit_MAX31865(27), Adafruit_MAX31865(32), Adafruit_MAX31865(33)} ; // 5, 26, 27, 32, 12
 
@@ -91,9 +121,11 @@ pt100rtd PT100 = pt100rtd();
 float processRTD(uint16_t rtd);
 void initializeEEPROMvariables();
 void sendAllTempToClient();
+void sendAllHumidityToClient();
 void sendAllCalibrationValues();
 void sendAllPIDValues();
-
+void samplingTemp();
+void samplingHumidity();
 void updateTimeAndGraph();
 void sendTimeToClient1 (uint16_t Time);
 void sendCounterToClient1 (uint16_t Time);
@@ -102,6 +134,9 @@ void updateGraph (float temp);
 void updateGraph2 (float temp);
 void displayOledScreen(float temp1, float temp2, float temp3, float temp4);
 void fanControl();
+void lightControl();
+void heaterControl();
+void humidityControl();
 void messageFanState();
 void updateFanSpeed(byte fanSpeed);
 
@@ -123,6 +158,7 @@ void setupSPIFFS();
 void setupEEPROM();
 void setupWIFI();
 void setupTempSensors();
+void setupDHTSensors();
 
 //pid settings and gains
 double OUTPUT_MIN = 0;
@@ -161,6 +197,7 @@ setupSPIFFS();
 setupEEPROM();
 setupWIFI();
 setupTempSensors();
+setupDHTSensors();
 
 ledcSetup(ledChannel, freq, resolution);
 ledcAttachPin(OUTPUT_PIN, ledChannel);
@@ -171,8 +208,21 @@ myPID.setTimeStep(100);
 
 void loop()
 {
-     if (millis() - previousMillis1 >= updateTimeTemp){
-        switch (sensorType){
+  if (millis() - previousMillis1 >= updateTimeTemp){
+    samplingTemp(); 
+    samplingHumidity();   
+    displayOledScreen(temp[0], temp[1], temp[2], temp[3]);
+    lightControl();
+    heaterControl();
+    humidityControl();
+    fanControl();
+    updateTimeAndGraph();
+    previousMillis1 = millis();
+    }
+}
+
+void samplingTemp(){
+  switch (sensorType){
           case 1: {
             for (int sensor = 0; sensor <sensorAmount; sensor++){
               uint16_t rtd = maxthermo[sensor].readRTD();
@@ -192,11 +242,119 @@ void loop()
             sendAllTempToClient();
           }
           break;
-        }
-  
-    displayOledScreen(temp[0], temp[1], temp[2], temp[3]);
-    fanControl();
-    updateTimeAndGraph();
-    previousMillis1 = millis();
+        }    
+}
+
+void samplingHumidity(){
+    if (humiditySensorAmount > 0){
+      if (millis() - previousMillis2 >= updateTimeHumidity){
+      for (int sensor = 0; sensor <humiditySensorAmount; sensor++){
+        humidity[sensor] = 0;
+        dhtTemp[sensor] = 0;
+        oldHumidity[sensor] = humidity[sensor];
+            // if ((temp[sensor] < 300 && temp[sensor] > oldtemp[sensor]-50 && temp[sensor] < oldtemp[sensor]+50 ) || oldtemp[sensor] == 0){
+            // oldtemp[sensor] = temp[sensor];             
+            // }
+      }
+      sendAllHumidityToClient();
+      previousMillis2 = millis();
+      }
     }
+}
+
+void fanControl(){
+if (fanManual){
+  if (fanON){ outputVal=fanManualAmount; }
+  else { outputVal=0; }
+  if (msgFanState){
+    messageFanState();
+  }
+}
+else if (!fanManual){
+  if (!tempControlPID){
+    fanON = true;
+    if (humidifierON){
+      outputVal = OUTPUT_MIN;
+    }
+    else {
+      if (temp[0] > targetTemperature1 + offsetTemperatureMax){
+        outputVal = OUTPUT_MAX;
+      }
+      else if (temp[0] < targetTemperature1 - offsetTemperatureMin){
+        outputVal = OUTPUT_MIN;
+      }
+      else if (temp[0] > targetTemperature1 - offsetTemperatureMin && temp[0] < targetTemperature1 + offsetTemperatureMin){
+        outputVal = fanManualAmount;
+      }
+      else if (temp[0] > targetTemperature1 + offsetTemperatureMin && temp[0] < targetTemperature1 + offsetTemperatureMax){
+        outputVal = modifiedMap((targetTemperature1-temp[0]), 0, offsetTemperatureMin, OUTPUT_MIN, OUTPUT_MAX);
+      }
+      }
+  }
+  else {
+      temperature=temp[0];
+      myPID.run(); //call every loop, updates automatically at certain time interval
+      if (outputVal < 5){
+        fanON = false;
+      }
+      else{
+        fanON = true;
+      }
+  }
+  if (lastfanONState != fanON || msgFanState == true){
+  lastfanONState = fanON;
+  messageFanState();
+  }   
+}
+//Serial.println(outputVal);
+ledcWrite(ledChannel, outputVal);
+fanSpeed = map(outputVal, 0, 255, 0, 100);
+updateFanSpeed(fanSpeed);
+}
+
+void messageFanState(){
+digitalWrite(LED, fanON);
+String mergedString = "GQ"+String(fanON); ws.textAll(mergedString);
+msgFanState = false;
+return;
+}
+
+void lightControl(){
+  if (lightState != lightsON){
+    lightState = lightsON;
+    digitalWrite(relayLight1, lightsON);
+    digitalWrite(relayLight2, lightsON);
+    String mergedString = "Gq"+String(lightsON); ws.textAll(mergedString);
+  }
+}
+
+void heaterControl(){
+  if (temp[0] < targetTemperature1 - offsetTemperatureMin){
+    heaterON = true;
+  }
+  else if (temp[0] > targetTemperature1 + offsetTemperatureMin){
+    heaterON = false;
+  }
+
+  if (heaterState != heaterON){
+    heaterState = heaterON;
+    digitalWrite(relayHeat1, heaterON);
+    digitalWrite(relayHeat2, heaterON);
+    String mergedString = "Gs"+String(heaterON); ws.textAll(mergedString);
+  }
+}
+
+void humidityControl(){
+  if (humidity[0] < humidmin){
+    humidifierON = true;
+  }
+  else if (humidity[0] > humidmax){
+    humidifierON = false;
+  }
+
+  if (humidifierState != humidifierON){
+    humidifierState = humidifierON;
+    digitalWrite(relayHumidifier, humidifierON);
+    String mergedString = "Gg"+String(humidifierON); ws.textAll(mergedString);
+  }
 }
