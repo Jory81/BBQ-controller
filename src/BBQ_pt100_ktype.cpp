@@ -73,6 +73,9 @@ Thermocouple* thermocouple[5];
 //Thermocouple* thermocouple2;
 
 #define LED 2
+
+
+
 #define updateTimeTemp 1000
 #define updateTimeGraph 5000
 
@@ -141,10 +144,19 @@ double temperature, setPoint, outputVal;
 //input/output variables passed by reference, so they are updated automatically
 AutoPID myPID(&temperature, &setPoint, &outputVal, OUTPUT_MIN, OUTPUT_MAX, KP, KI, KD);
 
-#define OUTPUT_PIN 4
+#define OUTPUT_PIN1 4 // Fan1
 const int freq = 10;
-const int ledChannel = 0;
+const int ledChannel1 = 0;
 const int resolution = 8;
+
+#define OUTPUT_PIN2 0 // fan2 not tested
+//const int freq = 10;
+const int ledChannel2 = 1;
+
+// #define OUTPUT_PIN 4
+// const int freq = 10;
+// const int ledChannel = 0;
+// const int resolution = 8;
 
 #include "globalVariables.h"
 #include "readTemperature.h"
@@ -163,8 +175,15 @@ setupEEPROM();
 setupWIFI();
 setupTempSensors();
 
-ledcSetup(ledChannel, freq, resolution);
-ledcAttachPin(OUTPUT_PIN, ledChannel);
+// ledcSetup(ledChannel, freq, resolution);
+// ledcAttachPin(OUTPUT_PIN, ledChannel);
+
+ledcSetup(ledChannel1, freq, resolution);
+ledcAttachPin(OUTPUT_PIN1, ledChannel1);
+
+ledcSetup(ledChannel2, freq, resolution);
+ledcAttachPin(OUTPUT_PIN2, ledChannel2);
+
 
 myPID.setBangBang(offsetTemperatureMin);
 myPID.setTimeStep(100);

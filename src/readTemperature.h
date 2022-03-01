@@ -126,7 +126,8 @@ else if (!fanManual){
   }   
 }
 //Serial.println(outputVal);
-ledcWrite(ledChannel, outputVal);
+ledcWrite(ledChannel1, outputVal);
+ledcWrite(ledChannel2, outputVal);
 fanSpeed = map(outputVal, 0, 255, 0, 100);
 updateFanSpeed(fanSpeed);
 }
