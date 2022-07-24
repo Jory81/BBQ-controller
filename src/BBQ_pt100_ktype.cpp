@@ -149,9 +149,9 @@ const int freq = 10;
 const int ledChannel1 = 0;
 const int resolution = 8;
 
-#define OUTPUT_PIN2 0 // fan2 not tested
+//#define OUTPUT_PIN2 0 // fan2 not tested
 //const int freq = 10;
-const int ledChannel2 = 1;
+//const int ledChannel2 = 1;
 
 // #define OUTPUT_PIN 4
 // const int freq = 10;
@@ -181,8 +181,8 @@ setupTempSensors();
 ledcSetup(ledChannel1, freq, resolution);
 ledcAttachPin(OUTPUT_PIN1, ledChannel1);
 
-ledcSetup(ledChannel2, freq, resolution);
-ledcAttachPin(OUTPUT_PIN2, ledChannel2);
+// ledcSetup(ledChannel2, freq, resolution);
+// ledcAttachPin(OUTPUT_PIN2, ledChannel2);
 
 
 myPID.setBangBang(offsetTemperatureMin);
