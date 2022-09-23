@@ -131,18 +131,19 @@ void setupTempSensors();
 //pid settings and gains
 double OUTPUT_MIN = 0;
 double OUTPUT_MAX = 255;
+double outputVal;
 // #define KP .12
 // #define KI .0003
 // #define KD 0
 
-double KP = 5;
-double KI = 3;
-double KD = 1;
+// double KP = 5;
+// double KI = 3;
+// double KD = 1;
 
-double temperature, setPoint, outputVal;
+//double temperature, setPoint, outputVal;
 
 //input/output variables passed by reference, so they are updated automatically
-AutoPID myPID(&temperature, &setPoint, &outputVal, OUTPUT_MIN, OUTPUT_MAX, KP, KI, KD);
+//AutoPID myPID(&temperature, &setPoint, &outputVal, OUTPUT_MIN, OUTPUT_MAX, KP, KI, KD);
 
 #define OUTPUT_PIN1 4 // Fan1
 const int freq = 10;
@@ -185,8 +186,8 @@ ledcAttachPin(OUTPUT_PIN1, ledChannel1);
 // ledcAttachPin(OUTPUT_PIN2, ledChannel2);
 
 
-myPID.setBangBang(offsetTemperatureMin);
-myPID.setTimeStep(100);
+// myPID.setBangBang(offsetTemperatureMin);
+// myPID.setTimeStep(100);
 }
 
 void loop()

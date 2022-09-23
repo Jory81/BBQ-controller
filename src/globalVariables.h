@@ -89,10 +89,10 @@ uint8_t sensorAmount;
 char ssidStorage[32];
 char passStorage[32];
 float calibrationValue[5];
-boolean tempControlPID;
-double KP;
-double KI;
-double KD;
+// boolean tempControlPID;
+// double KP;
+// double KI;
+// double KD;
 double OUTPUT_MIN;
 double OUTPUT_MAX;
 uint16_t targetTemperature1;
@@ -101,14 +101,14 @@ uint16_t offsetTemperatureMin;
 };
 
 storeInEEPROM customVar = {
-      11332, // code to check
+      11442, // code to check
       1, // sensorType ; 1 is PT100 2 is thermokoppel
       1, // sensorAmount 
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // ssidstorage
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // passstorage
       0, 0, 0, 0, 0, // calibration values
-      0, // boolean tempControlPID;
-      5, 3, 1, // PID values
+      // 0, // boolean tempControlPID;
+      // 5, 3, 1, // PID values
       0, 255, // OUTPUT_MIN OUTPUT_MAX
       50, // targetTemp
       10, // offsetTempMax

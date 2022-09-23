@@ -30,7 +30,7 @@ void setupEEPROM(){
   int check  = EEPROM.readInt(0);
   #endif
   
-  if (check == 11332){
+  if (check == 11442){
   display.print(F("code: ")); display.println(check);
   display.println(F("EEPROM SET"));
   display.display();
@@ -38,7 +38,7 @@ void setupEEPROM(){
   delay(1000);
   }
   
-  else if (check != 11332){
+  else if (check != 11442){
   display.println(F("EEPROM not initialized"));
   display.println(F("Write to EEPROM"));
   display.display();
@@ -132,12 +132,12 @@ void setupTempSensors(){
 void initializeEEPROMvariables(){
 sensorType  = EEPROM.read(offsetof(storeInEEPROM, sensorType));
 sensorAmount = EEPROM.read(offsetof(storeInEEPROM, sensorAmount));
-tempControlPID = EEPROM.read(offsetof(storeInEEPROM, tempControlPID));
+//tempControlPID = EEPROM.read(offsetof(storeInEEPROM, tempControlPID));
 
 #ifdef ESP8266  
-EEPROM.get(offsetof(storeInEEPROM, KP, KP);
-EEPROM.get(offsetof(storeInEEPROM, KI), KI);
-EEPROM.get(offsetof(storeInEEPROM, KD), KD);
+// EEPROM.get(offsetof(storeInEEPROM, KP, KP);
+// EEPROM.get(offsetof(storeInEEPROM, KI), KI);
+// EEPROM.get(offsetof(storeInEEPROM, KD), KD);
 EEPROM.get(offsetof(storeInEEPROM, OUTPUT_MIN), OUTPUT_MIN);
 EEPROM.get(offsetof(storeInEEPROM, OUTPUT_MAX), OUTPUT_MAX);
 EEPROM.get(offsetof(storeInEEPROM, targetTemperature1), targetTemperature1;
@@ -153,9 +153,9 @@ EEPROM.get(offsetPosition+(4*m), calibrationValue[m]);
 targetTemperature1 = EEPROM.readInt(offsetof(storeInEEPROM, targetTemperature1));
 offsetTemperatureMax = EEPROM.readInt(offsetof(storeInEEPROM, offsetTemperatureMax));
 offsetTemperatureMin = EEPROM.readInt(offsetof(storeInEEPROM, offsetTemperatureMin));
-KP = EEPROM.readDouble(offsetof(storeInEEPROM, KP));
-KI = EEPROM.readDouble(offsetof(storeInEEPROM, KI));
-KD = EEPROM.readDouble(offsetof(storeInEEPROM, KD));
+// KP = EEPROM.readDouble(offsetof(storeInEEPROM, KP));
+// KI = EEPROM.readDouble(offsetof(storeInEEPROM, KI));
+// KD = EEPROM.readDouble(offsetof(storeInEEPROM, KD));
 OUTPUT_MIN = EEPROM.readDouble(offsetof(storeInEEPROM, OUTPUT_MIN));
 OUTPUT_MAX = EEPROM.readDouble(offsetof(storeInEEPROM, OUTPUT_MAX));
 

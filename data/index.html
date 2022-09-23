@@ -69,7 +69,7 @@
 	</div>	
 
 	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="offset min" class="form-controlx input-sl" id="K2" value=""></span> <span><button onclick="updateTemp('1K2')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
+		<span class="inputparam"> <input type="number" placeholder="cold/ for dimming fanspeed" class="form-controlx input-sl" id="K2" value=""></span> <span><button onclick="updateTemp('1K2')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
 		<span class="dht-labels"></span> 
 		<span id="offsetFromTargetTempMin"></span>
 		<sup class="units">&deg;C</sup>
@@ -81,7 +81,7 @@
 	</div>
 	
 	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="offset max" class="form-controlx input-sl" id="K1" value=""></span> <span><button onclick="updateTemp('1K1')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;    
+		<span class="inputparam"> <input type="number" placeholder="offset max/hot" class="form-controlx input-sl" id="K1" value=""></span> <span><button onclick="updateTemp('1K1')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;    
 		<span class="dht-labels"></span> 
         <span id="offsetFromTargetTempMax"></span>
         <sup class="units">&deg;C</sup>
@@ -189,23 +189,17 @@
 		</div>	
         <br>		
 		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input KP or MIN" class="form-controlx input-sl" id="pv1" value=""></span> <span><button onclick="updateText('pv1')"  class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
+			<span class="inputparam"> <input type="number" placeholder="OUTPUT MIN" class="form-controlx input-sl" id="pv1" value=""></span> <span><button onclick="updateText('pv1')"  class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
 			<span class="dht-labels"></span>
 			<span id="pid_val1"></span>
 		</div>			
 		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input KI or MAX" class="form-controlx input-sl" id="pv2" value=""></span> <span><button onclick="updateText('pv2')"  class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
+			<span class="inputparam"> <input type="number" placeholder="OUTPUT MAX" class="form-controlx input-sl" id="pv2" value=""></span> <span><button onclick="updateText('pv2')"  class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
 			<i class="glyphicon glyphicon-signal"></i> 
 			<span class="dht-labels"></span> 
 			<span id="pid_val2"></span>
 		</div>			
-		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input KD (-)" class="form-controlx input-sl" id="pv3" value=""></span> <span><button onclick="updateText('pv3')"  class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels"></span> 
-			<span id="pid_val3"></span>
-		</div>
 		<hr>
 </div>
 
@@ -230,15 +224,7 @@
 	<option value="5" >5 probes</option>
 	</select>	
 	</span>
-	</p>
-	<br>
-
-	<div>
-		<span id="checkbox1">PID control (checked) or linear control
-		<input class="ckeckbox-element" type="checkbox" id="1X1" onclick="updateButton('1X1')"/>  
-		<i class="glyphicon glyphicon-tasks"></i>
-		</span> 
-	</div>		
+	</p>		
 
 	<br>
 	
@@ -670,18 +656,6 @@ if (string.charAt(0) == 'G'){
 		//alarmActiveTimer2 = true;
 		}
 	}
-
-	else if (string.charAt(1) == 'X'){
-		var residu = string.slice(2, string.length);	
-		if (residu == '0'){
-		document.getElementById("1X1").checked = false;
-		//alarmActiveTimer2 = false;
-		}
-		else if (residu == '1'){
-		document.getElementById("1X1").checked = true;
-		//alarmActiveTimer2 = true;
-		}
-	}	
 	
 	else if (string.charAt(1) == 'V'){// checkBox - activates alarm1 Timer checkbox (alarmTime1)
 		var numArgs = 0;
@@ -710,7 +684,7 @@ if (string.charAt(0) == 'G'){
 		var numArgs = 0;
 		var pos1 = 1;
 		var pos2 = 0;
-		var pid_cal_values = new Array(3)
+		var pid_cal_values = new Array(2)
 		var altString = string.slice(1, string.length);
 		//console.log(altString);
 		for( var t = 0; t < altString.length; t++ ){
@@ -724,7 +698,6 @@ if (string.charAt(0) == 'G'){
 		}	
 		document.getElementById("pid_val1").innerHTML = pid_cal_values[0];
 		document.getElementById("pid_val2").innerHTML = pid_cal_values[1];
-		document.getElementById("pid_val3").innerHTML = pid_cal_values[2];
 	}
 	
 	else if (string.charAt(1) == 'Y'){// receive alarmTime1 parameter
@@ -1105,10 +1078,10 @@ function updateText(fixedVariable) {
 	else if (fixedVariable == 'pv2'){
 	doSend('1W2'+pv2.value);
 	}
-	else if (fixedVariable == 'pv3'){
-	//console.log(cv5.value);
-	doSend('1W3'+pv3.value);
-	}	
+	// else if (fixedVariable == 'pv3'){
+	// //console.log(cv5.value);
+	// doSend('1W3'+pv3.value);
+	// }	
 }
 
 function updateTemp(fixedVariable) {

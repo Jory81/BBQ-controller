@@ -88,14 +88,17 @@ float processRTD(uint16_t rtd){
 
 void fanControl(){
 if (fanManual){
-  if (fanON){ outputVal=fanManualAmount; }
-  else { outputVal=0; }
+  if (fanON){
+    outputVal=fanManualAmount; }
+  else {
+    outputVal=0; }
+  
   if (msgFanState){
     messageFanState();
   }
 }
 else if (!fanManual){
-  if (!tempControlPID){
+  //if (!tempControlPID){
     if (temp[0] > targetTemperature1){
       outputVal = 0;
       fanON = false;
@@ -109,17 +112,17 @@ else if (!fanManual){
         outputVal = modifiedMap((targetTemperature1-temp[0]), 0, offsetTemperatureMin, OUTPUT_MIN, OUTPUT_MAX);
       } 
     }
-  }
-  else {
-      temperature=temp[0];
-      myPID.run(); //call every loop, updates automatically at certain time interval
-      if (outputVal < 5){
-        fanON = false;
-      }
-      else{
-        fanON = true;
-      }
-  }
+  //}
+  // else {
+  //     temperature=temp[0];
+  //     myPID.run(); //call every loop, updates automatically at certain time interval
+  //     if (outputVal < 5){
+  //       fanON = false;
+  //     }
+  //     else{
+  //       fanON = true;
+  //     }
+  // }
   if (lastfanONState != fanON || msgFanState == true){
   lastfanONState = fanON;
   messageFanState();
