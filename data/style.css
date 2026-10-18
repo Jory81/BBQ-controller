@@ -324,6 +324,7 @@ div.inline {
 }
 
 .container{
+	clear: both; /* start below the temperature/fan/timers columns */
 	background-color: grey;
 	color:white;
 	height:75%;
@@ -333,3 +334,18 @@ div.inline {
 .inputcontainer{
 	height: 25px;
 }
+.icon-thermo {
+  height: 1em;
+  width: 0.5em;
+  vertical-align: -0.125em;
+}
+
+#conn-status {
+  font-size: 0.8rem;
+  padding: 1px 6px;
+  border-radius: 8px;
+  margin-left: 6px;
+}
+
+.conn-on { background: #06b7a0; color: white; }
+.conn-off { background: #db7986; color: white; }

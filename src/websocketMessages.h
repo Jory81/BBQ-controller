@@ -2,9 +2,19 @@ void onRootRequest(AsyncWebServerRequest *request) {
   request->send(SPIFFS, "/index.html", "text/html");    // , false, processor
 }
 
+void onNotFound(AsyncWebServerRequest *request) {
+  if (!wifiStationMode){ // captive portal: send phones' connectivity checks to the controller page
+    request->redirect("http://" + WiFi.softAPIP().toString() + "/");
+  }
+  else {
+    request->send(404, "text/plain", "Not found");
+  }
+}
+
 void initWebServer() {
     server.on("/", onRootRequest);
-    server.serveStatic("/", SPIFFS, "/");
+    server.serveStatic("/", SPIFFS, "/"); // serves file.gz automatically when present
+    server.onNotFound(onNotFound);
     server.begin();
 }
              
@@ -72,10 +82,12 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         strval[1]=0;
         str=String(strval);
         //Serial.println(str);
-          for (int i = 1; i < len+1; i++){
-          stringStorage[i-1]=(char)data[i];
-          }
-        stringStorage[len]=0;
+        size_t textLength = (len > 0) ? len - 1 : 0; // without the leading I/P
+        if (textLength > sizeof(stringStorage) - 1){
+          textLength = sizeof(stringStorage) - 1; // EEPROM slot is 32 bytes incl. terminator
+        }
+        memset(stringStorage, 0, sizeof(stringStorage));
+        memcpy(stringStorage, &data[1], textLength);
         dataString = String(stringStorage);
         size_t stringLength = sizeof(stringStorage);        
         processWebSocketMessageS(str, stringLength, dataString);     
@@ -91,7 +103,6 @@ void processWebSocketMessageS(String str, int stringLength, String dataString){
           EEPROM.write(n,stringStorage[arrayPos]);
           arrayPos++;
         }
-        EEPROM.write((stringLength+EEPROMposition),NULL);
         EEPROM.commit();
         String mergedString = "RI"+String(dataString); 
         //Serial.print("SSID "); Serial.println(mergedString);
@@ -104,7 +115,6 @@ void processWebSocketMessageS(String str, int stringLength, String dataString){
           EEPROM.write(n,stringStorage[arrayPos]);
           arrayPos++;
         } 
-      EEPROM.write((stringLength+EEPROMposition),NULL);    
       EEPROM.commit();
       String mergedString = "RP"+String(dataString); 
       //Serial.print("PASS "); Serial.println(mergedString);
@@ -135,7 +145,7 @@ void processWebSocketMessage(String str, int dataVar){
     //else if (dataVar == 18){String mergedString = "GX"+String(tempControlPID); ws.textAll(mergedString);}
     else if (dataVar == 18){String mergedString = "GY"+String(fanManualAmount); ws.textAll(mergedString);}
     else if (dataVar == 19){String mergedString = "Ga"+String(presetTimer2); ws.textAll(mergedString);}
-    else if (dataVar == 20){String mergedString = "Gi"+String(timerCheck1); ws.textAll(mergedString);}
+    else if (dataVar == 20){String mergedString = "Gi"+String(timerCheck2); ws.textAll(mergedString);}
     else if (dataVar == 21){String mergedString = "Gr"+String(tempOffsetAlarmMin); ws.textAll(mergedString);}
     else if (dataVar == 22){ if (offsetTemperatureMin > 0) {String mergedString = "Go"+String(offsetTemperatureMin); ws.textAll(mergedString);} else {ws.textAll("G");};}  
 
@@ -151,7 +161,7 @@ void processWebSocketMessage(String str, int dataVar){
       else if (str == "1D1"){presetTimer1 = dataVar; timerCheck1 = true; String mergedString = "GA"+String(presetTimer1); ws.textAll(mergedString);}  
       else if (str == "1D2"){presetTimer2 = dataVar; timerCheck2 = true; String mergedString = "Ga"+String(presetTimer2); ws.textAll(mergedString);}     
       else if (str == "1E1"){timerCheck1 = false; String mergedString = "GI"+String(timerCheck1); ws.textAll(mergedString);}
-      else if (str == "1E2"){timerCheck2 = false; String mergedString = "Gi"+String(timerCheck1); ws.textAll(mergedString);}
+      else if (str == "1E2"){timerCheck2 = false; String mergedString = "Gi"+String(timerCheck2); ws.textAll(mergedString);}
       else if (str == "1F1"){alarmTime1 = dataVar; String mergedString = "GE"+String(alarmTime1); ws.textAll(mergedString);}
       else if (str == "1F2"){alarmTime2 = dataVar; String mergedString = "GF"+String(alarmTime2); ws.textAll(mergedString);}
       else if (str == "1G1"){alarmActive1 = dataVar; String mergedString = "GG"+String(alarmActive1); ws.textAll(mergedString);}// blinkON = false; digitalWrite(LED, LOW);}

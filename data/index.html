@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://code.jquery.com/jquery.min.js"></script>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="style.css"> 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>BBQ controller</title>
+<!-- everything is served by the ESP32 itself, so the page also works in soft-AP mode without internet -->
+<link href="bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="style.css"> 
 </head>
 <body>
+<!-- thermometer-half icon: Font Awesome Free 5.7.2 by @fontawesome - https://fontawesome.com (CC BY 4.0) -->
+<svg style="display:none"><symbol id="thermometer-half" viewBox="0 0 256 512"><path fill="currentColor" d="M192 384c0 35.346-28.654 64-64 64s-64-28.654-64-64c0-23.685 12.876-44.349 32-55.417V224c0-17.673 14.327-32 32-32s32 14.327 32 32v104.583c19.124 11.068 32 31.732 32 55.417zm32-84.653c19.912 22.563 32 52.194 32 84.653 0 70.696-57.303 128-128 128-.299 0-.609-.001-.909-.003C56.789 511.509-.357 453.636.002 383.333.166 351.135 12.225 321.755 32 299.347V96c0-53.019 42.981-96 96-96s96 42.981 96 96v203.347zM208 384c0-34.339-19.37-52.19-32-66.502V96c0-26.467-21.533-48-48-48S80 69.533 80 96v221.498c-12.732 14.428-31.825 32.1-31.999 66.08-.224 43.876 35.563 80.116 79.423 80.42L128 464c44.112 0 80-35.888 80-80z"/></symbol></svg>
 <br>
 <div class='time-frame'>
 	<div>
     <span id='date-part'></span>
     <span> &nbsp  / &nbsp  </span>
     <span id='time-part'></span>
+	<span id="conn-status" class="conn-off">offline</span>
 	
 	<span id="checkbox1">
 	<input class="ckeckbox-element" type="checkbox" id="1I1" onclick="updateButton('1I1')"/>  
@@ -249,7 +254,7 @@
 
 		<h4>temperature</h4>
 		<p>
-		<i class="fas fa-thermometer-half" style="color:#93dbd1;"></i> 
+		<svg class="icon-thermo" viewBox="0 0 256 512" style="color:#93dbd1;"><use href="#thermometer-half"/></svg> 
 		<span class="dht-labels">BBQ</span> 
 		<span id="temperature1"></span>
 		<sup class="units">&deg;C</sup>
@@ -263,7 +268,7 @@
 		</p>	
 		
 		<p>
-			<i class="fas fa-thermometer-half" style="color:#db7986;"></i> 
+			<svg class="icon-thermo" viewBox="0 0 256 512" style="color:#db7986;"><use href="#thermometer-half"/></svg> 
 			<span class="dht-labels">Food</span> 
 			<span id="temperature2"></span>
 			<sup class="units">&deg;C</sup>
@@ -382,6 +387,11 @@ document.getElementById("demo").innerHTML = "hi";
 
 var gateway = `ws://${window.location.hostname}/ws`;
 var websocket;
+var reconnectTimer = null;
+var lastMessageTime = 0;
+// the controller sends temperatures every second; if nothing arrives for this long
+// the connection is dead (phone screen was off, walked out of wifi range, ...)
+var connectionTimeout = 6000;
 
 console.log(gateway);
 
@@ -424,6 +434,13 @@ function onLoad(event) {
 	
     initWebSocket();
 //    initButton();
+	setInterval(checkConnection, 2000);
+	document.addEventListener('visibilitychange', function() {
+		// reconnect straight away when the phone is unlocked / the tab is shown again
+		if (!document.hidden && (Date.now() - lastMessageTime > connectionTimeout || websocket.readyState != WebSocket.OPEN)){
+			reconnectNow();
+		}
+	});
 }
 
 // ----------------------------------------------------------------------------
@@ -432,10 +449,42 @@ function onLoad(event) {
 
 function initWebSocket() {
     console.log('Trying to open a WebSocket connection...');
+    if (websocket){ // drop the old (dead) connection without triggering its onclose again
+        websocket.onopen = websocket.onclose = websocket.onmessage = null;
+        try { websocket.close(); } catch (e) {}
+    }
+    lastMessageTime = Date.now();
     websocket = new WebSocket(gateway);
     websocket.onopen    = onOpen;
     websocket.onclose   = onClose;
     websocket.onmessage = onMessage;
+}
+
+function scheduleReconnect() {
+    setConnectionStatus(false);
+    if (reconnectTimer == null){
+        reconnectTimer = setTimeout(function(){ reconnectTimer = null; initWebSocket(); }, 2000);
+    }
+}
+
+function reconnectNow() {
+    clearTimeout(reconnectTimer);
+    reconnectTimer = null;
+    setConnectionStatus(false);
+    initWebSocket();
+}
+
+function checkConnection() {
+    if (Date.now() - lastMessageTime > connectionTimeout){
+        console.log('No data from controller, reconnecting');
+        scheduleReconnect();
+    }
+}
+
+function setConnectionStatus(connected) {
+    var el = document.getElementById("conn-status");
+    el.innerHTML = connected ? "connected" : "offline";
+    el.className = connected ? "conn-on" : "conn-off";
 }
  
 // Called when a WebSocket connection is established with the server
@@ -454,7 +503,7 @@ function onOpen(event) {
 // Called when the WebSocket connection is closed
 function onClose(event) {
     console.log('Connection closed');
-    setTimeout(initWebSocket, 2000);
+    scheduleReconnect();
 }
 
  
@@ -465,6 +514,8 @@ function onMessage(event) {
     // console.log("Received: " + event.data);
 
 	var string = event.data;
+	lastMessageTime = Date.now();
+	setConnectionStatus(true);
 	
 //  console.log(k);
 if (string.charAt(0) == 'G'){
@@ -702,7 +753,7 @@ if (string.charAt(0) == 'G'){
 	
 	else if (string.charAt(1) == 'Y'){// receive alarmTime1 parameter
 		var residu = string.slice(2, string.length);
-		document.getElementById("1Y1").innerHTML = residu;
+		document.getElementById("1Y1").value = residu;
 
 	}
 	
@@ -876,16 +927,18 @@ else if (string.charAt(0) == 'R'){
 function doSend(message) {
 	String(message);
     //console.log("Sending: " + message);
+	if (websocket && websocket.readyState == WebSocket.OPEN){
     websocket.send(message);
+	}
 }
 	
 	
 </script>	
 
-<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="chart.js"></script>
 
 <script>
- 	var chartT = new Highcharts.Chart({
+ 	var chartT = new MiniChart({
             chart: { renderTo : 'chart-temperature',
 					backgroundColor: '#808080',
 			},
@@ -1093,19 +1146,15 @@ function updateTemp(fixedVariable) {
 	}
 	else if (fixedVariable == '1F1'){
 	 doSend('1F1'+F1.value);
-	 alarmTime1 = targetValue;
 	}
 	else if (fixedVariable == '1F2'){
 	 doSend('1F2'+F2.value);
-	 alarmTime2 = targetValue;
 	}
 	else if (fixedVariable == '1K1'){
 	 doSend('1K1'+K1.value);
-	 offsetFromTargetTempMax = targetValue;
 	}
 	else if (fixedVariable == '1K2'){
 	 doSend('1K2'+K2.value);
-	 offsetFromTargetTempMin = targetValue;
 	}
 	else if (fixedVariable == '1B1'){
 	 doSend('1B1'+B1.value);
@@ -1195,15 +1244,19 @@ function setTab(fixedVariable) {
 }
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-
 <script>
+var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+var dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
+function pad2(n){
+	return (n < 10 ? '0' : '') + n;
+}
+
 function updateTime(){
-        var momentNow = moment();
-        $('#date-part').html(momentNow.format('YYYY MMMM DD') + ' '
-                            + momentNow.format('dddd')
-                             .substring(0,3).toUpperCase());
-        $('#time-part').html(momentNow.format('HH:mm:ss'));
+        var now = new Date();
+        document.getElementById('date-part').innerHTML = now.getFullYear() + ' ' + monthNames[now.getMonth()] + ' '
+                            + pad2(now.getDate()) + ' ' + dayNames[now.getDay()];
+        document.getElementById('time-part').innerHTML = pad2(now.getHours()) + ':' + pad2(now.getMinutes()) + ':' + pad2(now.getSeconds());
 }
 </script>
 
