@@ -213,7 +213,8 @@ void loop()
           }
           break;
           case 2: {
-            for (int sensor = 0; sensor <sensorAmount; sensor++){
+            // only 2 thermocouple inputs exist (see setupTempSensors); more would read a sensor that was never created
+            for (int sensor = 0; sensor < min(sensorAmount, (uint8_t)2); sensor++){
               temp[sensor] = thermocouple[sensor]->readCelsius();
                  if ((temp[sensor] < 300 && temp[sensor] > oldtemp[sensor]-50 && temp[sensor] < oldtemp[sensor]+50 ) || oldtemp[sensor] == 0){
                   oldtemp[sensor] = temp[sensor];             

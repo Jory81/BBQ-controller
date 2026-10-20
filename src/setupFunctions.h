@@ -131,11 +131,9 @@ void setupTempSensors(){
     }
   }
   else {
-    for (int sensor = 0; sensor <sensorAmount; sensor++){    
     thermocouple[0] = new MAX6675_Thermocouple(SCK_PIN, CS_PIN, SO_PIN); // sensor 1
     thermocouple[1] = new MAX6675_Thermocouple(SCK_PIN, CS2_PIN, SO_PIN); // sensor 2
-    // requiers more inputs
-  }
+    // more thermocouples require more inputs
 }
 }
 
