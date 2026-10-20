@@ -36,6 +36,7 @@ HALLO LEON
 
 #include <ESPAsyncWebServer.h>
 #include <DNSServer.h>
+#include <ESPmDNS.h>
 
 #include <Thermocouple.h>
 #include <MAX6675_Thermocouple.h>
@@ -162,6 +163,7 @@ const int resolution = 8;
 // const int resolution = 8;
 
 #include "globalVariables.h"
+#include "deviceInfo.h"
 #include "readTemperature.h"
 #include "setupFunctions.h"
 #include "websocketMessages.h"

@@ -113,6 +113,7 @@ void setupWIFI(){
     
   initWebSocket();
   initWebServer();
+  setupDiscovery();
     
   display.println(F("setup complete"));
 //    display.println(F("mDNS: esp32.local/"));

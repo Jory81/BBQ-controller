@@ -13,6 +13,7 @@ void onNotFound(AsyncWebServerRequest *request) {
 
 void initWebServer() {
     server.on("/", onRootRequest);
+    server.on("/info", HTTP_GET, onInfoRequest);
     server.serveStatic("/", SPIFFS, "/"); // serves file.gz automatically when present
     server.onNotFound(onNotFound);
     server.begin();
@@ -56,7 +57,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
       strval[i]=(char)data[i];
       firstChar=(char)data[0];
       }
-      data[len]=NULL;
+      data[len]=0;
       //Serial.print("len"); Serial.println(len);
       if (firstChar == "G" || firstChar == "1"){ // I and P are reserved for wifi password and ID (SEE WIFI UPDATES)
         strval[3]=0;

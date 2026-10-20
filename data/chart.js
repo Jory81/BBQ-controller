@@ -8,10 +8,13 @@ function MiniChart(options) {
 	var self = this;
 	this.container = document.getElementById(options.chart.renderTo);
 	this.background = options.chart.backgroundColor || '#808080';
+	this.textColor = options.chart.textColor || '#ffffff';
+	this.gridColor = options.chart.gridColor || 'rgba(255,255,255,0.25)';
+	if (options.chart.height) { this.heightOption = options.chart.height; }
 	this.title = options.title.text;
 	this.yTitle = options.yAxis.title.text;
 	this.valueSuffix = (options.tooltip && options.tooltip.valueSuffix) || '';
-	this.height = 400;
+	this.height = this.heightOption || 400;
 	this.hoverIndex = -1;
 	this.hoverX = null;
 
@@ -102,16 +105,21 @@ MiniChart.prototype.redraw = function () {
 	}
 	var ctx = this.ctx;
 	ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-	ctx.fillStyle = this.background;
-	ctx.fillRect(0, 0, width, height);
+	ctx.clearRect(0, 0, width, height);
+	if (this.background !== 'transparent') {
+		ctx.fillStyle = this.background;
+		ctx.fillRect(0, 0, width, height);
+	}
 	ctx.font = '12px Arial';
 	ctx.textBaseline = 'middle';
 
 	// title
-	ctx.fillStyle = '#ffffff';
+	ctx.fillStyle = this.textColor;
 	ctx.textAlign = 'center';
 	ctx.font = '18px Arial';
-	ctx.fillText(this.title, width / 2, 22);
+	if (this.title) {
+		ctx.fillText(this.title, width / 2, 22);
+	}
 	ctx.font = '12px Arial';
 
 	// legend (bottom)
@@ -134,7 +142,8 @@ MiniChart.prototype.redraw = function () {
 		ctx.moveTo(lx, ly);
 		ctx.lineTo(lx + 14, ly);
 		ctx.stroke();
-		ctx.fillStyle = s.visible ? '#ffffff' : '#cccccc';
+		ctx.fillStyle = this.textColor;
+		ctx.globalAlpha = s.visible ? 1 : 0.4;
 		ctx.textAlign = 'left';
 		ctx.fillText(s.name, lx + 18, ly);
 		this.legendBoxes.push({x: lx, y: ly - 9, w: items[i] - 8, h: 18});
@@ -165,14 +174,14 @@ MiniChart.prototype.redraw = function () {
 	maxY = Math.ceil(maxY / step) * step;
 
 	// plot area
-	var left = 62, right = width - 14, top = 44, bottom = height - 58;
+	var left = 62, right = width - 14, top = this.title ? 44 : 16, bottom = height - 58;
 	var plotW = Math.max(10, right - left), plotH = Math.max(10, bottom - top);
 	function px(x) { return left + (x - minX) / (maxX - minX) * plotW; }
 	function py(y) { return bottom - (y - minY) / (maxY - minY) * plotH; }
 
 	// y grid + labels
 	ctx.textAlign = 'right';
-	ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+	ctx.strokeStyle = this.gridColor;
 	ctx.lineWidth = 1;
 	for (var v = minY; v <= maxY + step / 2; v += step) {
 		var y = Math.round(py(v)) + 0.5;
@@ -180,7 +189,7 @@ MiniChart.prototype.redraw = function () {
 		ctx.moveTo(left, y);
 		ctx.lineTo(right, y);
 		ctx.stroke();
-		ctx.fillStyle = '#ffffff';
+		ctx.fillStyle = this.textColor;
 		ctx.fillText(+v.toFixed(2), left - 6, y);
 	}
 	// y title
@@ -200,7 +209,7 @@ MiniChart.prototype.redraw = function () {
 		ctx.fillText(this.formatTime(xv), t === xTicks ? width - 4 : px(xv), bottom + 14);
 	}
 	ctx.textAlign = 'center';
-	ctx.strokeStyle = '#ffffff';
+	ctx.strokeStyle = this.gridColor;
 	ctx.beginPath();
 	ctx.moveTo(left, bottom + 0.5);
 	ctx.lineTo(right, bottom + 0.5);
@@ -248,7 +257,7 @@ MiniChart.prototype.redraw = function () {
 	});
 	if (lines.length === 0) { return; }
 	var lineX = px(lines[0].p[0]);
-	ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+	ctx.strokeStyle = this.gridColor;
 	ctx.beginPath();
 	ctx.moveTo(Math.round(lineX) + 0.5, top);
 	ctx.lineTo(Math.round(lineX) + 0.5, bottom);
