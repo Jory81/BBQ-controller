@@ -27,7 +27,7 @@ The controller announces itself so you don't have to remember its IP address:
 - `GET /info` returns `{"type":"bbq","name":"BBQ controller","id":"a1b2c3","version":"2.0","mode":"sta"|"ap","ip":"..."}`
 - mDNS: `bbq-<id>.local`, service `_espdevice._tcp`
 
-The [companion app](companion-app/) uses this to find all your ESP32 devices (BBQ controller,
+The [ESP Device Hub app](https://github.com/Jory81/diy_app_engine/tree/main/app) uses this to find all your ESP32 devices (BBQ controller,
 greenhouse, ...) on your home wifi or on the `ESP32-AP` network and opens their page.
 
 ## Flashing
