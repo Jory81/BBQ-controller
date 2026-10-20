@@ -56,6 +56,9 @@ void setupEEPROM(){
 void setupWIFI(){
   int wifiCounter=0;
   WiFi.mode(WIFI_STA);
+  #ifndef ESP8266
+  WiFi.setSleep(false); // modem sleep causes websocket lag and dropped connections
+  #endif
   const char *WIFI_SSID = &wifiID[0];
   const char *WIFI_PASS = &wifiPASS[0];
   WiFi.begin(WIFI_SSID, WIFI_PASS);
@@ -78,7 +81,13 @@ void setupWIFI(){
   WiFi.mode(WIFI_OFF);
   delay(1000);
   WiFi.mode(WIFI_AP);
+  #ifndef ESP8266
+  WiFi.setSleep(false);
+  #endif
   WiFi.softAP(WIFI_SSID_AP, WIFI_PASS_AP);
+  // answer every DNS lookup with our own IP, so phones without internet resolve
+  // instantly and show the "sign in to network" popup that opens this page
+  dnsServer.start(53, "*", WiFi.softAPIP());
   Serial.println(F("soft-AP IP:"));
   display.println(F("soft-AP IP:"));
   Serial.println(WiFi.softAPIP());
@@ -104,6 +113,7 @@ void setupWIFI(){
     
   initWebSocket();
   initWebServer();
+  setupDiscovery();
     
   display.println(F("setup complete"));
 //    display.println(F("mDNS: esp32.local/"));
@@ -121,11 +131,9 @@ void setupTempSensors(){
     }
   }
   else {
-    for (int sensor = 0; sensor <sensorAmount; sensor++){    
     thermocouple[0] = new MAX6675_Thermocouple(SCK_PIN, CS_PIN, SO_PIN); // sensor 1
     thermocouple[1] = new MAX6675_Thermocouple(SCK_PIN, CS2_PIN, SO_PIN); // sensor 2
-    // requiers more inputs
-  }
+    // more thermocouples require more inputs
 }
 }
 
@@ -140,9 +148,9 @@ sensorAmount = EEPROM.read(offsetof(storeInEEPROM, sensorAmount));
 // EEPROM.get(offsetof(storeInEEPROM, KD), KD);
 EEPROM.get(offsetof(storeInEEPROM, OUTPUT_MIN), OUTPUT_MIN);
 EEPROM.get(offsetof(storeInEEPROM, OUTPUT_MAX), OUTPUT_MAX);
-EEPROM.get(offsetof(storeInEEPROM, targetTemperature1), targetTemperature1;
-EEPROM.get(offsetof(storeInEEPROM, offsetTemperatureMax), offsetTemperatureMax;
-EEPROM.get(offsetof(storeInEEPROM, offsetTemperatureMin), offsetTemperatureMin;
+EEPROM.get(offsetof(storeInEEPROM, targetTemperature1), targetTemperature1);
+EEPROM.get(offsetof(storeInEEPROM, offsetTemperatureMax), offsetTemperatureMax);
+EEPROM.get(offsetof(storeInEEPROM, offsetTemperatureMin), offsetTemperatureMin);
 
 for (int m = 0; m < 5; m++){
 int offsetPosition = offsetof(storeInEEPROM, calibrationValue[0]);
@@ -150,9 +158,9 @@ EEPROM.get(offsetPosition+(4*m), calibrationValue[m]);
 }
 
 #else
-targetTemperature1 = EEPROM.readInt(offsetof(storeInEEPROM, targetTemperature1));
-offsetTemperatureMax = EEPROM.readInt(offsetof(storeInEEPROM, offsetTemperatureMax));
-offsetTemperatureMin = EEPROM.readInt(offsetof(storeInEEPROM, offsetTemperatureMin));
+targetTemperature1 = EEPROM.readUShort(offsetof(storeInEEPROM, targetTemperature1));
+offsetTemperatureMax = EEPROM.readUShort(offsetof(storeInEEPROM, offsetTemperatureMax));
+offsetTemperatureMin = EEPROM.readUShort(offsetof(storeInEEPROM, offsetTemperatureMin));
 // KP = EEPROM.readDouble(offsetof(storeInEEPROM, KP));
 // KI = EEPROM.readDouble(offsetof(storeInEEPROM, KI));
 // KD = EEPROM.readDouble(offsetof(storeInEEPROM, KD));

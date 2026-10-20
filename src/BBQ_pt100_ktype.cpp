@@ -35,6 +35,8 @@ HALLO LEON
 #include <EEPROM.h>
 
 #include <ESPAsyncWebServer.h>
+#include <DNSServer.h>
+#include <ESPmDNS.h>
 
 #include <Thermocouple.h>
 #include <MAX6675_Thermocouple.h>
@@ -57,6 +59,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 AsyncWebServer server(80);
 AsyncWebSocket ws("/ws");
+DNSServer dnsServer; // captive portal DNS, only started in soft-AP mode
 
 // THERMOCOUPLE PINS
 #define SCK_PIN 18
@@ -160,6 +163,7 @@ const int resolution = 8;
 // const int resolution = 8;
 
 #include "globalVariables.h"
+#include "deviceInfo.h"
 #include "readTemperature.h"
 #include "setupFunctions.h"
 #include "websocketMessages.h"
@@ -192,7 +196,12 @@ ledcAttachPin(OUTPUT_PIN1, ledChannel1);
 
 void loop()
 {
+     if (!wifiStationMode){
+        dnsServer.processNextRequest();
+     }
+
      if (millis() - previousMillis1 >= updateTimeTemp){
+        ws.cleanupClients(); // free sockets of phones that dropped off without closing (prevents running out of memory)
         switch (sensorType){
           case 1: {
             for (int sensor = 0; sensor <sensorAmount; sensor++){
@@ -204,7 +213,8 @@ void loop()
           }
           break;
           case 2: {
-            for (int sensor = 0; sensor <sensorAmount; sensor++){
+            // only 2 thermocouple inputs exist (see setupTempSensors); more would read a sensor that was never created
+            for (int sensor = 0; sensor < min(sensorAmount, (uint8_t)2); sensor++){
               temp[sensor] = thermocouple[sensor]->readCelsius();
                  if ((temp[sensor] < 300 && temp[sensor] > oldtemp[sensor]-50 && temp[sensor] < oldtemp[sensor]+50 ) || oldtemp[sensor] == 0){
                   oldtemp[sensor] = temp[sensor];             
