@@ -9,6 +9,16 @@ default partition table. The web page (`data/`) is included in `spiffs.bin`.
 esptool.py --chip esp32 --baud 921600 write_flash 0x10000 firmware.bin 0x290000 spiffs.bin
 ```
 
+## Over wifi (no cable)
+
+Open `http://<controller-ip>/update` (or `http://192.168.4.1/update` on the ESP32-AP network).
+Upload `firmware.bin` with *OTA Mode: Firmware*, wait for the restart, then upload `spiffs.bin`
+with *OTA Mode: Filesystem*. The saved settings are kept. Never upload a *full-flash* file there.
+
+Controllers still running an older firmware show the older update page (two round buttons
+*Firmware* / *Filesystem* instead of the *OTA Mode* list); it works the same. The BBQ firmware
+before version 2.1 has no update page: flash it once by cable (see *Update* above).
+
 ## Clean install (new board, or when something is badly broken)
 
 One file contains everything (bootloader, partition table, firmware, web page). It erases
