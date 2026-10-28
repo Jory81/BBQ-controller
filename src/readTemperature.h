@@ -166,6 +166,7 @@ void updateTimeAndGraph ()
         }    
         if (millis()-startTime1 >= targetTime1){
         timer = false;
+        ws.textAll("Se0"); // countdown finished
         }
       }
       
