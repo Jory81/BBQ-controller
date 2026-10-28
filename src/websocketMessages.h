@@ -15,6 +15,7 @@ void initWebServer() {
     server.on("/", onRootRequest);
     server.on("/info", HTTP_GET, onInfoRequest);
     server.serveStatic("/", SPIFFS, "/"); // serves file.gz automatically when present
+    ElegantOTA.begin(&server); // update page at /update
     server.onNotFound(onNotFound);
     server.begin();
 }
