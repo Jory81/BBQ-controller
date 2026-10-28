@@ -19,7 +19,9 @@ void onInfoRequest(AsyncWebServerRequest *request){
   String ip = wifiStationMode ? WiFi.localIP().toString() : WiFi.softAPIP().toString();
   String json = String("{\"type\":\"") + DEVICE_TYPE + "\",\"name\":\"" + DEVICE_NAME + "\",\"id\":\"" + deviceId()
               + "\",\"version\":\"" + FIRMWARE_VERSION + "\",\"mode\":\"" + (wifiStationMode ? "sta" : "ap")
-              + "\",\"ip\":\"" + ip + "\"}";
+              + "\",\"ip\":\"" + ip + "\""
+              + (wifiStationMode ? ",\"rssi\":" + String(WiFi.RSSI()) : String("")) // wifi signal in dBm
+              + "}";
   AsyncWebServerResponse *response = request->beginResponse(200, "application/json", json);
   response->addHeader("Access-Control-Allow-Origin", "*");
   request->send(response);
